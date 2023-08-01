@@ -1,5 +1,4 @@
 import Productos from '../models/Producto.js';
-import bcryptjs from 'bcryptjs'
 
 const getProductos = async (req, res) =>{
     try {
