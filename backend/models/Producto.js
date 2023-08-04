@@ -11,9 +11,17 @@ const productoShema = mongoose.Schema({
         type: Number,
         required:[true, 'El precio es requerido'],
     },
+    marca:{
+        type: String,
+        required:[true, 'La marca es requerida'],
+    },
     stock:{
         type: Number,
         required:[true, 'La stock es requerido']
+    },
+    descripcion:{
+        type: String,
+        required:[true, 'La descripción es requerida'],
     },
     garantia:{
         type: String,

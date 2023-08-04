@@ -9,6 +9,7 @@ router.get('/', getProductos);
 router.post('/', [
     check('nombrePro', "Falta completar el nombre").not().isEmpty(),
     check('precio', "El precio debe ser mayor a 1000").isLength({min:4}),
+    check('marca', "Falta la marca").not().isEmpty(),
     check('stock', 'El stock debe llevar un valor').not().isEmpty(),
     validateDocuments
 ], postProductos);

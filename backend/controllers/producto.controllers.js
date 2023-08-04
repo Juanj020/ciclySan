@@ -20,8 +20,8 @@ const getProductosId = async (req, res)=>{
 
 const postProductos = async (req, res) => {
     try {
-        const { nombrePro, precio, stock, garantia } = req.body;
-        const producto = new Productos({nombrePro, precio, stock, garantia});
+        const { nombrePro, precio, marca, stock, descripcion, garantia } = req.body;
+        const producto = new Productos({nombrePro, precio, marca, stock, descripcion, garantia});
 
         const existeNombre = await Productos.findOne({nombrePro});
         if(existeNombre){

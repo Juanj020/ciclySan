@@ -3,6 +3,9 @@ import cors from 'cors';
 import conectaDB from '../database/config.js'
 import usuarioRouter from "../routes/usuario.routes.js"
 import productoRouter from "../routes/producto.routes.js"
+import noticiaRouter from "../routes/noticia.routes.js"
+import rutaRouter from "../routes/ruta.routes.js"
+import facturaRouter from "../routes/factura.routes.js"
 
 class Server{
 
@@ -11,6 +14,9 @@ class Server{
         this.port = process.env.PORT;
         this.usuarioPath = "/api/usuarios";
         this.productoPath = "/api/productos";
+        this.noticiaPath = "/api/noticias";
+        this.rutaPath = "/api/rutas";
+        this.facturaPath = "/api/facturas";
 
         this.dbConexion();
 
@@ -33,6 +39,9 @@ class Server{
     routes(){
         this.app.use(this.usuarioPath, usuarioRouter);
         this.app.use(this.productoPath, productoRouter);
+        this.app.use(this.noticiaPath, noticiaRouter);
+        this.app.use(this.rutaPath, rutaRouter);
+        this.app.use(this.facturaPath, facturaRouter);
     }
 
     listen(){

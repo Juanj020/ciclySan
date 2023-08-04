@@ -8,13 +8,15 @@ import { check } from 'express-validator';
 router.get('/', getNoticias);
 router.post('/', [
     check('titulo', "Es obligatorio el titulo").not().isEmpty(),
-    check('precio', "El precio debe ser mayor a 1000").isLength({min:4}),
-    check('stock', 'El stock debe llevar un valor').not().isEmpty(),
+    check('descripcion', "Es obligaria la descripción").not().isEmpty(),
+    check('resumen', 'Es obligatorio el resumen').not().isEmpty(),
+    check('fecha', 'Es obligatoria la fecha').not().isEmpty(),
+    check('autor', 'Es obligatorio el autor').not().isEmpty(),
     validateDocuments
-], postProductos);
+], postNoticias);
 
-router.get('/:id', getProductosId);
-router.delete('/:id', deleteProductos);
-router.put('/:id', putProductos);
+router.get('/:id', getNoticiasId);
+router.delete('/:id', deleteNoticias);
+router.put('/:id', putNoticias);
 
 export default router;
