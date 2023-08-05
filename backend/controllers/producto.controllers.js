@@ -38,7 +38,7 @@ const postProductos = async (req, res) => {
 
 const putProductos = async (req, res)=>{
     try {
-        const {nombrePro, precio, stock, garantia} = req.body;
+        const {nombrePro, precio, marca, stock, descripcion, garantia} = req.body;
         const nombreProducto = await Productos.findOne({nombrePro});
         if(nombreProducto)
         if((nombreProducto._id).toString() != req.params.id)

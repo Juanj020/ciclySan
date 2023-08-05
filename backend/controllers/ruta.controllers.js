@@ -38,11 +38,11 @@ const postRutas = async (req, res) => {
 
 const putRutas = async (req, res)=>{
     try {
-        const {titulo, descripcion, img, resumen, autor} = req.body;
-        const nombreruta = await Rutas.findOne({titulo});
+        const {nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones} = req.body;
+        const nombreruta = await Rutas.findOne({nombreRut});
         if(nombreruta)
         if((nombreruta._id).toString() != req.params.id)
-        return res.status(400).json({msg: "El titulo ya esta registrado"});
+        return res.status(400).json({msg: "El nombre de la ruta ya esta registrado"});
 
         const ruta = await Rutas.findOneAndUpdate({_id: req.params.id}, req.body,{new:true});
         res.json(ruta);

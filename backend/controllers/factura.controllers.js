@@ -34,11 +34,7 @@ const postFacturas = async (req, res) => {
 
 const putFacturas = async (req, res)=>{
     try {
-        const {titulo, descripcion, img, resumen, autor} = req.body;
-        const nombrefactura = await Facturas.findOne({titulo});
-        if(nombrefactura)
-        if((nombrefactura._id).toString() != req.params.id)
-        return res.status(400).json({msg: "El titulo ya esta registrado"});
+        const {fecha, productos, total, forma_pago} = req.body;
 
         const factura = await Facturas.findOneAndUpdate({_id: req.params.id}, req.body,{new:true});
         res.json(factura);
