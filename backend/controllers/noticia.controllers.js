@@ -20,8 +20,8 @@ const getNoticiasId = async (req, res)=>{
 
 const postNoticias = async (req, res) => {
     try {
-        const { titulo, descripcion, img, resumen, fecha, autor } = req.body;
-        const noticia = new Noticias({titulo, descripcion, img, resumen, fecha, autor});
+        const { titulo, descripcion, imagen, resumen, fecha, autor } = req.body;
+        const noticia = new Noticias({titulo, descripcion, imagen, resumen, fecha, autor});
 
         const existeTitulo = await Noticias.findOne({titulo});
         if(existeTitulo){
@@ -38,7 +38,7 @@ const postNoticias = async (req, res) => {
 
 const putNoticias = async (req, res)=>{
     try {
-        const {titulo, descripcion, img, resumen, autor} = req.body;
+        const {titulo, descripcion, imagen, resumen, autor} = req.body;
         const nombreNoticia = await Noticias.findOne({titulo});
         if(nombreNoticia)
         if((nombreNoticia._id).toString() != req.params.id)

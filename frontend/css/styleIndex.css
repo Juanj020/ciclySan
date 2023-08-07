@@ -1,0 +1,130 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/* ----------- navbar ------------ */
+main{
+    background-image: url('https://images.unsplash.com/photo-1500491460312-c32fc2dbc751?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9uZG8lMjBibGFuY28lMjB5JTIwbmVncm98ZW58MHx8MHx8fDA%3D&w=1000&q=80');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.navbara{
+    display: flex;
+    justify-content: space-around;
+    gap: 15rem;
+    list-style: none;
+    background-color: rgb(11, 128, 128);
+    align-items: center;
+    height: 60px;
+    position: fixed;
+    width: 100%;
+    top: 0
+}
+
+.navbara a{
+    color: black;
+    text-decoration: none;
+}
+
+.navbara img{
+    transform: rotate(-15deg);
+}
+
+
+.routes{
+    display: flex;
+    gap: 3rem
+}
+
+
+/* --------- contenido ---------- */
+.contenido{
+    display: flex;
+}
+
+
+/* --- cont izquierda -- */
+.cont-izq{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1500px;
+}
+
+.cont-izq img{
+    margin: 60px;
+    width: 520px;
+    height: 400px;
+}
+
+.cont-izq h1{
+    font-family: 'Edu SA Beginner', cursive;
+    font-size: 60px;
+}
+
+.cont-izq p, .cont-izq li{
+    font-family: 'Edu SA Beginner', cursive;
+    font-size: 20px;
+}
+
+/* --- cont derecha -- */
+.cont-der{
+    margin: 160px 160px 60px 60px;
+    width: 1600px;
+}
+.cont-der h1, h2{
+    font-family: 'Edu SA Beginner', cursive;
+    font-size: 100px;
+}
+
+.conte-tit{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.parrafo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
+
+.conte-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}
+
+.imagen-chitosa{
+    margin-top: 130px;
+    display: flex;
+    justify-content: center;
+}
+
+/* .gallery{
+    width: 35rem;
+    height: 22rem;
+    position: relative;
+    display: flex;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.gallery img{
+    width: 100%;
+    height: 100%;
+    position: sticky;
+    left: 0;
+    flex-shrink: 0;
+    object-fit: cover;
+    scroll-snap-align: start;
+} */

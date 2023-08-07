@@ -20,8 +20,8 @@ const getRutasId = async (req, res)=>{
 
 const postRutas = async (req, res) => {
     try {
-        const { nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones } = req.body;
-        const ruta = new Rutas({nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones});
+        const { nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen } = req.body;
+        const ruta = new Rutas({nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen});
 
         const existeRuta = await Rutas.findOne({nombreRut});
         if(existeRuta){
@@ -38,7 +38,7 @@ const postRutas = async (req, res) => {
 
 const putRutas = async (req, res)=>{
     try {
-        const {nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones} = req.body;
+        const {nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen} = req.body;
         const nombreruta = await Rutas.findOne({nombreRut});
         if(nombreruta)
         if((nombreruta._id).toString() != req.params.id)

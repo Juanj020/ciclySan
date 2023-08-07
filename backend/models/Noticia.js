@@ -12,7 +12,7 @@ const noticiaShema = mongoose.Schema({
         required:[true, 'La descripcion es requerida'],
         trim: true
     },
-    img:{
+    imagen:{
         type: String
     },
     resumen:{

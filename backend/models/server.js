@@ -7,6 +7,7 @@ import noticiaRouter from "../routes/noticia.routes.js"
 import rutaRouter from "../routes/ruta.routes.js"
 import facturaRouter from "../routes/factura.routes.js"
 import envioRouter from "../routes/envio.routes.js"
+import authRouter from "../routes/auth.routes.js"
 
 class Server{
 
@@ -19,6 +20,7 @@ class Server{
         this.productoPath = "/api/productos";
         this.noticiaPath = "/api/noticias";
         this.rutaPath = "/api/rutas";
+        this.authPath = "/api/auth"
 
         this.dbConexion();
 
@@ -45,6 +47,7 @@ class Server{
         this.app.use(this.rutaPath, rutaRouter);
         this.app.use(this.facturaPath, facturaRouter);
         this.app.use(this.envioPath, envioRouter);
+        this.app.use(this.authPath, authRouter);
     }
 
     listen(){

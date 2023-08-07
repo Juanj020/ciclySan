@@ -27,6 +27,9 @@ const productoShema = mongoose.Schema({
         type: String,
         default: ['6 meses'],
         trim: true
+    },
+    imagen:{
+        type: String
     }
 });
 

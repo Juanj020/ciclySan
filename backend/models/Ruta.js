@@ -42,6 +42,9 @@ const rutaShema = mongoose.Schema({
     recomendaciones:{
         type: String,
         trim: true
+    },
+    imagen:{
+        type: String
     }
 });
 

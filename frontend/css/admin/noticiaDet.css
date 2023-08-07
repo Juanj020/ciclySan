@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/* ----------- navbar ------------ */
+.navbara{
+    display: flex;
+    justify-content: space-around;
+    gap: 15rem;
+    list-style: none;
+    background-color: rgb(11, 128, 128);
+    align-items: center;
+    height: 60px;
+}
+
+.navbara a{
+    color: black;
+    text-decoration: none;
+}
+
+.navbara img{
+    transform: rotate(-15deg);
+}
+
+
+.routes{
+    display: flex;
+    gap: 3rem
+}
+
+
+/* --------- contenido ---------- */
+body{
+    background-image: url('https://images.unsplash.com/photo-1500491460312-c32fc2dbc751?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9uZG8lMjBibGFuY28lMjB5JTIwbmVncm98ZW58MHx8MHx8fDA%3D&w=1000&q=80');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.contenido{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top : 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100%;
+}
+
+.cont-izq{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100vh;
+    background-color: rgba(94, 94, 94, 0.577);
+}
+
+.cont-izq a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seleccionado{
+    background-color: rgb(11, 128, 128);
+}
+
+.cont-dere{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100vh;
+}
+
+.titulo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vh;
+    margin: 3rem;
+}
+
+.titulo h1{
+    font-size: 80px;
+    font-family: 'Edu SA Beginner', cursive;
+}
+
+.tipo{
+    display: flex;
+    text-align: center;
+}
+
+.boton{
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px !important;
+}
+
+.boton button{
+    display: flex;
+    background-color: rgb(11, 128, 128);
+
+    align-items: center;
+}
+
+.bata{
+    margin-top: 30px !important;
+}
+
+
