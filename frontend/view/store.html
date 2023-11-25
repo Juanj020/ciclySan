@@ -25,61 +25,65 @@
 
 <body>
     <header>
-        <div>
-            <nav class="navbara">
-                <div>
-                    <li>
-                        <a href="index.html">
-                            <img class="ciclita" width="50px" src="../img/311822.svg" alt="Alo xd">
-                        </a>
-                    </li>
-                </div>
-                <div>
-                    <li class="routes">
-                        <a href="rutas.html">Rutas</a>
-                        <a href="">Store</a>
-                        <a href="noticia.html">Noticias</a>
-                    </li>
-                </div>
-                <div>
-                    <li>
-                        <div class="derecha-na">
-                            <a href="login/login.html">Login</a>
-                            <div class="derecha-carro">
-                                <img width="40px" onclick="showCart(this)" class="cart" src="../img/carrito.png" alt="">
-                                <p class="count-product">0</p>
-                            </div>
+        <nav class="navbara">
+            <div>
+                <a href="index.html" class="nav-izq">
+                    <img width="50px" src="../img/311822.svg" alt="Alo xd">
+                    <h1>CicliSan</h1>
+                </a>
+            </div>
+            <div>
+                <li class="routes">
+                    <a href="index.html">Inicio</a>
+                    <a href="rutas.html">Rutas</a>
+                    <a class="actual" href="store.html">Store</a>
+                    <a href="noticia.html">Noticias</a>
+                    <a href="login/login.html">Login</a>
+                    <div class="derecha-na">
+                        <div class="derecha-carro">
+                            <img width="40px" onclick="showCart(this)" class="cart" src="../img/carrito.png" alt="">
+                            <p class="count-product">0</p>
                         </div>
-                        <div class="cart-products" id="products-id">
-                            <p class="close-btn" onclick="closeBtn()">X</p>
-                            <h3>Mi carrito</h3>
-                            <div class="card-items">
-                                
-                            </div>
-                            <h2>Total: $<strong class="price-total">0</strong></h2>
+                    </div>
+                    <div class="cart-products" id="products-id">
+                        <p class="close-btn" onclick="closeBtn()">X</p>
+                        <h3>Mi carrito</h3>
+                        <div class="card-items">
+                            
                         </div>
-                    </li>
-                </div>
-            </nav>
-        </div>
+                        <h2>Total: $<strong class="price-total">0</strong></h2>
+                        <button>Comprar<img width="20px" class="cart" src="../img/carrito.png" alt=""></button>
+                    </div>
+                </li>
+            </div>
+        </nav>
     </header>
     <main>
         <div class="titulo">
             <div class="tipo">
-                <select name="" id="aaa">
-                    <option selected>-Tipo-</option>
-                    <option value="Ruta">Ruta</option>
-                    <option value="Montañera">Montañera</option>
-                </select>
             </div>
             <div class="conte-tit">
                 <h1>Store</h1>
             </div>
             <div class="tipo">
-                <input type="text" name="" id="" placeholder="Buscar                             🔍">
+                <input type="text" name="" id="" placeholder="Buscar                        🔍">
             </div>
         </div>
+        <div class="tit-montanera">
+            <h1>Biclicletas Montañeras</h1>
+        </div>
         <div class="contenido">
+        </div>
+        <div class="tit-montanera">
+            <h1>Biclicletas Ruta</h1>
+        </div>
+        <div class="contenidoRuta">
+            
+        </div>
+        <div class="tit-montanera">
+            <h1>Accesorios</h1>
+        </div>
+        <div class="contenidoAccesorio">
             
         </div>
     </main>

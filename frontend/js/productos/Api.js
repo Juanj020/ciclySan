@@ -9,6 +9,24 @@ const getPrducto = async () => {
         console.log(error);
     }
 }
+const getPrductoRuta = async () => {
+    try {
+        const productos = await fetch(`${url}/ruta`);
+        const datosPrductos = await productos.json();
+        return datosPrductos;
+    } catch (error) {
+        console.log(error);
+    }
+}
+const getPrductoAcces = async () => {
+    try {
+        const productos = await fetch(`${url}/accesorio`);
+        const datosPrductos = await productos.json();
+        return datosPrductos;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const newProducto = async (productos) => {
     try {
@@ -58,4 +76,4 @@ const updateProducto = async (id, datos) =>{
     }
   };
 
-export { getPrducto, newProducto, borrarProducto, getOne, updateProducto }
+export { getPrducto, newProducto, borrarProducto, getOne, updateProducto, getPrductoRuta, getPrductoAcces }

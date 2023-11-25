@@ -21,33 +21,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&display=swap" rel="stylesheet">
+    <style>
+        .descrip {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            max-height: 4em;
+        }
+
+        .ver-mas {
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <div>
-            <nav class="navbara">
-                <div>
-                    <li>
-                        <a href="index.html">
-                            <img width="50px" src="../img/311822.svg" alt="Alo xd">
-                        </a>
-                    </li>
-                </div>
-                <div>
-                    <li class="routes">
-                        <a href="">Rutas</a>
-                        <a href="store.html">Store</a>
-                        <a href="noticia.html">Noticias</a>
-                    </li>
-                </div>
-                <div>
-                    <li>
-                        <a href="login/login.html">Login</a>
-                    </li>
-                </div>
-            </nav>
-        </div>
+        <nav class="navbara">
+            <div>
+                <a href="index.html" class="nav-izq">
+                    <img width="50px" src="../img/311822.svg" alt="Alo xd">
+                    <h1>CicliSan</h1>
+                </a>
+            </div>
+            <div>
+                <li class="routes">
+                    <a href="index.html">Inicio</a>
+                    <a class="actual" href="rutas.html">Rutas</a>
+                    <a href="store.html">Store</a>
+                    <a href="noticia.html">Noticias</a>
+                    <a href="login/login.html">Login</a>
+                </li>
+            </div>
+        </nav>
     </header>
     <div class="titulo">
         <div class="vacio">
@@ -89,8 +97,7 @@
                 </div>
             </div>
             <div class="cont-der">
-                <div class="conte-cont">
-                </div>
+            
             </div>
         </div>
     </main>

@@ -10,9 +10,9 @@ async function mostrarRutaAdmin() {
         rut.innerHTML += `
         <tr>
             <th scope="row">${nombreRut}</th>
-            <td>${descripcion}</td>
+            <td class="descrip">${descripcion}</td>
             <td>${dificultad}</td>
-            <td>${kilometros}</td>
+            <td>${kilometros} Km</td>
             <td><button class="btn btn-light update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button><button type="button" value="${_id}" id="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
         `

@@ -10,11 +10,13 @@ async function mostrarNoticias(){
         let fechaa = fecha.substring(0, 10)
         not.innerHTML += `
         <div class="cont-carts">
-            <img width="350px" src="${imagen}" alt="">
-            <h1>${titulo}</h1>
-            <p>${descripcion}</p>
-            <p>Autor: ${autor}</p>
-            <p>${fechaa}</p>
+            <img width="250px" src="${imagen}" alt="">
+            <div class="cont-carts-derecha">
+                <h1>${titulo}</h1>
+                <p>${descripcion}</p>
+                <p>Autor: ${autor}</p>
+                <p>${fechaa}</p>
+            </div>
         </div>
         `
     })

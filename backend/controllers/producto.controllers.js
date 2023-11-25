@@ -2,7 +2,25 @@ import Productos from '../models/Producto.js';
 
 const getProductos = async (req, res) =>{
     try {
-        const producto = await Productos.find();
+        const producto = await Productos.find({tipo:"montanera"});
+        res.json(producto); 
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getProductosRuta = async (req, res) =>{
+    try {
+        const producto = await Productos.find({tipo:"ruta"});
+        res.json(producto); 
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getProductosAccesorio = async (req, res) =>{
+    try {
+        const producto = await Productos.find({tipo:"accesorio"});
         res.json(producto); 
     } catch (error) {
         console.log(error);
@@ -61,4 +79,4 @@ const deleteProductos = async (req,res)=>{
     }
 } 
 
-export {getProductos, postProductos, deleteProductos, getProductosId, putProductos};
+export {getProductos, postProductos, deleteProductos, getProductosId, putProductos, getProductosRuta, getProductosAccesorio};
