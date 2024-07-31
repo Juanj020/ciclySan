@@ -34,15 +34,15 @@ const borrarNoticia = async (noticias) => {
     }
 }
 
-/* const getOneID = async (id) => {
+const getOne = async (id) => {
     try {
-        const not = await fetch(`${url}/${id}`);
-        const noticia = await not.json();
-        return noticia;
+        const data = await fetch(`${url}/${id}`);
+        const ruta = await data.json();
+        return ruta;
     } catch (error) {
         console.log(error);
     }
-} */
+}
 
 /* const updateNoticia = async (datosA) => {
     try {
@@ -98,4 +98,4 @@ async function mostrarNoticiasAdminId() {
     })
 } */
 
-export { getNoticia, newNoticia, borrarNoticia }
+export { getNoticia, newNoticia, borrarNoticia, getOne }

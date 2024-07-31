@@ -1,4 +1,4 @@
-import { getNoticia, newNoticia, borrarNoticia} from "./Api.js";
+import { getNoticia, newNoticia, borrarNoticia, getOne} from "./Api.js";
 
 
 const noti = document.querySelector('#tabla')
@@ -12,8 +12,9 @@ async function mostrarNoticiasAdmin() {
         <tr>
             <th scope="row">${titulo}</th>
             <td>${descripcion}</td>
-            <td>${fecha}</td>
-            <td><a type="button" href="noticiasDet.html?idd=${_id}">Actualizar</a><button type="button" href="noticiasDet.html" class="btn btn-light">Actualizar</button><button type="button" value="${_id}" id="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
+            <td>${fechaa}</td>
+            <td>${autor}</td>
+            <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" updId="${_id}">Actualizar</button><button type="button" value="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
         `
     })
@@ -77,3 +78,26 @@ console.log(valor);
 
 console.log(getOneID); */
 
+const upd = document.querySelector('#tabla')
+upd.addEventListener('click', oneOrAnother)
+
+function oneOrAnother(e) {
+    if (e.target.classList.contains("update")) {
+        launchModalUpt(e);
+    }
+}
+
+const updateModal = document.querySelector('#update');
+async function launchModalUpt(e) {
+    const idUpdate = e.target.getAttribute("idUpd");
+
+    const {_id, titulo, descripcion, imagen, fecha, estado } = await getOne(idUpdate)
+
+
+    document.querySelector('#updId').value = _id;
+    document.querySelector('#titulo').value = titulo;
+    document.querySelector('#descripcion').value = descripcion;
+    document.querySelector('#imagen').value = imagen;
+    document.querySelector('#fecha').value = fecha;
+    document.querySelector('#estado').value = estado;
+}

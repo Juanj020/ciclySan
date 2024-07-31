@@ -166,3 +166,12 @@ body{
     display: flex;
     gap: 2rem;
 }
+
+.routes img{
+    width: 30px;
+    transform: rotate(0deg);
+}
+
+.imagen{
+    margin: 2px;
+}

@@ -44,9 +44,10 @@
             <div class="cont-izq">
                 <a class="seleccionado" href="rutas.html">Rutas</a>
                 <a href="noticias.html">Noticias</a>
-                <a href="stores.html">Stores</a>
+                <a href="productos.html">Productos</a>
                 <a href="usuarios.html">Usuarios</a>
-                <a href="ventas.html">Ventas</a>
+                <a href="facturas.html">Facturas</a>
+                <a href="envios.html">Envios</a>
             </div>
             <div class="cont-dere">
                 <div class="titulo">
@@ -63,11 +64,11 @@
                     <table class="table">
                         <thead>
                           <tr class="table-dark">
-                            <th scope="col">Nombre Ruta</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Dificultad</th>
-                            <th scope="col">kilometros</th>
-                            <th scope="col">Detalles</th>
+                            <th class="color-tabl" scope="col">Nombre Ruta</th>
+                            <th class="color-tabl" scope="col">Descripción</th>
+                            <th class="color-tabl" scope="col">Dificultad</th>
+                            <th class="color-tabl" scope="col">kilometros</th>
+                            <th class="color-tabl" scope="col">Detalles</th>
                           </tr>
                         </thead>
                         <tbody id="tabla">
@@ -109,14 +110,6 @@
                             <input type="number" class="form-control kilometros">
                         </div>
                         <div class="">
-                            <label class="form-label">Punto partida</label>
-                            <input type="text" class="form-control punto_partida">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Punto llegada</label>
-                            <input type="text" class="form-control punto_llegada">
-                        </div>
-                        <div class="">
                             <label class="form-label">Tiempo aprox</label>
                             <input type="text" class="form-control tiempo_aprox">
                         </div>
@@ -128,14 +121,23 @@
                             <label class="form-label">Altitud max</label>
                             <input type="text" class="form-control altitud_max">
                         </div>
+
                         <div class="">
-                            <label class="form-label">recomendaciones</label>
-                            <textarea class="recomendaciones form-control" id="exampleFormControlTextarea1"
-                                rows="2"></textarea>
+                            <label class="form-label">Estado</label>
+                            <select name="" id="" class="form-select dificultad">
+                                <option selected>Visible</option>
+                                <option value="Dificil">Visible</option>
+                                <option value="Mediana">Invisible</option>
+                            </select>
                         </div>
+
                         <div class="">
                             <label class="form-label">Imagen</label>
-                            <input type="text" class="form-control imagenn">
+                            <input type="file" class="form-control imagenn">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Link</label>
+                            <input type="text" class="form-control link" >
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -151,9 +153,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="updateee">Update Datos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -181,14 +181,6 @@
                             <input type="number" class="form-control" id="kilometros">
                         </div>
                         <div class="">
-                            <label class="form-label">Punto partida</label>
-                            <input type="text" class="form-control" id="punto_partida">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Punto llegada</label>
-                            <input type="text" class="form-control" id="punto_llegada">
-                        </div>
-                        <div class="">
                             <label class="form-label">Tiempo aprox</label>
                             <input type="text" class="form-control" id="tiempo_aprox">
                         </div>
@@ -201,13 +193,20 @@
                             <input type="text" class="form-control" id="altitud_max">
                         </div>
                         <div class="">
-                            <label class="form-label">recomendaciones</label>
-                            <textarea class=" form-control" id="recomendaciones"
-                                rows="2"></textarea>
+                            <label class="form-label">Estado</label>
+                            <select name="" id="" class="form-select dificultad">
+                                <option selected>Visible</option>
+                                <option value="Dificil">Visible</option>
+                                <option value="Mediana">Invisible</option>
+                            </select>
                         </div>
                         <div class="">
                             <label class="form-label">Imagen</label>
-                            <input type="text" class="form-control" id="imagennn">
+                            <input type="file" class="form-control" id="imagennn">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Link</label>
+                            <input type="text" class="form-control" id="link">
                         </div>
                         <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
                     </form>

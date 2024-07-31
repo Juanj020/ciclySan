@@ -36,15 +36,16 @@
     border-radius: 90px;
     width: 350px;
     height: 30px;
-    opacity: 0.5;
+    border: none;
 }
 
 .button{
+    border: none;
     border-radius: 90px;
     width: 350px;
     height: 30px;
-    opacity: 0.5;
-    background-color: rgb(153, 100, 82, 07);
+    color: white;
+    background-color: rgb(165, 49, 10);
 }
 
 .abajo{

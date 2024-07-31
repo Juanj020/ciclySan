@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/admin/noticia.css">
+    <link rel="stylesheet" href="../../css/admin/usuario.css">
     <title>CiclySan</title>
     <link rel="icon" href="../img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -25,27 +25,18 @@
 
 <body>
     <header>
-        <div>
-            <nav class="navbara">
-                <div>
-                    <li>
-                        <img width="50px" src="../../img/311822.svg" alt="Alo xd">
-                    </li>
-                </div>
-                <div>
-                    <li class="routes">
-                        <a href="">Rutas</a>
-                        <a href="store.html">Store</a>
-                        <a href="noticia.html">Noticias</a>
-                    </li>
-                </div>
-                <div>
-                    <li>
-                        <a href="login.html">Login</a>
-                    </li>
-                </div>
-            </nav>
-        </div>
+        <nav class="navbara">
+            <div>
+                <a href="index.html" class="nav-izq">
+                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <h1>CicliSan</h1>
+                </a>
+            </div>
+            <div class="routes">
+                <a>Bienvenido: Admin</a>
+                <a class="cerrar" href="login/login.html">Cerrar sesión</a>
+            </div>
+        </nav>
     </header>
     
     <main>
@@ -53,9 +44,10 @@
             <div class="cont-izq">
                 <a href="rutas.html">Rutas</a>
                 <a href="noticias.html">Noticias</a>
-                <a href="stores.html">Stores</a>
+                <a href="stores.html">Productos</a>
                 <a class="seleccionado" href="usuarios.html">Usuarios</a>
-                <a href="ventas.html">ventas</a>
+                <a href="ventas.html">Facturas</a>
+                <a href="envios.html">Envios</a>
             </div>
             <div class="cont-dere">
                 <div class="titulo">
@@ -72,12 +64,12 @@
                     <table class="table">
                         <thead>
                           <tr class="table-dark">
-                            <th scope="col">Nombre Usuarios</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Número</th>
-                            <th scope="col">Rol</th>
-                            <th scope="col">Detalles</th>
+                            <th class="color-tabl">Nombre Usuarios</th>
+                            <th class="color-tabl" scope="col">Correo</th>
+                            <th class="color-tabl" scope="col">Password</th>
+                            <th class="color-tabl" scope="col">Teléfono</th>
+                            <th class="color-tabl" scope="col">Rol</th>
+                            <th class="color-tabl" scope="col">Detalles</th>
                           </tr>
                         </thead>
                         <tbody id="tabla">
@@ -91,7 +83,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro ruta</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Usuarios</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -109,7 +101,7 @@
                             <input type="email" required class="form-control correo">
                         </div>
                         <div class="">
-                            <label class="form-label">Telefono</label>
+                            <label class="form-label">Teléfono</label>
                             <input type="number" class="form-control telefono">
                         </div>
                         <div class="">
@@ -124,6 +116,47 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateee" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input style="display: none;" type="text" id="updId">
+                        <div class="">
+                            <label for="" class="form-label">Nombre usuario</label>
+                            <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Correo</label>
+                            <input type="email" required class="form-control correo" id="correo">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Teléfono</label>
+                            <input type="number" class="form-control telefono" id="telefono">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Rol</label>
+                            <select class="rol form-select" name="" id="">
+                                <option value="USER">USER</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
+                        </div>
+                        <div class="modal-ton">
+                            <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

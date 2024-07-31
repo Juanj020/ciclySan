@@ -14,7 +14,7 @@ async function mostrarProductos() {
             <td>${marca}</td>
             <td>${stock}</td>
             <td>${descripcion}</td>
-            <td><button class="btn btn-light update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button><button type="button" value="${_id}" id="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
+            <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button><button type="button" value="${_id}" id="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
         `
     })
@@ -93,7 +93,7 @@ const updateModal = document.querySelector('#update');
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
-    const { _id, nombrePro, precio, stock, marca, descripcion, garantia } = await getOne(idUpdate)
+    const { _id, nombrePro, precio, stock, marca, descripcion, garantia, tipo } = await getOne(idUpdate)
 
 
     document.querySelector('#updId').value = _id;
@@ -103,6 +103,7 @@ async function launchModalUpt(e) {
     document.querySelector('#stock').value = stock;
     document.querySelector('#descripcion').value = descripcion;
     document.querySelector('#garantia').value = garantia;
+    document.querySelector('#tipo').value = tipo;
 }
 
 updateModal.addEventListener("submit", actualizarDatos)

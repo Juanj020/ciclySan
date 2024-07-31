@@ -13,7 +13,7 @@ async function mostrarRutaAdmin() {
             <td class="descrip">${descripcion}</td>
             <td>${dificultad}</td>
             <td>${kilometros} Km</td>
-            <td><button class="btn btn-light update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button><button type="button" value="${_id}" id="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
+            <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button><button type="button" value="${_id}" id="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
         `
     })
@@ -30,8 +30,6 @@ function validacionRuta(e){
     const descripcion = document.querySelector('.descripcion').value;
     const dificultad = document.querySelector('.dificultad').value;
     const kilometros = document.querySelector('.kilometros').value;
-    const punto_llegada = document.querySelector('.punto_llegada').value;
-    const punto_partida = document.querySelector('.punto_partida').value;
     const tiempo_aprox = document.querySelector('.tiempo_aprox').value;
     const altitud_min = document.querySelector('.altitud_min').value;
     const altitud_max = document.querySelector('.altitud_max').value;
@@ -43,8 +41,6 @@ function validacionRuta(e){
         descripcion,
         dificultad,
         kilometros,
-        punto_llegada,
-        punto_partida,
         tiempo_aprox,
         altitud_min,
         altitud_max,
@@ -96,7 +92,7 @@ const updateModal = document.querySelector('#update');
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
-    const { _id,  nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen } = await getOne(idUpdate)
+    const { _id,  nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen, link } = await getOne(idUpdate)
 
 
     document.querySelector('#updId').value = _id;
@@ -104,13 +100,11 @@ async function launchModalUpt(e) {
     document.querySelector('#descripcion').value = descripcion;
     document.querySelector('#dificultad').value = dificultad;
     document.querySelector('#kilometros').value = kilometros;
-    document.querySelector('#punto_partida').value = punto_partida;
-    document.querySelector('#punto_llegada').value = punto_llegada;
     document.querySelector('#tiempo_aprox').value = tiempo_aprox;
     document.querySelector('#altitud_min').value = altitud_min;
     document.querySelector('#altitud_max').value = altitud_max;
-    document.querySelector('#recomendaciones').value = recomendaciones;
     document.querySelector('#imagennn').value = imagen;
+    document.querySelector('#link').value = link;
 }
 
 updateModal.addEventListener("submit", actualizarDatos)
@@ -121,26 +115,22 @@ async function actualizarDatos() {
     const descripcion = document.querySelector('#descripcion').value;
     const dificultad = document.querySelector('#dificultad').value;
     const kilometros = document.querySelector('#kilometros').value;
-    const punto_partida = document.querySelector('#punto_partida').value;
-    const punto_llegada = document.querySelector('#punto_llegada').value;
     const tiempo_aprox = document.querySelector('#tiempo_aprox').value;
     const altitud_min = document.querySelector('#altitud_min').value;
     const altitud_max = document.querySelector('#altitud_max').value;
-    const recomendaciones = document.querySelector('#recomendaciones').value;
     const imagen = document.querySelector('#imagennn').value;
+    const link = document.querySelector('#link').link;
 
     const datos = {
         nombreRut,
         descripcion,
         dificultad,
         kilometros,
-        punto_partida,
-        punto_llegada,
         tiempo_aprox,
         altitud_min,
         altitud_max,
-        recomendaciones,
-        imagen
+        imagen,
+        link
     }
 
     await updateRuta(id, datos);

@@ -25,27 +25,18 @@
 
 <body>
     <header>
-        <div>
-            <nav class="navbara">
-                <div>
-                    <li>
-                        <img width="50px" src="../../img/311822.svg" alt="Alo xd">
-                    </li>
-                </div>
-                <div>
-                    <li class="routes">
-                        <a href="">Rutas</a>
-                        <a href="store.html">Store</a>
-                        <a href="noticia.html">Noticias</a>
-                    </li>
-                </div>
-                <div>
-                    <li>
-                        <a href="login.html">Login</a>
-                    </li>
-                </div>
-            </nav>
-        </div>
+        <nav class="navbara">
+            <div>
+                <a href="index.html" class="nav-izq">
+                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <h1>CicliSan</h1>
+                </a>
+            </div>
+            <div class="routes">
+                <a>Bienvenido: Admin</a>
+                <a class="cerrar" href="login/login.html">Cerrar sesión</a>
+            </div>
+        </nav>
     </header>
     
     <main>
@@ -53,9 +44,10 @@
             <div class="cont-izq">
                 <a href="rutas.html">Rutas</a>
                 <a class="seleccionado" href="noticias.html">Noticias</a>
-                <a href="stores.html">Stores</a>
+                <a href="stores.html">Productos</a>
                 <a href="usuarios.html">Usuarios</a>
-                <a href="ventas.html">ventas</a>
+                <a href="facturas.html">Facturas</a>
+                <a href="envios.html">Envios</a>
             </div>
             <div class="cont-dere">
                 <div class="titulo">
@@ -72,10 +64,11 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">Titulo</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Detalles</th>
+                            <th class="color-tabl" scope="col">Titulo</th>
+                            <th class="color-tabl" scope="col">Descripción</th>
+                            <th class="color-tabl" scope="col">Fecha</th>
+                            <th class="color-tabl" scope="col">Autor</th>
+                            <th class="color-tabl" scope="col">Detalles</th>
                           </tr>
                         </thead>
                         <tbody id="tabla">
@@ -89,7 +82,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Articulo</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Noticia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -104,14 +97,6 @@
                                 rows="3"></textarea>
                         </div>
                         <div class="">
-                            <label class="form-label">Imagen</label>
-                            <input type="text" class="form-control imagen">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Resumen</label>
-                            <input type="text" class="form-control resumen">
-                        </div>
-                        <div class="">
                             <label class="form-label">Fecha</label>
                             <input type="date" class="form-control fecha">
                         </div>
@@ -119,11 +104,70 @@
                             <label class="form-label">Autor</label>
                             <input type="text" class="form-control autor">
                         </div>
+                        <div class="">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" class="form-control imagen">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Estado</label>
+                            <select name="" id="" class="form-select dificultad">
+                                <option selected>Visible</option>
+                                <option value="Dificil">Visible</option>
+                                <option value="Mediana">Invisible</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateee" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input style="display: none;" type="text" id="updId">
+                        <div class="">
+                            <label class="form-label">Titulo del articulo</label>
+                            <input type="text" class="form-control tituloo">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Descripcion</label>
+                            <textarea class=" form-control" id="descripcion"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="">
+                            <label class="form-label">Fecha</label>
+                            <input type="date" class="form-control " id="fecha">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Autor</label>
+                            <input type="text" class="form-control " id="autor">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" class="form-control " id="imagen">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Estado</label>
+                            <select name="" id="" class="form-select dificultad">
+                                <option selected>Visible</option>
+                                <option value="Dificil">Visible</option>
+                                <option value="Mediana">Invisible</option>
+                            </select>
+                        </div>
+                        <div class="modal-ton">
+                            <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

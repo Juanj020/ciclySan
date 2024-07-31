@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/admin/noticiaDet.css">
+    <link rel="stylesheet" href="../../css/admin/envio.css">
     <title>CiclySan</title>
     <link rel="icon" href="../img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -25,33 +25,60 @@
 
 <body>
     <header>
-        <div>
-            <nav class="navbara">
-                <div>
-                    <li>
-                        <img width="50px" src="../../img/311822.svg" alt="Alo xd">
-                    </li>
-                </div>
-                <div>
-                    <li class="routes">
-                        <a href="">Rutas</a>
-                        <a href="store.html">Store</a>
-                        <a href="noticia.html">Noticias</a>
-                    </li>
-                </div>
-                <div>
-                    <li>
-                        <a href="login.html">Login</a>
-                    </li>
-                </div>
-            </nav>
-        </div>
+        <nav class="navbara">
+            <div>
+                <a href="index.html" class="nav-izq">
+                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <h1>CicliSan</h1>
+                </a>
+            </div>
+            <div class="routes">
+                <a>Bienvenido: Admin</a>
+                <a class="cerrar" href="login/login.html">Cerrar sesión</a>
+            </div>
+        </nav>
     </header>
     
     <main>
         <div class="contenido">
-            <div class="forta">
-                
+            <div class="cont-izq">
+                <a href="rutas.html">Rutas</a>
+                <a href="noticias.html">Noticias</a>
+                <a href="stores.html">Productos</a>
+                <a href="usuarios.html">Usuarios</a>
+                <a href="facturas.html">Facturas</a>
+                <a class="seleccionado" href="envios.html">Envios</a>
+            </div>
+            <div class="cont-dere">
+                <div class="titulo">
+                    <div class="conte-tit">
+                        <h1>Envios</h1>
+                    </div>
+                    <div class="boton">
+                        <button type="button" class="btn btn-light boton" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"><img width="20px"
+                                src="https://img.freepik.com/iconos-gratis/agregar_318-921148.jpg" alt=""></button>
+                    </div>
+                </div>
+                <div class="tablas">
+                    <table class="table">
+                        <thead>
+                          <tr class="table-dark">
+                            <th class="color-tabl" scope="col">Pais</th>
+                            <th class="color-tabl" scope="col">Departamento</th>
+                            <th class="color-tabl" scope="col">Ciudad</th>
+                            <th class="color-tabl" scope="col">Dirección</th>
+                            <th class="color-tabl" scope="col">Fecha Envio</th>
+                            <th class="color-tabl" scope="col">Nombre p. entrega</th>
+                            <th class="color-tabl" scope="col">Cedula</th>
+                            <th class="color-tabl" scope="col">Código Factura</th>
+                            <th class="color-tabl" scope="col">Detalles</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tabla">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
@@ -59,35 +86,48 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Articulo</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro envíos</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" class="formulario formu row">
                         <div class="">
-                            <label class="form-label">Titulo del articulo</label>
-                            <input type="text" class="form-control tituloo">
+                            <label for="exampleInputEmail1" class="form-label">Pais</label>
+                            <input type="text" class="form-control pais" id="exampleInputEmail1">
                         </div>
                         <div class="">
-                            <label class="form-label">Descripcion</label>
-                            <textarea class="descripcion form-control" id="exampleFormControlTextarea1"
-                                rows="3"></textarea>
+                            <label class="form-label">Departamento</label>
+                            <input type="text" class="form-control">
                         </div>
                         <div class="">
-                            <label class="form-label">Imagen</label>
-                            <input type="text" class="form-control imagen">
+                            <label class="form-label">Ciudad</label>
+                            <input type="text" class="ciudad form-control"
+                                rows="3"></input>
                         </div>
                         <div class="">
-                            <label class="form-label">Resumen</label>
-                            <input type="text" class="form-control resumen">
+                            <label class="form-label">Direccion</label>
+                            <input type="text" class="ciudad form-control"
+                                rows="3"></input>
                         </div>
                         <div class="">
-                            <label class="form-label">Fecha</label>
-                            <input type="date" class="form-control fecha">
+                            <label class="form-label">Fecha envío</label>
+                            <input type="date" class="form-control fecha_env">
                         </div>
                         <div class="">
-                            <label class="form-label">Autor</label>
-                            <input type="text" class="form-control autor">
+                            <label class="form-label">Nombre p. entrega</label>
+                            <input type="text" class="form-control nombre_persona_entrega">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Cedula</label>
+                            <input type="Number" class="form-control tiempo_aprox">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control altitud_min">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Código factura</label>
+                            <input type="text" class="form-control altitud_max">
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -98,7 +138,61 @@
             </div>
         </div>
     </div>
-    <script src="../../js/noticias/Api.js" type="module"></script>
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateee" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input style="display: none;" type="text" id="updId">
+                        <div class="">
+                            <label for="exampleInputEmail1" class="form-label">Pais</label>
+                            <input type="text" class="form-control" id="pais">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Departamento</label>
+                            <input type="text" class="form-control" id="departamento">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudad"
+                                rows="3"></input>
+                        </div>
+                        <div class="">
+                            <label class="form-label">Direccion</label>
+                            <input type="text" class="ciudad form-control" id="direccion"
+                                rows="3"></input>
+                        </div>
+                        <div class="">
+                            <label class="form-label">Fecha envío</label>
+                            <input type="date" class="form-control" id="fecha_env">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Nombre p. entrega</label>
+                            <input type="text" class="form-control" id="nomb_persona_entre">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Cedula</label>
+                            <input type="Number" class="form-control tiempo_aprox" id="cedula">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Teléfono</label>
+                            <input type="number" class="form-control" id="telefono">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Código factura</label>
+                            <input type="text" class="form-control altitud_max" id="fk_factura">
+                        </div>
+                        <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/envios/envios.js" type="module"></script>
 </body>
 
 </html>

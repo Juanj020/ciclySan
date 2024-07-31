@@ -1,4 +1,4 @@
-const url = "http://localhost:4005/api/usuarios";
+const url = "http://localhost:4005/api/facturas";
 
 const newUsuario = async (usuarios) =>{
     try {

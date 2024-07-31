@@ -38,7 +38,8 @@
                     <a href="rutas.html">Rutas</a>
                     <a class="actual" href="store.html">Store</a>
                     <a href="noticia.html">Noticias</a>
-                    <a href="login/login.html">Login</a>
+                    <a href="login/login.html">Bienvenid@: Juan camilo</a>
+                    <img width="50px" src="../img/puerta-abierta.png" alt="Alo xd">
                     <div class="derecha-na">
                         <div class="derecha-carro">
                             <img width="40px" onclick="showCart(this)" class="cart" src="../img/carrito.png" alt="">
@@ -52,7 +53,7 @@
                             
                         </div>
                         <h2>Total: $<strong class="price-total">0</strong></h2>
-                        <button>Comprar<img width="20px" class="cart" src="../img/carrito.png" alt=""></button>
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar<img width="20px" class="cart" src="../img/carrito.png" alt=""></button>
                     </div>
                 </li>
             </div>
@@ -85,6 +86,61 @@
         </div>
         <div class="contenidoAccesorio">
             
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Envio</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" class="formulario formu row">
+                            <div class="">
+                                <label class="form-label">Código de la factura</label>
+                                <input type="text" class="form-control tituloo">
+                            </div>
+                            <div class="">
+                                <label for="exampleInputEmail1" class="form-label">Pais</label>
+                                <input type="text" class="form-control pais" id="exampleInputEmail1">
+                            </div>
+                            <div class="">
+                                <label class="form-label">Departamento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="">
+                                <label class="form-label">Ciudad</label>
+                                <input type="text" class="ciudad form-control"
+                                    rows="3"></input>
+                            </div>
+                            <div class="">
+                                <label class="form-label">Direccion</label>
+                                <input type="text" class="ciudad form-control" rows="3"></input>
+                            </div>
+                            <div class="">
+                                <label class="form-label">Fecha Envio</label>
+                                <input type="date" class="fecha_envio form-control" rows="3"></input>
+                            </div>
+                            <div class="">
+                                <label class="form-label">Nombre p. entrega</label>
+                                <input type="text" class="form-control nombre_persona_entrega">
+                            </div>
+                            <div class="">
+                                <label class="form-label">Cedula</label>
+                                <input type="Number" class="form-control tiempo_aprox">
+                            </div>
+                            <div class="">
+                                <label class="form-label">Teléfono</label>
+                                <input type="text" class="form-control altitud_min">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <script type="module" src="../js/productos/producto.js"></script>

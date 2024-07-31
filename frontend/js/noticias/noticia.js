@@ -53,7 +53,7 @@ function validacionNoticia(e){
     const imagen = document.querySelector('.imagen').value;
     const resumen = document.querySelector('.resumen').value;
     const fecha = document.querySelector('.fecha').value;
-    const autor = document.querySelector('.autor').value;
+    const autor = document.querySelector('.autor').value;;
 
     const usu = {
         titulo,

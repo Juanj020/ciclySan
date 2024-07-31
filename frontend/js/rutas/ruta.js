@@ -10,8 +10,16 @@ async function mostrarRutas() {
         const nuevoDiv = document.createElement('div');
         nuevoDiv.classList.add('conte-cont');
         nuevoDiv.innerHTML = `
+        
             <div class="imagen">
                 <img width="350px" height="200px" src="${imagen}" alt="">
+                <div class="estrella">
+                    <img src="../img/estrella.png" width="50px" class="" alt="">
+                    <img src="../img/estrella.png" width="50px" class="" alt="">
+                    <img src="../img/estrella.png" width="50px" class="" alt="">
+                    <img src="../img/estrella.png" width="50px" class="" alt="">
+                    <img src="../img/estrella.png" width="50px" class="" alt="">
+                </div>
             </div>
             <div class="parrafos">
                 <h1>${nombreRut}</h1>

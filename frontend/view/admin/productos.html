@@ -25,27 +25,18 @@
 
 <body>
     <header>
-        <div>
-            <nav class="navbara">
-                <div>
-                    <li>
-                        <img width="50px" src="../../img/311822.svg" alt="Alo xd">
-                    </li>
-                </div>
-                <div>
-                    <li class="routes">
-                        <a href="">Rutas</a>
-                        <a href="store.html">Store</a>
-                        <a href="noticia.html">Noticias</a>
-                    </li>
-                </div>
-                <div>
-                    <li>
-                        <a href="login.html">Login</a>
-                    </li>
-                </div>
-            </nav>
-        </div>
+        <nav class="navbara">
+            <div>
+                <a href="index.html" class="nav-izq">
+                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <h1>CicliSan</h1>
+                </a>
+            </div>
+            <div class="routes">
+                <a>Bienvenido: Admin</a>
+                <a class="cerrar" href="login/login.html">Cerrar sesión</a>
+            </div>
+        </nav>
     </header>
 
     <main>
@@ -53,9 +44,10 @@
             <div class="cont-izq">
                 <a href="rutas.html">Rutas</a>
                 <a href="noticias.html">Noticias</a>
-                <a class="seleccionado" href="stores.html">Stores</a>
+                <a class="seleccionado" href="productos.html">Productos</a>
                 <a href="usuarios.html">Usuarios</a>
-                <a href="ventas.html">ventas</a>
+                <a href="facturas.html">Facturas</a>
+                <a href="envios.html">Envios</a>
             </div>
             <div class="cont-dere">
                 <div class="titulo">
@@ -72,12 +64,12 @@
                     <table class="table">
                         <thead>
                             <tr class="table-dark">
-                                <th scope="col">Nombre Pro</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Detalles</th>
+                                <th class="color-tabl" scope="col">Nombre Producto</th>
+                                <th class="color-tabl" scope="col">Precio</th>
+                                <th class="color-tabl" scope="col">Marca</th>
+                                <th class="color-tabl" scope="col">Stock</th>
+                                <th class="color-tabl" scope="col">Descripción</th>
+                                <th class="color-tabl" scope="col">Detalles</th>
                             </tr>
                         </thead>
                         <tbody id="tabla">
@@ -91,35 +83,42 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro ruta</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registro producto</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" class="formulario formu row">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Nombre de la ruta</label>
-                            <input type="text" class="form-control nombrePro" id="exampleInputEmail1">
+                            <label for="exampleInputEmail1" class="form-label">Nombre producto</label>
+                            <input type="text" class="form-control" >
                         </div>
                         <div class="">
                             <label class="form-label">Precio</label>
-                            <input type="number" class="form-control precio">
+                            <input type="number" class="form-control" >
                         </div>
-                        <div class="col-6">
+                        <div class="">
                             <label class="form-label">Marca</label>
-                            <input type="text" class="form-control marca">
+                            <input type="text" class="form-control" >
                         </div>
                         <div class="">
                             <label class="form-label">Stock</label>
-                            <input type="number" class="form-control stock">
+                            <input type="number" class="form-control" >
                         </div>
                         <div class="">
                             <label class="form-label">Descripcion</label>
-                            <textarea class="descripcion form-control" id="exampleFormControlTextarea1"
-                                rows="3"></textarea>
+                            <textarea class="form-control"  rows="3"></textarea>
                         </div>
                         <div class="">
                             <label class="form-label">Garantia</label>
-                            <input type="text" class="form-control garantia">
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" class="form-control" >
+                        </div>
+                        <div class="">
+                            <label class="form-label">Tipo</label>
+                            <input type="text" class="form-control" >
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -134,8 +133,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateee">Update Datos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
+                    <button type="button btn" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -143,7 +142,7 @@
                     <form>
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Nombre de la ruta</label>
+                            <label for="exampleInputEmail1" class="form-label">Nombre producto</label>
                             <input type="text" class="form-control" id="nombrePro">
                         </div>
                         <div class="">
@@ -159,12 +158,20 @@
                             <input type="number" class="form-control" id="stock">
                         </div>
                         <div class="">
-                            <label class="form-label">Descripcion</label>
+                            <label class="form-label">Descripción</label>
                             <textarea class="form-control" id="descripcion" rows="3"></textarea>
                         </div>
                         <div class="">
                             <label class="form-label">Garantia</label>
                             <input type="text" class="form-control" id="garantia">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="imagen">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Tipo</label>
+                            <input type="text" class="form-control" id="tipo">
                         </div>
                         <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
                     </form>

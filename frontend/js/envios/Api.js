@@ -1,4 +1,4 @@
-const url = "http://localhost:4005/api/usuarios";
+const url = "http://localhost:4005/api/envios";
 
 const newUsuario = async (usuarios) =>{
     try {
