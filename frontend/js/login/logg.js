@@ -10,7 +10,7 @@ function validarLogin(e) {
     const password = document.querySelector('.password').value
 
     const DataLog = {
-        correo,
+        correo, 
         password
     }
 
