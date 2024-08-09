@@ -1,18 +1,26 @@
 const url = "http://localhost:4005/api/usuarios";
 
-const newUsuario = async (usuarios) =>{
+const getHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+};
+
+const newUsuario = async (usuarios) => {
     try {
         await fetch(url, {
             method: 'POST',
             body: JSON.stringify(usuarios),
-            headers:{
-                'Content-Type' : 'Application/json'
+            headers: {
+                'Content-Type': 'application/json'
             }
-        })
+        });
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 const borrarUsuario = async (usuarios) => {
     try {
@@ -26,13 +34,15 @@ const borrarUsuario = async (usuarios) => {
 
 const getUsuario = async () => {
     try {
-        const usuarios = await fetch(url);
+        const usuarios = await fetch(url, {
+            headers: getHeaders() // Usar headers con el token
+        });
         const datosUsuario = await usuarios.json();
         return datosUsuario;
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 const getOne = async (id) => {
     try {

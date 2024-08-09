@@ -1,5 +1,20 @@
 import { getNoticia, newNoticia, borrarNoticia, getOne} from "./Api.js";
 
+document.addEventListener('DOMContentLoaded', () => {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
+    } else {
+        // Si no hay nombre de usuario, podrías redirigir al login o mostrar un mensaje
+        window.location.href = 'login/login.html';
+    }
+});
+
+document.getElementById('logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+});
 
 const noti = document.querySelector('#tabla')
 document.addEventListener('DOMContentLoaded', mostrarNoticiasAdmin);
@@ -19,7 +34,6 @@ async function mostrarNoticiasAdmin() {
         `
     })
 }
-
 
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionNoticia);

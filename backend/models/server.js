@@ -8,18 +8,22 @@ import rutaRouter from "../routes/ruta.routes.js"
 import facturaRouter from "../routes/factura.routes.js"
 import envioRouter from "../routes/envio.routes.js"
 import authRouter from "../routes/auth.routes.js"
+import calificacionRoutes from '../routes/calificacion.routes.js';
+import auth from '../middlewares/auth.js'; 
+import authRole from '../middlewares/authRole.js'; 
 
 class Server{
 
     constructor(){
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 3000;
         this.usuarioPath = "/api/usuarios";
         this.facturaPath = "/api/facturas";
         this.envioPath = "/api/envios";
         this.productoPath = "/api/productos";
         this.noticiaPath = "/api/noticias";
         this.rutaPath = "/api/rutas";
+        this.calificacionPath = "/api/calificacion";
         this.authPath = "/api/auth"
 
         this.dbConexion();
@@ -47,7 +51,18 @@ class Server{
         this.app.use(this.rutaPath, rutaRouter);
         this.app.use(this.facturaPath, facturaRouter);
         this.app.use(this.envioPath, envioRouter);
+        this.app.use(this.calificacionPath, calificacionRoutes);
         this.app.use(this.authPath, authRouter);
+
+        // Ejemplo de ruta protegida solo para administradores
+        this.app.get('/api/admin', auth, authRole('ADMIN'), (req, res) => {
+            res.send('Esta es una ruta protegida solo para administradores');
+        });
+
+        // Ejemplo de ruta protegida solo para usuarios
+        this.app.get('/api/user', auth, authRole('USER'), (req, res) => {
+            res.send('Esta es una ruta protegida solo para usuarios');
+        });
     }
 
     listen(){

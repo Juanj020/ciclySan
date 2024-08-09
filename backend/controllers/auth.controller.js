@@ -1,40 +1,47 @@
-import response from "express";
-import Usuario from "../models/Usuario.js";
-import bcryptjs from "bcryptjs"
+import response from 'express';
+import Usuario from '../models/Usuario.js';
+import bcryptjs from 'bcryptjs';
+import generateJWT from '../helpers/generateJWT.js'; // Importa el helper para generar JWT
 
-
-const login = async (req, res = response) =>{
-    const {correo, password} = req.body
+const login = async (req, res = response) => {
+    const { correo, password } = req.body;
 
     try {
-        
-        const usuario = await Usuario.findOne({correo})
-
-        if(!usuario){
-            res.json({
-                msg: "El email no esta registrado",
+        // Verificar si el usuario existe
+        const usuario = await Usuario.findOne({ correo });
+        if (!usuario) {
+            return res.status(400).json({
+                msg: "El email no está registrado",
                 success: false
-            })
+            });
         }
 
-        const passwordValido = bcryptjs.compareSync(password, usuario.password)
-
-        if(!passwordValido){
-            res.json({
+        // Verificar si la contraseña es válida
+        const passwordValido = bcryptjs.compareSync(password, usuario.password);
+        if (!passwordValido) {
+            return res.status(400).json({
                 msg: "La contraseña no es correcta",
-                success:false
-            })
+                success: false
+            });
         }
-        
-        
-        res.json({
-            success:true,
-            usuario
-        })
 
+        // Generar el token JWT usando el helper
+        const token = await generateJWT(usuario._id);
+
+        // Responder con el token y la información del usuario
+        res.json({
+            success: true,
+            token,
+            nombre: usuario.nombre,
+            rol: usuario.rol
+        });
     } catch (error) {
         console.log(error);
-    }  
-}
+        res.status(500).json({
+            msg: "Error en el servidor",
+            success: false
+        });
+    }
+};
 
-export { login }
+export { login };

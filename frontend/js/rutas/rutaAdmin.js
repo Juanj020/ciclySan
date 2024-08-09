@@ -1,5 +1,14 @@
 import { getRuta, newRuta, borrarRuta, getOne, updateRuta} from "./Api.js";
 
+document.addEventListener('DOMContentLoaded', () => {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
+    } else {
+        // Si no hay nombre de usuario, podrías redirigir al login o mostrar un mensaje
+        window.location.href = 'login/login.html';
+    }
+});
 
 const rut = document.querySelector('#tabla')
 document.addEventListener('DOMContentLoaded', mostrarRutaAdmin);

@@ -1,29 +1,30 @@
 import mongoose from 'mongoose';
 
 const usuarioShema = mongoose.Schema({
-    nombre:{
+    nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
         trim: true
     },
-    correo:{
+    correo: {
         type: String,
-        required:[true, 'El correo es requerido'],
-        unique:true,
+        required: [true, 'El correo es requerido'],
+        unique: true,
         trim: true
     },
-    password:{
+    password: {
         type: String,
-        required:[true, 'La contraseña es requerida']
+        required: [true, 'La contraseña es requerida']
     },
-    telefono:{
+    telefono: {
         type: Number,
-        required:[true, 'El telefono es obligatorio']
+        required: [true, 'El teléfono es obligatorio']
     },
-    rol:{
+    rol: {
         type: String,
+        enum: ['USER', 'ADMIN'],  // Validación para los roles permitidos
         required: true,
-        default: ['USER']
+        default: 'USER'  // Default debe ser un string, no un array
     }
 });
 

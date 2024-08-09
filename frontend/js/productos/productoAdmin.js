@@ -1,5 +1,20 @@
 import { getPrducto, newProducto, borrarProducto, getOne, updateProducto } from "./Api.js";
 
+document.addEventListener('DOMContentLoaded', () => {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
+    } else {
+        // Si no hay nombre de usuario, podrías redirigir al login o mostrar un mensaje
+        window.location.href = 'login/login.html';
+    }
+});
+
+document.getElementById('logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+});
 
 const pro = document.querySelector('#tabla')
 document.addEventListener('DOMContentLoaded', mostrarProductos);

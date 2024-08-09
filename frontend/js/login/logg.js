@@ -1,38 +1,41 @@
 import { login } from "./ApiAu.js";
 
-const formu = document.querySelector('.formulario');
-formu.addEventListener('submit', validarLogin);
+const formulario = document.querySelector('.formulario');
 
-function validarLogin(e) {
+formulario.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const correo = document.querySelector('.correo').value
-    const password = document.querySelector('.password').value
+    const correo = document.querySelector('.correo').value;
+    const password = document.querySelector('.password').value;
 
-    const DataLog = {
-        correo, 
+    const info = {
+        correo,
         password
-    }
+    };
 
-    if(validate(DataLog)){
-        alert("LLene todos la información")
-        return
-    }
+    try {
+        const data = await login(info);
 
-    login(DataLog)
-    .then((response) => {
-        
-        if(response.success){
-            window.location.href = "../index.html"
-        }else{
-            alert(response.msg)
+        if (data.success) {
+            // Guarda el token y el nombre del usuario en localStorage
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('userName', data.nombre); // Guarda el nombre del usuario
+
+            // Redirige según el rol
+            if (data.rol === 'ADMIN') {
+                window.location.href = '../admin/rutas.html'; 
+                window.location.href = '../admin/envios.html'; 
+                window.location.href = '../admin/facturas.html'; 
+                window.location.href = '../admin/noticias.html'; 
+                window.location.href = '../admin/usuarios.html'; 
+            } else if (data.rol === 'USER') {
+                window.location.href = '../index.html'; // Redirige a la página para usuarios
+            }
+        } else {
+            // Manejo de errores, si el login falla
+            alert('Credenciales inválidas');
         }
-    })
-    .catch((error)=>{
+    } catch (error) {
         console.log(error);
-    })
-}
-
-function validate(objeto){
-    return !Object.values(objeto).every(element => element !== '');
-}
+    }
+});

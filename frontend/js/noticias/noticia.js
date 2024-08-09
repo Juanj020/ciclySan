@@ -77,3 +77,31 @@ function validacionNoticia(e){
 function validacion(objeto){
     return !Object.values(objeto).every(element => element !== '');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const userInfo = document.getElementById('user-info');
+    const userName = localStorage.getItem('userName');
+    const token = localStorage.getItem('token');
+    const boton = document.querySelector('.boton'); // Selecciona el botón que quieres mostrar u ocultar
+
+    if (token && userName) {
+        // Muestra el nombre del usuario y el botón de cierre de sesión
+        userInfo.innerHTML = `
+            <span>Bienvenido, ${userName}</span>
+            <a href="#" id="logout"><img width="50px" src="../img/puerta-abierta.png" alt="Cerrar sesión"></a> 
+        `;
+
+        boton.style.marginLeft = '200px';
+        boton.classList.remove('hidden'); // Muestra el botón adicional si hay un nombre de usuario
+
+        // Manejo de cierre de sesión
+        document.getElementById('logout').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userName');
+            window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+        });
+    } else {
+        // Muestra el enlace para iniciar sesión
+        userInfo.innerHTML = '<a href="login/login.html">Iniciar sesión</a>';
+    }
+});

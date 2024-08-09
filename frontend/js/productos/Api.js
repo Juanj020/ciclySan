@@ -74,6 +74,6 @@ const updateProducto = async (id, datos) =>{
     } catch (error) {
       console.log(error);
     }
-  };
+};
 
 export { getPrducto, newProducto, borrarProducto, getOne, updateProducto, getPrductoRuta, getPrductoAcces }

@@ -1,7 +1,7 @@
-import dovten from 'dotenv';
+import dotenv from 'dotenv';
 import { Server } from './models/server.js';
 
-dovten.config();
+dotenv.config(); // Asegúrate de que esto esté correcto
 
 const server = new Server();
 

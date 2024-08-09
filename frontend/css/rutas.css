@@ -81,27 +81,27 @@ body{
 }
 
 
-.conte-tit{
+.conte-tit h1{
+    font-size: 80px;
+    font-family: 'Edu SA Beginner', cursive;
+}
+/* -------- Titulo ------- */
+.titulo {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center;
+    margin-top: 30px;
+}
+
+.conte-tit {
     color: #656bbc;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; 
 }
-/* -------- Titulo ------- */
-.titulo{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 30px;
-}
 
-.conte-tit h1{
-    font-size: 80px;
-    font-family: 'Edu SA Beginner', cursive;
-}
-
-.boton{
+.boton {
     border: none;
     width: 50px;
     height: 50px;
@@ -112,7 +112,7 @@ body{
     font-size: 30px !important;
 }
 
-.boton button{
+.boton button {
     display: flex;
     background-color: #3a3ca8;
     align-items: center;
@@ -174,4 +174,36 @@ body{
 
 .imagen{
     margin: 2px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Estrellas */
+/* Estrellas */
+.estrella {
+    display: flex;
+    cursor: pointer;
+}
+
+/* .estrella-icon */
+.estrella-icon {
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.3s ease; /* Añadido transición para el filtro de color */
+}
+
+.estrella-icon:hover,
+.estrella-icon:hover ~ .estrella-icon {
+    transform: scale(1.2);
+}
+
+/* Para mostrar estrellas calificadas */
+.estrella-icon.calificada {
+    filter: grayscale(0%); /* Remueve el gris si la estrella está calificada */
+}
+
+/* Para cambiar el color de las estrellas calificadas */
+.estrella-icon.calificada {
+    content: url('../img/estrella-calificada.png'); /* Usa una imagen diferente si lo prefieres */
 }

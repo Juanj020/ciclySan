@@ -56,6 +56,6 @@ const updateRuta = async (id, datos) =>{
     } catch (error) {
       console.log(error);
     }
-  };
+};
 
 export { getRuta, newRuta, borrarRuta, getOne, updateRuta }
