@@ -180,7 +180,20 @@ body{
     display: none;
 }
 
-/* Estrellas */
+.descrip {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    max-height: 4em;
+}
+
+.ver-mas {
+    color: blue;
+    cursor: pointer;
+}
+
+
 /* Estrellas */
 .estrella {
     display: flex;
@@ -190,20 +203,30 @@ body{
 /* .estrella-icon */
 .estrella-icon {
     cursor: pointer;
-    transition: transform 0.2s ease, filter 0.3s ease; /* Añadido transición para el filtro de color */
+    transition: transform 0.2s ease, color 0.3s ease; /* Suaviza las transiciones */
 }
 
+/* Efecto hover para resaltar las estrellas y las anteriores */
 .estrella-icon:hover,
 .estrella-icon:hover ~ .estrella-icon {
-    transform: scale(1.2);
+    transform: scale(1.2); /* Aumenta el tamaño de las estrellas sobre las que se hace hover */
+    color: gold; /* Cambia el color de las estrellas seleccionadas */
+}
+
+/* Asegura que las estrellas posteriores al hover no se vean afectadas */
+.estrella-icon:hover ~ .estrella-icon {
+    transform: scale(1); /* Mantiene el tamaño original de las estrellas posteriores */
+    color: inherit; /* Mantiene el color original de las estrellas posteriores */
 }
 
 /* Para mostrar estrellas calificadas */
 .estrella-icon.calificada {
-    filter: grayscale(0%); /* Remueve el gris si la estrella está calificada */
+    filter: grayscale(0%); /* Quita el filtro de escala de grises */
+    color: gold; /* Cambia el color de las estrellas calificadas */
 }
 
-/* Para cambiar el color de las estrellas calificadas */
+/* Cambia la imagen o el contenido de las estrellas calificadas si lo prefieres */
 .estrella-icon.calificada {
-    content: url('../img/estrella-calificada.png'); /* Usa una imagen diferente si lo prefieres */
+    content: url('../img/estrella-calificada.png');
 }
+

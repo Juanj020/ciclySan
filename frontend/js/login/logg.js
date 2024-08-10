@@ -19,6 +19,7 @@ formulario.addEventListener('submit', async (e) => {
         if (data.success) {
             // Guarda el token y el nombre del usuario en localStorage
             localStorage.setItem('token', data.token);
+            localStorage.setItem('userId', data.userId); // Guarda el ID del usuario
             localStorage.setItem('userName', data.nombre); // Guarda el nombre del usuario
 
             // Redirige según el rol

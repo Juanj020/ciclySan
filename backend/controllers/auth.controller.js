@@ -32,6 +32,7 @@ const login = async (req, res = response) => {
         res.json({
             success: true,
             token,
+            userId: usuario._id,
             nombre: usuario.nombre,
             rol: usuario.rol
         });

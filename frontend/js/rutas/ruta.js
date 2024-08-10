@@ -1,17 +1,8 @@
-import { getRuta, newRuta } from "./Api.js";
+import { getRuta, calificarRuta, updateCalificacion as calificarRutaAPI, obtenerCalificaciones, updateCalificacion } from "./Api.js";
 
-function aplicarCalificacion(estrellas, calificacion) {
-    estrellas.forEach(est => {
-        const rating = parseInt(est.getAttribute('data-rating'));
-        if (rating <= calificacion) {
-            est.classList.add('calificada');
-        } else {
-            est.classList.remove('calificada');
-        }
-    });
-}
+// Definir la variable `carts` correctamente antes de usarla
+const carts = document.querySelector('.cont-der'); // Asegúrate de que el selector sea correcto
 
-const carts = document.querySelector('.cont-der');
 document.addEventListener('DOMContentLoaded', mostrarRutas);
 
 async function mostrarRutas() {
@@ -54,24 +45,25 @@ async function mostrarRutas() {
 
         // Añadir eventos de calificación
         const estrellas = document.querySelectorAll(`.estrella[data-ruta-id="${_id}"] .estrella-icon`);
-        estrellas.forEach(est => {
-            est.addEventListener('click', () => calificarRuta(_id, est.getAttribute('data-rating')));
-        });
+estrellas.forEach(est => {
+    est.addEventListener('click', () => calificarRutaCliente(_id, est.getAttribute('data-rating')));
+});
 
         // Obtener y aplicar calificación existente
-        const calificacion = await obtenerCalificacion(_id);
+        const calificaciones = await obtenerCalificaciones(_id);
+        const calificacion = calificaciones.length > 0 ? calificaciones[0].rating : 0;
         aplicarCalificacion(estrellas, calificacion);
     });
 }
 
-async function calificarRuta(rutaId, rating) {
+async function calificarRutaCliente(rutaId, rating) {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('Por favor, inicie sesión para calificar.');
         return;
     }
 
-    const userId = 'el-id-del-usuario'; // Obtén el ID del usuario de alguna manera
+    const userId = localStorage.getItem('userId');
     const calificacion = {
         rutaId,
         userId,
@@ -79,41 +71,36 @@ async function calificarRuta(rutaId, rating) {
     };
 
     try {
-        await fetch('/api/calificar-ruta', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(calificacion)
-        });
+        // Verifica si ya existe una calificación
+        const calificaciones = await obtenerCalificaciones(rutaId);
+        const calificacionExistente = calificaciones.find(c => c.userId === userId);
+
+        if (calificacionExistente) {
+            // Si existe, actualiza
+            await updateCalificacion(calificacionExistente._id, calificacion);
+        } else {
+            // Si no existe, crea una nueva
+            await calificarRutaAPI(calificacion);
+        }
+        
         alert('¡Gracias por tu calificación!');
-        // Actualizar la interfaz con la calificación seleccionada
         const estrellas = document.querySelectorAll(`.estrella[data-ruta-id="${rutaId}"] .estrella-icon`);
-        aplicarCalificacion(estrellas, rating);
+        aplicarCalificacion(estrellas, parseInt(rating));
     } catch (error) {
         console.error('Error al calificar:', error);
         alert('Hubo un problema al enviar tu calificación.');
     }
 }
 
-async function obtenerCalificacion(rutaId) {
-    const token = localStorage.getItem('token');
-    if (!token) return 0; // No se puede obtener calificación si no está autenticado
-
-    try {
-        const response = await fetch(`/api/calificaciones/${rutaId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        const data = await response.json();
-        return data.rating || 0; // Devuelve la calificación existente o 0 si no hay
-    } catch (error) {
-        console.error('Error al obtener calificación:', error);
-        return 0;
-    }
+function aplicarCalificacion(estrellas, calificacion) {
+    estrellas.forEach(est => {
+        const rating = parseInt(est.getAttribute('data-rating'));
+        if (rating <= calificacion) {
+            est.classList.add('calificada');
+        } else {
+            est.classList.remove('calificada');
+        }
+    });
 }
 
 function mostrarMas(rutaId) {
@@ -201,3 +188,5 @@ document.addEventListener('DOMContentLoaded', () => {
         userInfo.innerHTML = '<a href="login/login.html">Iniciar sesión</a>';
     }
 });
+
+
