@@ -1,56 +1,84 @@
-import Facturas from "../models/Factura.js";
+import Factura from '../models/Factura.js';
 
-const getFacturas = async (req, res) =>{
+const getFacturas = async (req, res) => {
     try {
-        const factura = await Facturas.find();
-        res.json(factura); 
+        const facturas = await Factura.find();
+        res.json(facturas);
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener las facturas' });
     }
-}
+};
 
-const getFacturasId = async (req, res)=>{
+const getFacturasId = async (req, res) => {
     try {
-        const factura = await Facturas.findOne({_id: req.params.id});
+        const factura = await Factura.findById(req.params.id).populate('fk_usuario', 'nombre correo');
+        if (!factura) {
+            return res.status(404).json({ error: 'Factura no encontrada' });
+        }
         res.json(factura);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al obtener la factura' });
     }
-}
+};
 
+const generarNumeroFactura = async () => {
+    const facturas = await Factura.find().sort({ numero_factura: -1 }).limit(1);
+    const ultimoNumero = facturas.length > 0 ? facturas[0].numero_factura : "000000";
+    const nuevoNumero = (parseInt(ultimoNumero) + 1).toString().padStart(6, '0');
+    return nuevoNumero;
+};
+
+// Dentro de tu controlador postFacturas
 const postFacturas = async (req, res) => {
     try {
-        const { fecha, productos, total, forma_pago } = req.body;
-        const factura = new Facturas({fecha, productos, total, forma_pago});
+        const { fecha, productos, total, forma_pago, fk_usuario, numero_factura } = req.body;
 
+        const nuevaFactura = new Factura({
+            fecha,
+            productos,
+            total,
+            forma_pago,
+            fk_usuario,
+            numero_factura
+        });
 
-        await factura.save();
-        res.json(factura)
-
+        await nuevaFactura.save();
+        res.status(201).json(nuevaFactura);
     } catch (error) {
-        console.log(error);
+        console.error('Error al crear la factura:', error);
+        if (error.code && error.code === 11000) {
+            res.status(400).json({ error: 'Número de factura ya existe' });
+        } else {
+            res.status(500).json({ error: 'Error al crear la factura', details: error.message });
+        }
     }
-}
+};
 
-const putFacturas = async (req, res)=>{
+
+
+const putFacturas = async (req, res) => {
     try {
-        const {fecha, productos, total, forma_pago} = req.body;
-
-        const factura = await Facturas.findOneAndUpdate({_id: req.params.id}, req.body,{new:true});
+        const factura = await Factura.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!factura) {
+            return res.status(404).json({ error: 'Factura no encontrada' });
+        }
         res.json(factura);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al actualizar la factura' });
     }
-}
+};
 
-const deleteFacturas = async (req,res)=>{
+const deleteFacturas = async (req, res) => {
     try {
-        const factura = await Facturas.deleteOne({_id:req.params.id})
+        const factura = await Factura.findByIdAndDelete(req.params.id);
+        if (!factura) {
+            return res.status(404).json({ error: 'Factura no encontrada' });
+        }
         res.status(204).send();
-        res.json(factura)
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al eliminar la factura' });
     }
-} 
+};
 
-export {getFacturas, postFacturas, deleteFacturas, getFacturasId, putFacturas};
+export { getFacturas, getFacturasId, postFacturas, putFacturas, deleteFacturas };

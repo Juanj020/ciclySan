@@ -1,10 +1,10 @@
-import {newUsuario, getUsuario, borrarUsuario, updateUSuar, getOne} from "./Api.js";
+import {newEnvio, getEnvio, borrarFactura, borrarEnvio, getOne} from "./Api.js";
 
 
 const rut = document.querySelector('#tabla')
-document.addEventListener('DOMContentLoaded', mostrarRutaAdmin);
-async function mostrarRutaAdmin() {
-    const noticias = await getUsuario();
+document.addEventListener('DOMContentLoaded', mostrarEnvioAdmin);
+async function mostrarEnvioAdmin() {
+    const noticias = await getEnvio();
     noticias.forEach(ruta => {
         const {_id, pais, departamento, ciudad, direccion, fecha_env, nomb_persona_entre, cedula, fk_factura} = ruta;
         let fechaa = fecha_env.substring(0, 10)
@@ -26,49 +26,34 @@ async function mostrarRutaAdmin() {
 
 
 const formulario = document.querySelector('.formu');
-formulario.addEventListener('submit', validacionRuta);
+formulario.addEventListener('submit', validacionEnvio);
 
-function validacionRuta(e){
+function validacionEnvio(e){
     e.preventDefault();
 
-    const pais = document.querySelector('.pais').value;
-    const departamento = document.querySelector('.departamento').value;
-    const ciudad = document.querySelector('.ciudad').value;
-    const direccion = document.querySelector('.direccion').value;
-    const punto_llegada = document.querySelector('.punto_llegada').value;
-    const punto_partida = document.querySelector('.punto_partida').value;
-    const tiempo_aprox = document.querySelector('.tiempo_aprox').value;
-    const altitud_min = document.querySelector('.altitud_min').value;
-    const altitud_max = document.querySelector('.altitud_max').value;
-    const recomendaciones = document.querySelector('.recomendaciones').value;
-    const imagen = document.querySelector('.imagenn').value;
+    const factura = {
+        codigoFactura: document.querySelector('.tituloo').value,
+        pais: document.querySelector('.pais').value,
+        departamento: document.querySelector('.departamento').value,
+        ciudad: document.querySelector('.ciudad').value,
+        direccion: document.querySelector('.ciudad').value,
+        fechaEnvio: document.querySelector('.fecha_envio').value,
+        nombreEntrega: document.querySelector('.nombre_persona_entrega').value,
+        cedula: document.querySelector('.tiempo_aprox').value,
+        telefono: document.querySelector('.altitud_min').value
+    };
 
-    const rut = {
-        pais,
-        departamento,
-        ciudad,
-        direccion,
-        punto_llegada,
-        punto_partida,
-        tiempo_aprox,
-        altitud_min,
-        altitud_max,
-        recomendaciones,
-        imagen
+    if (validacion(factura)) {
+        newUsuario(factura);
+        alert("Registro de envío exitoso!");
+        document.querySelector('.formu').reset();  // Resetear el formulario
+    } else {
+        alert("Por favor completa todos los campos.");
     }
-
-    if(validacion(rut)){
-        alert("Llene todos los campos")
-        return
-    }
-
-    newUsuario(rut);
-    window.location.href = "rutas.html"
-
 }
 
-function validacion(objeto){
-    return !Object.values(objeto).every(element => element !== '');
+function validacion(factura) {
+    return Object.values(factura).every(value => value !== '');
 }
 
 const btnOption = document.querySelector('#tabla');
@@ -81,7 +66,7 @@ function borrar(e) {
         console.log(borrarr);
         const confirmar = confirm("desea Eliminarlo?");
         if (confirmar) {
-            borrarUsuario(borrarr);
+            borrarFactura(borrarr);
         }
     }
 }
@@ -146,5 +131,5 @@ async function actualizarDatos() {
         imagen
     }
 
-    await updateUSuar(id, datos);
+    await borrarEnvio(id, datos);
 }

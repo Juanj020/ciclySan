@@ -1,52 +1,53 @@
-const url = "http://localhost:4005/api/facturas";
+const facturaUrl = "http://localhost:4005/api/facturas";
 
-const newUsuario = async (usuarios) =>{
+const newFactura = async (factura) => {
     try {
-        await fetch(url, {
+        await fetch(facturaUrl, {
             method: 'POST',
-            body: JSON.stringify(usuarios),
+            body: JSON.stringify(factura),
             headers:{
-                'Content-Type' : 'Application/json'
+                'Content-Type' : 'application/json'
             }
-        })
+        });
     } catch (error) {
         console.log(error);
     }
 }
 
-const borrarUsuario = async (usuarios) => {
+const borrarFactura = async (facturaId) => {
     try {
-        await fetch(`${url}/${usuarios}`, {
+        await fetch(`${facturaUrl}/${facturaId}`, {
             method: 'DELETE'
-        }); window.location.reload()
+        });
+        window.location.reload();
     } catch (error) {
         console.log(error);
     }
 }
 
-const getUsuario = async () => {
+const getFacturas = async () => {
     try {
-        const usuarios = await fetch(url);
-        const datosUsuario = await usuarios.json();
-        return datosUsuario;
+        const facturas = await fetch(facturaUrl);
+        const datosFactura = await facturas.json();
+        return datosFactura;
     } catch (error) {
         console.log(error);
     }
 }
 
-const getOne = async (id) => {
+const getFacturaById = async (id) => {
     try {
-        const data = await fetch(`${url}/${id}`);
-        const ruta = await data.json();
-        return ruta;
+        const data = await fetch(`${facturaUrl}/${id}`);
+        const factura = await data.json();
+        return factura;
     } catch (error) {
         console.log(error);
     }
 }
 
-const updateUSuar = async (id, datos) =>{
+const updateFactura = async (id, datos) =>{
     try {
-      await fetch (`${url}/${id}`,{
+      await fetch (`${facturaUrl}/${id}`,{
         method:'PUT',
         headers:{
           "Content-Type" : "application/json"
@@ -56,5 +57,6 @@ const updateUSuar = async (id, datos) =>{
     } catch (error) {
       console.log(error);
     }
-  };
-export {newUsuario, getUsuario, borrarUsuario, updateUSuar, getOne}
+};
+
+export { newFactura, getFacturas, borrarFactura, updateFactura, getFacturaById }

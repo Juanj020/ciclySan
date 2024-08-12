@@ -1,54 +1,60 @@
-import Envios from "../models/Envio.js";
+import Envio from '../models/Envio.js';
 
-const getEnvios = async (req, res) =>{
+const getEnvios = async (req, res) => {
     try {
-        const envio = await Envios.find();
-        res.json(envio); 
+        const envios = await Envio.find();
+        res.json(envios); 
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).json({ error: "Error al obtener los envíos" });
     }
-}
+};
 
-const getEnviosId = async (req, res)=>{
+const getEnviosId = async (req, res) => {
     try {
-        const envio = await Envios.findOne({_id: req.params.id});
+        const envio = await Envio.findById(req.params.id).populate('fk_factura', 'numero_factura');
+        if (!envio) {
+            return res.status(404).json({ error: 'Envío no encontrado' });
+        }
         res.json(envio);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al obtener el envío' });
     }
-}
+};
 
 const postEnvios = async (req, res) => {
     try {
-        const { correo, nombre, cedula, direccion, departamento, ciudad, telefono } = req.body;
-        const envio = new Envios({correo, nombre, cedula, direccion, departamento, ciudad, telefono});
+        const { correo, nombre, cedula, direccion, departamento, ciudad, telefono, fk_factura, estado_envio } = req.body;
+        const envio = new Envio({ correo, nombre, cedula, direccion, departamento, ciudad, telefono, fk_factura, estado_envio });
         await envio.save();
-        res.json(envio)
-
+        res.status(201).json(envio);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al crear el envío' });
     }
-}
+};
 
-const putEnvios = async (req, res)=>{
+const putEnvios = async (req, res) => {
     try {
-        const {correo, nombre, cedula, direccion, departamento, ciudad, telefono } = req.body;
-
-        const envio = await Envios.findOneAndUpdate({_id: req.params.id}, req.body,{new:true});
+        const envio = await Envio.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!envio) {
+            return res.status(404).json({ error: 'Envío no encontrado' });
+        }
         res.json(envio);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al actualizar el envío' });
     }
-}
+};
 
-const deleteEnvios = async (req,res)=>{
+const deleteEnvios = async (req, res) => {
     try {
-        const envio = await Envios.deleteOne({_id:req.params.id})
+        const envio = await Envio.findByIdAndDelete(req.params.id);
+        if (!envio) {
+            return res.status(404).json({ error: 'Envío no encontrado' });
+        }
         res.status(204).send();
-        res.json(envio)
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Error al eliminar el envío' });
     }
-} 
+};
 
-export {getEnvios, postEnvios, deleteEnvios, getEnviosId, putEnvios};
+export { getEnvios, postEnvios, deleteEnvios, getEnviosId, putEnvios };

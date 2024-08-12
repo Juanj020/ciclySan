@@ -1,6 +1,6 @@
 const url = "http://localhost:4005/api/envios";
 
-const newUsuario = async (usuarios) =>{
+const newEnvio = async (usuarios) =>{
     try {
         await fetch(url, {
             method: 'POST',
@@ -14,7 +14,7 @@ const newUsuario = async (usuarios) =>{
     }
 }
 
-const borrarUsuario = async (usuarios) => {
+const borrarEnvio = async (usuarios) => {
     try {
         await fetch(`${url}/${usuarios}`, {
             method: 'DELETE'
@@ -24,11 +24,11 @@ const borrarUsuario = async (usuarios) => {
     }
 }
 
-const getUsuario = async () => {
+const getEnvio = async () => {
     try {
         const usuarios = await fetch(url);
-        const datosUsuario = await usuarios.json();
-        return datosUsuario;
+        const datosEnvio = await usuarios.json();
+        return datosEnvio;
     } catch (error) {
         console.log(error);
     }
@@ -44,7 +44,7 @@ const getOne = async (id) => {
     }
 }
 
-const updateUSuar = async (id, datos) =>{
+const updateEnvio = async (id, datos) =>{
     try {
       await fetch (`${url}/${id}`,{
         method:'PUT',
@@ -57,4 +57,4 @@ const updateUSuar = async (id, datos) =>{
       console.log(error);
     }
   };
-export {newUsuario, getUsuario, borrarUsuario, updateUSuar, getOne}
+export {newEnvio, getEnvio, borrarEnvio, updateEnvio, getOne}

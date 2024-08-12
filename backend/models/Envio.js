@@ -1,39 +1,48 @@
 import mongoose from 'mongoose';
 
-const envioShema = mongoose.Schema({
-    correo:{
+const envioSchema = mongoose.Schema({
+    correo: {
         type: String,
         required: [true, 'El correo es requerido en la factura'],
         trim: true
     },
-    nombre:{
+    nombre: {
         type: String,
-        required:[true, 'El nombre es requerido'],
+        required: [true, 'El nombre es requerido'],
         trim: true
     },
-    cedula:{
+    cedula: {
         type: Number,
-        required:[true, 'La cedula es requerida'],
-        trim: true
+        required: [true, 'La cédula es requerida'],
     },
-    direccion:{
+    direccion: {
         type: String,
-        required:[true, 'La direccin es requerida'],
+        required: [true, 'La dirección es requerida'],
     },
-    departamento:{
+    departamento: {
         type: String,
-        required:[true, 'El departamento es requerido'],
+        required: [true, 'El departamento es requerido'],
     },
-    ciudad:{
+    ciudad: {
         type: String,
-        required:[true, 'La ciudad es requerida'],
+        required: [true, 'La ciudad es requerida'],
     },
-    telefono:{
+    telefono: {
         type: Number,
-        required:[true, 'El telefono es requerido'],
+        required: [true, 'El teléfono es requerido'],
+    },
+    fk_factura: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'facturas',
+        required: true
+    },
+    estado_envio: {
+        type: String,
+        enum: ['pendiente', 'enviado', 'entregado'],
+        default: 'pendiente'
     }
 });
 
-const Envio = mongoose.model('envio', envioShema);
+const Envio = mongoose.model('envio', envioSchema);
 
 export default Envio;

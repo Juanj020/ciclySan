@@ -1,135 +1,98 @@
-import {newUsuario, getUsuario, borrarUsuario, updateUSuar, getOne} from "./Api.js";
+import { newFactura, getFacturas, borrarFactura, getFacturaById } from "./Api.js";
 
+const tablaFacturas = document.querySelector('#tabla');
 
-const rut = document.querySelector('#tabla')
-document.addEventListener('DOMContentLoaded', mostrarRutaAdmin);
-async function mostrarRutaAdmin() {
-    const rutas = await getUsuario();
-rutas.forEach(ruta => {
-    const {_id, productos, fecha_fac, total, forma_pago} = ruta;
-    let fechaa = fecha_fac.substring(0, 10);
+document.addEventListener('DOMContentLoaded', mostrarFacturas);
 
-    if (Array.isArray(productos) && productos.length > 0) {
-        const primerProducto = productos[0];
+async function mostrarFacturas() {
+    const facturas = await getFacturas();
+    facturas.forEach(factura => {
+        const {_id, productos, fecha_fac, total, forma_pago} = factura;
+        let fechaa = fecha_fac.substring(0, 10);
 
-        const nombresProductos = Object.keys(primerProducto);
-        if (nombresProductos.length > 0) {
-            nombresProductos.forEach(nombre => {
-                rut.innerHTML += `
-                    <tr>
-                        <th>${_id}</th>
-                        <th>${nombre}</th>
-                        <td>${fechaa}</td>
-                        <td>${total}</td>
-                        <td>${forma_pago}</td>
-                        <td>
-                            <button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
-                            <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button>
-                        </td>
-                    </tr>
-                `;
-            });
+        if (Array.isArray(productos) && productos.length > 0) {
+            const primerProducto = productos[0];
+            const nombresProductos = Object.keys(primerProducto);
+            if (nombresProductos.length > 0) {
+                nombresProductos.forEach(nombre => {
+                    tablaFacturas.innerHTML += `
+                        <tr>
+                            <th>${_id}</th>
+                            <th>${nombre}</th>
+                            <td>${fechaa}</td>
+                            <td>${total}</td>
+                            <td>${forma_pago}</td>
+                            <td>
+                                <button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
+                                <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else {
+                console.error(`No se encontraron nombres de productos en la factura con ID ${_id}`);
+            }
         } else {
-            console.error(`No se encontraron nombres de productos en la ruta con ID ${_id}`);
+            console.error(`El campo 'productos' no es un array o está vacío para la factura con ID ${_id}`);
         }
-    } else {
-        console.error(`El campo 'productos' no es un array o está vacío para la ruta con ID ${_id}`);
-    }
-});
-
-
+    });
 }
-
-
 
 const formulario = document.querySelector('.formu');
-formulario.addEventListener('submit', validacionRuta);
+formulario.addEventListener('submit', validarFactura);
 
-function validacionRuta(e){
+function validarFactura(e) {
     e.preventDefault();
 
-    const pais = document.querySelector('.pais').value;
-    const departamento = document.querySelector('.departamento').value;
-    const ciudad = document.querySelector('.ciudad').value;
-    const direccion = document.querySelector('.direccion').value;
-    const punto_llegada = document.querySelector('.punto_llegada').value;
-    const punto_partida = document.querySelector('.punto_partida').value;
-    const tiempo_aprox = document.querySelector('.tiempo_aprox').value;
-    const altitud_min = document.querySelector('.altitud_min').value;
-    const altitud_max = document.querySelector('.altitud_max').value;
-    const recomendaciones = document.querySelector('.recomendaciones').value;
-    const imagen = document.querySelector('.imagenn').value;
+    const productos = document.querySelector('.productos').value;
+    const fecha_fac = document.querySelector('.fecha_fac').value;
+    const total = document.querySelector('.total').value;
+    const forma_pago = document.querySelector('.forma_pago').value;
 
-    const rut = {
-        pais,
-        departamento,
-        ciudad,
-        direccion,
-        punto_llegada,
-        punto_partida,
-        tiempo_aprox,
-        altitud_min,
-        altitud_max,
-        recomendaciones,
-        imagen
+    const factura = {
+        productos,
+        fecha_fac,
+        total,
+        forma_pago
     }
 
-    if(validacion(rut)){
-        alert("Llene todos los campos")
-        return
+    if (!Object.values(factura).every(element => element !== '')) {
+        alert("Llene todos los campos");
+        return;
     }
 
-    newUsuario(rut);
-    window.location.href = "rutas.html"
-
+    newFactura(factura);
+    window.location.href = "facturas.html";
 }
 
-function validacion(objeto){
-    return !Object.values(objeto).every(element => element !== '');
-}
+tablaFacturas.addEventListener('click', borrarFacturaHandler);
 
-const btnOption = document.querySelector('#tabla');
-btnOption.addEventListener('click', borrar)
-console.log(btnOption);
-
-function borrar(e) {
+function borrarFacturaHandler(e) {
     if (e.target.classList.contains('delete')) {
-        const borrarr = e.target.getAttribute('id')
-        console.log(borrarr);
-        const confirmar = confirm("desea Eliminarlo?");
+        const facturaId = e.target.getAttribute('id');
+        const confirmar = confirm("¿Desea eliminar esta factura?");
         if (confirmar) {
-            borrarUsuario(borrarr);
+            borrarFactura(facturaId);
         }
     }
 }
 
+tablaFacturas.addEventListener('click', gestionarActualizarFactura);
 
-
-const upd = document.querySelector('#tabla')
-upd.addEventListener('click', oneOrAnother)
-
-function oneOrAnother(e) {
+function gestionarActualizarFactura(e) {
     if (e.target.classList.contains("update")) {
-        launchModalUpt(e);
+        mostrarModalActualizar(e);
     }
 }
 
-const updateModal = document.querySelector('#update');
-async function launchModalUpt(e) {
-    const idUpdate = e.target.getAttribute("idUpd");
+async function mostrarModalActualizar(e) {
+    const idFactura = e.target.getAttribute("idUpd");
 
-    const { _id, pais, departamento, ciudad, direccion, fecha_env, nomb_persona_entre, cedula, telefono, fk_factura } = await getOne(idUpdate)
-
+    const { _id, productos, fecha_fac, total, forma_pago } = await getFacturaById(idFactura);
 
     document.querySelector('#updId').value = _id;
-    document.querySelector('#pais').value = pais;
-    document.querySelector('#departamento').value = departamento;
-    document.querySelector('#ciudad').value = ciudad;
-    document.querySelector('#direccion').value = direccion;
-    document.querySelector('#fecha_env').value = fecha_env;
-    document.querySelector('#nomb_persona_entre').value = nomb_persona_entre;
-    document.querySelector('#cedula').value = cedula;
-    document.querySelector('#telefono').value = telefono;
-    document.querySelector('#fk_factura').value = fk_factura;
+    document.querySelector('#productos').value = productos;
+    document.querySelector('#fecha_fac').value = fecha_fac;
+    document.querySelector('#total').value = total;
+    document.querySelector('#forma_pago').value = forma_pago;
 }
-
