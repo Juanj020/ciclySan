@@ -237,10 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const envioData = {
+            correo: document.querySelector('#correo').value,
+            nombre: document.querySelector('#nombre').value,
+            cedula: document.querySelector('#cedula').value,
             direccion: document.querySelector('#direccion').value,
+            departamento: document.querySelector('#departamento').value,
             ciudad: document.querySelector('#ciudad').value,
-            pais: document.querySelector('#pais').value,
-            codigo_postal: document.querySelector('#codigoPostal').value,
+            telefono: document.querySelector('#telefono').value,
             fk_factura: document.querySelector('#facturaId').value
         };
 

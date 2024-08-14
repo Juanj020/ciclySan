@@ -32,7 +32,7 @@ const envioSchema = mongoose.Schema({
         required: [true, 'El teléfono es requerido'],
     },
     fk_factura: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         ref: 'facturas',
         required: true
     },

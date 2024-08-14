@@ -60,7 +60,6 @@
                 <h1>Store</h1>
             </div>
             <div class="tipo">
-                <input type="text" name="" id="" placeholder="Buscar                        🔍">
             </div>
         </div>
         <div class="tit-montanera">
@@ -164,6 +163,10 @@
                 <div class="modal-body">
                 <form id="envioForm">
                     <div class="mb-3">
+                    <label for="facturaId" class="form-label">Id factura</label>
+                    <input type="text" class="form-control" id="facturaId" readonly>
+                    </div>
+                    <div class="mb-3">
                     <label for="correo" class="form-label">Correo</label>
                     <input type="email" class="form-control" id="correo" required>
                     </div>
@@ -180,6 +183,10 @@
                     <input type="text" class="form-control" id="direccion" required>
                     </div>
                     <div class="mb-3">
+                    <label for="pais" class="form-label">Pais</label>
+                    <input type="text" class="form-control" id="pais" required>
+                    </div>
+                    <div class="mb-3">
                     <label for="departamento" class="form-label">Departamento</label>
                     <input type="text" class="form-control" id="departamento" required>
                     </div>
@@ -191,16 +198,15 @@
                     <label for="telefono" class="form-label">Teléfono</label>
                     <input type="number" class="form-control" id="telefono" required>
                     </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="guardarEnvio">Guardar Envío</button>
+                    </div>
                 </form>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="guardarEnvio">Guardar Envío</button>
-                </div>
             </div>
             </div>
         </div>
-        <button data-bs-toggle="modal" data-bs-target="#modalEnvio">Comprar<img width="20px" class="cart" src="../img/carrito.png" alt=""></button>
     </main>
     <script type="module" src="../js/productos/producto.js"></script>
     <script>

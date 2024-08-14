@@ -183,6 +183,7 @@ const newEnvio = async (envio) => {
                 'Content-Type': 'application/json'
             }
         });
+        window.location.reload();
     } catch (error) {
         console.log(error);
     }
