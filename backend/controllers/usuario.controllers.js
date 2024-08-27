@@ -40,25 +40,34 @@ const postUsuarios = async (req, res) => {
     }
 }
 
-const putUsuarios = async (req, res)=>{
+const putUsuarios = async (req, res) => {
     try {
-        const {nombre, correo, password, telefono, rol} = req.body;
-        const nombreUsuario = await Usuarios.findOne({nombre});
-        const correoUsuario = await Usuarios.findOne({correo});
-        if(nombreUsuario)
-        if((nombreUsuario._id).toString() != req.params.id)
-        return res.status(400).json({msg: "El nombre del usuario ya esta registrado"});
-        
-        if(correoUsuario)
-        if((correoUsuario._id).toString() != req.params.id)
-        return res.status(400).json({msg: "Este correo ya esta registrado"})
+        const { nombre, correo, password, telefono, rol } = req.body;
 
-        const usuario = await Usuarios.findOneAndUpdate({_id: req.params.id}, req.body,{new:true});
+        const usuarioExistente = await Usuarios.findById(req.params.id);
+        if (!usuarioExistente) {
+            return res.status(404).json({ msg: "Usuario no encontrado" });
+        }
+
+        const nombreUsuario = await Usuarios.findOne({ nombre });
+        if (nombreUsuario && nombreUsuario._id.toString() !== req.params.id) {
+            return res.status(400).json({ msg: "El nombre del usuario ya está registrado" });
+        }
+
+        const correoUsuario = await Usuarios.findOne({ correo });
+        if (correoUsuario && correoUsuario._id.toString() !== req.params.id) {
+            return res.status(400).json({ msg: "Este correo ya está registrado" });
+        }
+
+        const usuario = await Usuarios.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(usuario);
+        
     } catch (error) {
         console.log(error);
+        res.status(500).json({ msg: "Error al actualizar el usuario" });
     }
-}
+};
+
 
 const deleteUsuarios = async (req,res)=>{
     try {

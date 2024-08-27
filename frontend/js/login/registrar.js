@@ -29,7 +29,7 @@ function validacionUsuario(e){
     const correo = document.querySelector('.correo').value;
     const password = document.querySelector('.password').value;
     const telefono = document.querySelector('.telefono').value;
-    const rol = document.querySelector('.rol').value;
+    const rol = document.querySelector('#rolRegistro').value;
 
     const usu = {
         nombre,
@@ -88,21 +88,25 @@ async function launchModalUpt(e) {
     document.querySelector('#correo').value = correo;
     document.querySelector('#password').value = password;
     document.querySelector('#telefono').value = telefono;
-    document.querySelector('#rol').value = rol;
+    document.querySelector('#rolActualizacion').value = rol;
 }
 
 updateModal.addEventListener("submit", actualizarDatos)
-updateModal.addEventListener("submit", actualizarDatos)
 
-async function actualizarDatos() {
+async function actualizarDatos(e) {
+
+    e.preventDefault();
+
     const id = document.querySelector('#updId').value;
     const nombre = document.querySelector('#nombre').value;
     const correo = document.querySelector('#correo').value;
     const password = document.querySelector('#password').value;
     const telefono = document.querySelector('#telefono').value;
-    const rol = document.querySelector('#rol').value;
+    const rol = document.querySelector('#rolActualizacion').value;
 
     const datos = {nombre,correo, password, telefono, rol}
 
     await updateUSuar(id, datos);
+
+    window.location.reload();
 }
