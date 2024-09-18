@@ -2,6 +2,9 @@ import { getRuta, newRuta, borrarRuta, getOne, updateRuta} from "./Api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '../login/login.html';
+    }
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
@@ -57,9 +60,9 @@ function validacionRuta(e){
         imagen
     }
 
-    if(validacion(rut)){
-        alert("Llene todos los campos")
-        return
+    if (validacion(rut)) {
+        alert("Por favor, complete todos los campos requeridos.");
+        return;
     }
 
     newRuta(rut);
@@ -97,7 +100,7 @@ function oneOrAnother(e) {
     }
 }
 
-const updateModal = document.querySelector('#update');
+const updateModal = document.querySelector('#btnUpdate');
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
@@ -116,7 +119,7 @@ async function launchModalUpt(e) {
     document.querySelector('#link').value = link;
 }
 
-updateModal.addEventListener("submit", actualizarDatos)
+updateModal.addEventListener("click", actualizarDatos);
 
 async function actualizarDatos() {
     const id = document.querySelector('#updId').value;
@@ -127,8 +130,9 @@ async function actualizarDatos() {
     const tiempo_aprox = document.querySelector('#tiempo_aprox').value;
     const altitud_min = document.querySelector('#altitud_min').value;
     const altitud_max = document.querySelector('#altitud_max').value;
-    const imagen = document.querySelector('#imagennn').value;
-    const link = document.querySelector('#link').link;
+    const recomendaciones = document.querySelector('.recomendaciones').value;
+    const imagen = document.querySelector('#imagennn').files[0];
+    const link = document.querySelector('#link').value;
 
     const datos = {
         nombreRut,
@@ -138,6 +142,7 @@ async function actualizarDatos() {
         tiempo_aprox,
         altitud_min,
         altitud_max,
+        recomendaciones,
         imagen,
         link
     }
