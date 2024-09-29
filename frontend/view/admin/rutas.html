@@ -78,6 +78,7 @@
             </div>
         </div>
     </main>
+    <!-- Modal de Registro -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -88,13 +89,12 @@
                 <div class="modal-body">
                     <form action="" class="formulario formu row">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Nombre de la ruta</label>
-                            <input type="text" class="form-control nombreRut" id="exampleInputEmail1">
+                            <label for="nombreRut" class="form-label">Nombre de la ruta</label>
+                            <input type="text" class="form-control nombreRut" id="" placeholder="Ej: Bucaramanga - Girón">
                         </div>
                         <div class="">
                             <label class="form-label">Descripcion</label>
-                            <textarea class="descripcion form-control" id="exampleFormControlTextarea1"
-                                rows="3"></textarea>
+                            <textarea class="descripcion form-control" id="" rows="3"></textarea>
                         </div>
                         <div class="col-6">
                             <label class="form-label md-6">Dificultad</label>
@@ -103,14 +103,6 @@
                                 <option value="Dificil">Dificil</option>
                                 <option value="Mediana">Mediana</option>
                                 <option value="Baja">Baja</option>
-                            </select>
-                        </div>
-                        <div class="">
-                            <label class="form-label">Estado</label>
-                            <select name="" id="" class="form-select estado">
-                                <option selected>Visible</option>
-                                <option value="Visible">Visible</option>
-                                <option value="Invisible">Invisible</option>
                             </select>
                         </div>
                         <div class="col-6">
@@ -129,23 +121,17 @@
                             <label class="form-label">Altitud max</label>
                             <input type="text" class="form-control altitud_max">
                         </div>
-
                         <div class="">
-                            <label class="form-label">Estado</label>
-                            <select name="" id="" class="form-select dificultad">
-                                <option selected>Visible</option>
-                                <option value="Dificil">Visible</option>
-                                <option value="Mediana">Invisible</option>
-                            </select>
+                            <label class="form-label">Recomendaciones</label>
+                            <textarea class="recomendaciones form-control" id="recomendaciones" rows="2"></textarea>
                         </div>
-
                         <div class="">
                             <label class="form-label">Imagen</label>
-                            <input type="file" class="form-control imagenn">
+                            <input type="text" class="form-control imagenn">
                         </div>
                         <div class="">
                             <label class="form-label">Link</label>
-                            <input type="text" class="form-control link" >
+                            <input type="text" class="form-control link" id="link">
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -156,24 +142,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal de Actualización -->
     <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateee" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateee">Update Datos</h5>
+                    <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Nombre de la ruta</label>
+                            <label for="nombreRut" class="form-label">Nombre de la ruta</label>
                             <input type="text" class="form-control" id="nombreRut">
                         </div>
                         <div class="">
                             <label class="form-label">Descripcion</label>
-                            <textarea class="form-control" id="descripcion"
-                                rows="3"></textarea>
+                            <textarea class="form-control" id="descripcion" rows="3"></textarea>
                         </div>
                         <div class="col-6">
                             <label class="form-label md-6">Dificultad</label>
@@ -202,10 +189,10 @@
                         </div>
                         <div class="">
                             <label class="form-label">Estado</label>
-                            <select name="" id="" class="form-select dificultad">
+                            <select name="" id="estado" class="form-select">
                                 <option selected>Visible</option>
-                                <option value="Dificil">Visible</option>
-                                <option value="Mediana">Invisible</option>
+                                <option value="Visible">Visible</option>
+                                <option value="Invisible">Invisible</option>
                             </select>
                         </div>
                         <div class="">

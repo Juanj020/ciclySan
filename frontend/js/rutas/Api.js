@@ -10,11 +10,11 @@ const getRuta = async () => {
     }
 }
 
-const newRuta = async (noticias) => {
+const newRuta = async (rutas) => {
     try {
         await fetch(url, {
             method: 'POST',
-            body: JSON.stringify(noticias),
+            body: JSON.stringify(rutas),
             headers: {
                 'Content-Type': 'application/json'
             }

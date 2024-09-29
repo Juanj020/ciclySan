@@ -25,17 +25,27 @@ const getRutasId = async (req, res) => {
 
 const postRutas = async (req, res) => {
     try {
-        const { nombreRut } = req.body;
+        const { nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max,
+            recomendaciones,
+            imagen,
+            link,
+            estado,
+            creado_por } = req.body;
+
+        const ruta = new Rutas({ nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max,
+            recomendaciones,
+            imagen,
+            link,
+            estado,
+            creado_por })
 
         const existeRuta = await Rutas.findOne({ nombreRut });
         if (existeRuta) {
             return res.status(400).json({ msg: 'La ruta ya está registrada' });
         }
 
-        const ruta = new Rutas(req.body);
         await ruta.save();
         res.json(ruta);
-
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'Error al crear la ruta' });
@@ -65,16 +75,16 @@ const putRutas = async (req, res) => {
     }
 };
 
+
 const deleteRutas = async (req, res) => {
     try {
-        const ruta = await Rutas.findById(req.params.id);
+        const ruta = await Rutas.deleteOne({_id:req.params.id});
 
-        if (!ruta) {
-            return res.status(404).json({ msg: 'Ruta no encontrada' });
+        if (ruta  && ruta.deletedCount === 1) {
+            res.status(200).json({ message: 'Usuario eliminado correctamente' });
+        } else {
+            res.status(404).json({ message: 'Usuario no encontrado' });
         }
-
-        await ruta.remove();
-        res.json({ msg: 'Ruta eliminada correctamente' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'Error al eliminar la ruta' });
