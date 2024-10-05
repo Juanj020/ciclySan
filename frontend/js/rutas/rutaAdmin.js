@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Función para convertir la imagen a Base64
 function getBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -23,12 +24,12 @@ function getBase64(file) {
     });
 }
 
-
 const rut = document.querySelector('#tabla')
 document.addEventListener('DOMContentLoaded', mostrarRutaAdmin);
+
 async function mostrarRutaAdmin() {
-    const noticias = await getRuta();
-    noticias.forEach(ruta => {
+    const rutas = await getRuta();
+    rutas.forEach(ruta => {
         const {_id, nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen} = ruta;
         rut.innerHTML += `
         <tr>
@@ -37,7 +38,7 @@ async function mostrarRutaAdmin() {
             <td>${dificultad}</td>
             <td>${kilometros} Km</td>
             <td>
-                <button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#updateForm" idUpd="${_id}">Actualizar</button>
+                <button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
                 <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button>
             </td>
         </tr>
@@ -46,50 +47,52 @@ async function mostrarRutaAdmin() {
 }
 
 const formulario = document.querySelector('.formu');
-formulario.addEventListener('submit', validacionRuta);
+formulario.addEventListener('submit', manejoEnvioRuta);
 
-async function validacionRuta(e) {
+async function manejoEnvioRuta(e) {
     e.preventDefault();
+    console.log('Formulario enviado');
 
     const nombreRut = document.querySelector('.nombreRut').value;
     const descripcion = document.querySelector('.descripcion').value;
     const dificultad = document.querySelector('.dificultad').value;
     const kilometros = document.querySelector('.kilometros').value;
+    const punto_partida = document.querySelector('.punto_partida').value;
+    const punto_llegada = document.querySelector('.punto_llegada').value;
     const tiempo_aprox = document.querySelector('.tiempo_aprox').value;
     const altitud_min = document.querySelector('.altitud_min').value;
     const altitud_max = document.querySelector('.altitud_max').value;
     const recomendaciones = document.querySelector('.recomendaciones').value;
-    const imagen = document.querySelector('.imagenn').value; // Cambia a .files para obtener el archivo
+    const imagenInput = document.querySelector('.imagenn').files[0];
     const link = document.querySelector('.link').value;
 
-    // Validar que todos los campos estén completos
-    if (validacion({
+    /* console.log('Datos obtenidos del formulario:', {
         nombreRut,
         descripcion,
         dificultad,
         kilometros,
         tiempo_aprox,
+        punto_partida,
+        punto_llegada,
         altitud_min,
         altitud_max,
         recomendaciones,
+        imagen,
         link
-    })) {
-        alert("Por favor, complete todos los campos requeridos.");
-        return;
-    }
+    }); */
 
-    /* let imagen = ''; // Inicializa la variable imagen
+    let imagenBase64 = ''; // Inicializa la variable imagen
 
     // Si hay un archivo de imagen, convertirlo a Base64
     if (imagenInput) {
         try {
-            imagen = await getBase64(imagenInput); // Convierte la imagen a Base64
+            imagenBase64 = await getBase64(imagenInput); // Convierte la imagen a Base64
         } catch (error) {
             console.log('Error al convertir la imagen a base64:', error);
             alert('Error al procesar la imagen');
             return;
         }
-    } */
+    }
 
     const rut = {
         nombreRut,
@@ -97,15 +100,29 @@ async function validacionRuta(e) {
         dificultad,
         kilometros,
         tiempo_aprox,
+        punto_partida,
+        punto_llegada,
         altitud_min,
         altitud_max,
         recomendaciones,
-        imagen, // Imagen en Base64
+        imagen : imagenBase64,
         link
     };
 
-    await newRuta(rut); // Llama a newRuta para enviar la información
-    window.location.href = "rutas.html"; // Redirige después de enviar
+    // Validar que todos los campos estén completos
+    if (validacion(rut)) {
+        alert("Por favor, complete todos los campos requeridos.");
+        return;
+    }
+
+    try {
+        const respuesta = await newRuta(rut); // Llama a newRuta para enviar la información
+        console.log('Respuesta del servidor:', respuesta);
+        window.location.href = "rutas.html"; // Redirige después de enviar
+    } catch (error) {
+        console.error('Error al enviar la ruta:', error);
+        alert('Hubo un problema al enviar la ruta. Por favor, intenta nuevamente.');
+    }
 }
 
 function validacion(objeto){
@@ -127,8 +144,6 @@ function borrar(e) {
         }
     }
 }
-
-
 
 const upd = document.querySelector('#tabla')
 upd.addEventListener('click', oneOrAnother)
@@ -160,7 +175,7 @@ async function launchModalUpt(e) {
 
 updateModal.addEventListener("click", actualizarDatos);
 
-const updateForm = document.querySelector('#updateForm'); // Asegúrate de que el formulario tenga este ID
+const updateForm = document.querySelector('#updateFormu'); // Asegúrate de que el formulario tenga este ID
 updateForm.addEventListener("submit", actualizarDatos);
 
 async function actualizarDatos(e) {

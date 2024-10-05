@@ -58,7 +58,7 @@ const rutaSchema = mongoose.Schema({
     creado_por: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
-        required: true
+        /* required: true */
     }
 }, { timestamps: true });
 

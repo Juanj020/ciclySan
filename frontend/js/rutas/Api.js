@@ -10,17 +10,25 @@ const getRuta = async () => {
     }
 }
 
-const newRuta = async (rutas) => {
+async function newRuta(rut) {
     try {
-        await fetch(url, {
+        const response = await fetch('http://localhost:4005/api/rutas', { // Asegúrate de usar la URL correcta
             method: 'POST',
-            body: JSON.stringify(rutas),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(rut)
         });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al crear la ruta');
+        }
+
+        return await response.json();
     } catch (error) {
-        console.log('Error en newRuta:', error);
+        console.error('Error en newRuta:', error);
+        throw error; // Propagar el error para manejarlo en el llamador
     }
 }
 
