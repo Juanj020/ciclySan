@@ -66,21 +66,6 @@ async function manejoEnvioRuta(e) {
     const imagenInput = document.querySelector('.imagenn').files[0];
     const link = document.querySelector('.link').value;
 
-    /* console.log('Datos obtenidos del formulario:', {
-        nombreRut,
-        descripcion,
-        dificultad,
-        kilometros,
-        tiempo_aprox,
-        punto_partida,
-        punto_llegada,
-        altitud_min,
-        altitud_max,
-        recomendaciones,
-        imagen,
-        link
-    }); */
-
     let imagenBase64 = ''; // Inicializa la variable imagen
 
     // Si hay un archivo de imagen, convertirlo a Base64
@@ -154,32 +139,32 @@ function oneOrAnother(e) {
     }
 }
 
-const updateModal = document.querySelector('#btnUpdate');
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
-    const { _id,  nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen, link } = await getOne(idUpdate)
-
+    const { _id,  nombreRut, descripcion, dificultad, kilometros, punto_partida, punto_llegada, tiempo_aprox, altitud_min, altitud_max, recomendaciones, estado, imagen, link } = await getOne(idUpdate)
 
     document.querySelector('#updId').value = _id;
     document.querySelector('#nombreRut').value = nombreRut;
     document.querySelector('#descripcion').value = descripcion;
     document.querySelector('#dificultad').value = dificultad;
     document.querySelector('#kilometros').value = kilometros;
+    document.querySelector('#punto_partida').value = punto_partida;
+    document.querySelector('#punto_llegada').value = punto_llegada;
     document.querySelector('#tiempo_aprox').value = tiempo_aprox;
     document.querySelector('#altitud_min').value = altitud_min;
     document.querySelector('#altitud_max').value = altitud_max;
+    document.querySelector('#recomendaciones').value = recomendaciones;
     document.querySelector('#imagennn').value = imagen;
+    document.querySelector('#estado').value = estado;
     document.querySelector('#link').value = link;
 }
 
-updateModal.addEventListener("click", actualizarDatos);
-
-const updateForm = document.querySelector('#updateFormu'); // Asegúrate de que el formulario tenga este ID
+const updateForm = document.querySelector('.updateFormu'); // Asegúrate de que el formulario tenga este ID
 updateForm.addEventListener("submit", actualizarDatos);
 
 async function actualizarDatos(e) {
-    e.preventDefault(); // Previene el comportamiento por defecto del formulario
+    e.preventDefault();
 
     const id = document.querySelector('#updId').value;
     const nombreRut = document.querySelector('#nombreRut').value;
@@ -189,24 +174,12 @@ async function actualizarDatos(e) {
     const tiempo_aprox = document.querySelector('#tiempo_aprox').value;
     const altitud_min = document.querySelector('#altitud_min').value;
     const altitud_max = document.querySelector('#altitud_max').value;
-    const recomendaciones = document.querySelector('.recomendaciones').value;
-    const imagenFile = document.querySelector('#imagennn');
+    const recomendaciones = document.querySelector('#recomendaciones').value;
+    const imagenBase64 = document.querySelector('#imagennn').value;
     const link = document.querySelector('#link').value;
     const estado = document.querySelector('#estado').value;
     const punto_partida = document.querySelector('#punto_partida').value;
     const punto_llegada = document.querySelector('#punto_llegada').value;
-
-    let imagen = '';
-
-    /* if (imagenFile) {
-        try {
-            imagen = await getBase64(imagenFile);
-        } catch (error) {
-            console.log('Error al convertir la imagen a base64:', error);
-            alert('Error al procesar la imagen');
-            return;
-        }
-    } */
 
     const datos = {
         nombreRut,
@@ -214,14 +187,14 @@ async function actualizarDatos(e) {
         dificultad,
         kilometros,
         tiempo_aprox,
+        punto_partida,
+        punto_llegada,
         altitud_min,
         altitud_max,
         recomendaciones,
-        imagen,
-        link,
+        imagen : imagenBase64,
         estado,
-        punto_partida,
-        punto_llegada
+        link
     }
 
     await updateRuta(id, datos);
