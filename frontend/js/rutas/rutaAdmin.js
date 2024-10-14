@@ -13,6 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+document.getElementById('logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
+    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+});
+
 // Función para convertir la imagen a Base64
 function getBase64(file) {
     return new Promise((resolve, reject) => {

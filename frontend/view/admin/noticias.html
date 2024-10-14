@@ -78,6 +78,8 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal registro -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -97,6 +99,11 @@
                                 rows="3"></textarea>
                         </div>
                         <div class="">
+                            <label class="form-label">Resumen</label>
+                            <textarea class="resumen form-control" id="exampleFormControlTextarea1"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="">
                             <label class="form-label">Fecha</label>
                             <input type="date" class="form-control fecha">
                         </div>
@@ -108,14 +115,14 @@
                             <label class="form-label">Imagen</label>
                             <input type="file" class="form-control imagen">
                         </div>
-                        <div class="">
+                        <!-- <div class="">
                             <label class="form-label">Estado</label>
                             <select name="" id="" class="form-select dificultad">
                                 <option selected>Visible</option>
                                 <option value="Dificil">Visible</option>
                                 <option value="Mediana">Invisible</option>
                             </select>
-                        </div>
+                        </div> -->
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
                 </div>
@@ -125,6 +132,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal update -->
     <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateee" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -154,7 +163,7 @@
                         </div>
                         <div class="">
                             <label class="form-label">Imagen</label>
-                            <input type="file" class="form-control " id="imagen">
+                            <input type="text" class="form-control " id="imagen">
                         </div>
                         <div class="">
                             <label class="form-label">Estado</label>

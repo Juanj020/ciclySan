@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
     window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
 });
 
@@ -35,23 +36,48 @@ async function mostrarNoticiasAdmin() {
     })
 }
 
+// Función para convertir la imagen a Base64
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        if (!file) resolve(null); // Si no hay archivo, resolver con null
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionNoticia);
 
-function validacionNoticia(e) {
+async function validacionNoticia(e) {
     e.preventDefault();
 
     const titulo = document.querySelector('.tituloo').value;
     const descripcion = document.querySelector('.descripcion').value;
-    const imagen = document.querySelector('.imagen').value;
+    const imagenn = document.querySelector('.imagen').files[0];
     const resumen = document.querySelector('.resumen').value;
     const fecha = document.querySelector('.fecha').value;
     const autor = document.querySelector('.autor').value;
 
+    let imagenBase64 = ''; // Inicializa la variable imagen
+
+    // Si hay un archivo de imagen, convertirlo a Base64
+    if (imagenn) {
+        try {
+            imagenBase64 = await getBase64(imagenn); // Convierte la imagen a Base64
+        } catch (error) {
+            console.log('Error al convertir la imagen a base64:', error);
+            alert('Error al procesar la imagen');
+            return;
+        }
+    }
+
+
     const usu = {
         titulo,
         descripcion,
-        imagen,
+        imagen : imagenn,
         resumen,
         fecha,
         autor
