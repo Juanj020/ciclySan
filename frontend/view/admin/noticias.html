@@ -107,22 +107,22 @@
                             <label class="form-label">Fecha</label>
                             <input type="date" class="form-control fecha">
                         </div>
-                        <div class="">
+                        <!-- <div class="" >
                             <label class="form-label">Autor</label>
                             <input type="text" class="form-control autor">
-                        </div>
+                        </div> -->
                         <div class="">
                             <label class="form-label">Imagen</label>
                             <input type="file" class="form-control imagen">
                         </div>
-                        <!-- <div class="">
+                        <div class="">
                             <label class="form-label">Estado</label>
-                            <select name="" id="" class="form-select dificultad">
-                                <option selected>Visible</option>
-                                <option value="Dificil">Visible</option>
-                                <option value="Mediana">Invisible</option>
+                            <select name="" id="estado" class="form-select">
+                                <option selected>Estado de visible</option>
+                                <option value="Visible">Visible</option>
+                                <option value="Invisible">Invisible</option>
                             </select>
-                        </div> -->
+                        </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
                 </div>
@@ -146,7 +146,7 @@
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
                             <label class="form-label">Titulo del articulo</label>
-                            <input type="text" class="form-control tituloo">
+                            <input type="text" class="form-control" id="tituloo">
                         </div>
                         <div class="">
                             <label class="form-label">Descripcion</label>
@@ -162,16 +162,22 @@
                             <input type="text" class="form-control " id="autor">
                         </div>
                         <div class="">
-                            <label class="form-label">Imagen</label>
-                            <input type="text" class="form-control " id="imagen">
-                        </div>
-                        <div class="">
                             <label class="form-label">Estado</label>
-                            <select name="" id="" class="form-select dificultad">
+                            <select name="" id="estado" class="form-select estado">
                                 <option selected>Visible</option>
                                 <option value="Dificil">Visible</option>
                                 <option value="Mediana">Invisible</option>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen Actual</label>
+                            <div>
+                                <img id="imagenPreview" src="" alt="Imagen Actual" style="max-width: 100%; height: auto;">
+                            </div>
+                        </div>
+                        <div class="">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="imagen" accept="image/*">
                         </div>
                         <div class="modal-ton">
                             <button type="submit" id="update" class="btn btn-primary">Actualizar</button>

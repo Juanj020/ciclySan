@@ -20,8 +20,8 @@ const getNoticiasId = async (req, res)=>{
 
 const postNoticias = async (req, res) => {
     try {
-        const { titulo, descripcion, imagen, resumen, fecha, autor } = req.body;
-        const noticia = new Noticias({titulo, descripcion, imagen, resumen, fecha, autor});
+        const { titulo, descripcion, imagen, resumen, fecha, estado, autor } = req.body;
+        const noticia = new Noticias({titulo, descripcion, imagen, resumen, fecha, estado, autor});
 
         const existeTitulo = await Noticias.findOne({titulo});
         if(existeTitulo){

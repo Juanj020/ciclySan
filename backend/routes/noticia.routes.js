@@ -11,7 +11,6 @@ router.post('/', [
     check('descripcion', "Es obligaria la descripción").not().isEmpty(),
     check('resumen', 'Es obligatorio el resumen').not().isEmpty(),
     check('fecha', 'Es obligatoria la fecha').not().isEmpty(),
-    check('autor', 'Es obligatorio el autor').not().isEmpty(),
     validateDocuments
 ], postNoticias);
 

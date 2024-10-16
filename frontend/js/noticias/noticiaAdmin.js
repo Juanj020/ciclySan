@@ -30,7 +30,8 @@ async function mostrarNoticiasAdmin() {
             <td>${descripcion}</td>
             <td>${fechaa}</td>
             <td>${autor}</td>
-            <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" updId="${_id}">Actualizar</button><button type="button" value="${_id}"  class="btn btn-danger delete">Eliminar</button> </td>
+            <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
+            <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
         `
     })
@@ -58,7 +59,8 @@ async function validacionNoticia(e) {
     const imagenn = document.querySelector('.imagen').files[0];
     const resumen = document.querySelector('.resumen').value;
     const fecha = document.querySelector('.fecha').value;
-    const autor = document.querySelector('.autor').value;
+    const estado = document.querySelector('.estado').value;
+    /* const autor = document.querySelector('.autor').value; */
 
     let imagenBase64 = ''; // Inicializa la variable imagen
 
@@ -77,10 +79,11 @@ async function validacionNoticia(e) {
     const usu = {
         titulo,
         descripcion,
-        imagen : imagenn,
+        imagen : imagenBase64,
         resumen,
         fecha,
-        autor
+        estado,
+        /* autor */
     }
 
     if (validacion(usu)) {
@@ -89,7 +92,7 @@ async function validacionNoticia(e) {
     }
 
     newNoticia(usu);
-    window.location.href = "noticia.html"
+    window.location.href = "noticias.html"
 
 }
 
@@ -111,12 +114,6 @@ function borrar(e) {
         }
     }
 }
-/* 
-let params = new URLSearchParams(window.location.search);
-let valor = params.get('idd');
-console.log(valor);
-
-console.log(getOneID); */
 
 const upd = document.querySelector('#tabla')
 upd.addEventListener('click', oneOrAnother)
@@ -135,7 +132,7 @@ async function launchModalUpt(e) {
 
 
     document.querySelector('#updId').value = _id;
-    document.querySelector('#titulo').value = titulo;
+    document.querySelector('#tituloo').value = titulo;
     document.querySelector('#descripcion').value = descripcion;
     document.querySelector('#imagen').value = imagen;
     document.querySelector('#fecha').value = fecha;

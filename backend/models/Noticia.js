@@ -25,12 +25,17 @@ const noticiaShema = mongoose.Schema({
         required:[true, 'La fecha es obligatoria'],
         trim: true
     },
-    autor:{
+    estado: {
         type: String,
-        required:[true, 'El autor el obligatorio'],
-        trim: true
+        enum: ['Visible', 'Invisible'],
+        default: 'Invisible'
+    },
+    autor:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario',
+        /* required: true */
     }
-});
+}, { timestamps: true });
 
 const Noticias = mongoose.model('noticia', noticiaShema);
 
