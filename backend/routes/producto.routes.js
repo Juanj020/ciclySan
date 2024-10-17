@@ -2,10 +2,11 @@ import express from 'express';
 const router = express.Router();
 import validateDocuments from "../middlewares/validate.documents.js";
 
-import { getProductos, postProductos, deleteProductos, getProductosId, putProductos, getProductosRuta, getProductosAccesorio } from "../controllers/producto.controllers.js";
+import { getProductos, postProductos, deleteProductos, getProductosId, putProductos, getProductosRuta, getProductosAccesorio, getProductosTotal } from "../controllers/producto.controllers.js";
 import { check } from 'express-validator';
 
 router.get('/', getProductos);
+router.get('/total', getProductosTotal);
 router.get('/ruta', getProductosRuta);
 router.get('/accesorio', getProductosAccesorio);
 router.post('/', [

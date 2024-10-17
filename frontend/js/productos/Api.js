@@ -1,5 +1,15 @@
 const url = "http://localhost:4005/api/productos";
 
+const getProductoTotal = async () => {
+    try {
+        const productos = await fetch(`${url}/total`);
+        const datosPrductos = await productos.json();
+        return datosPrductos;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getPrducto = async () => {
     try {
         const productos = await fetch(url);
@@ -9,6 +19,7 @@ const getPrducto = async () => {
         console.log(error);
     }
 }
+
 const getPrductoRuta = async () => {
     try {
         const productos = await fetch(`${url}/ruta`);
@@ -189,4 +200,4 @@ const newEnvio = async (envio) => {
     }
 }
 
-export { getPrducto, newProducto, borrarProducto, getOne, updateProducto, getPrductoRuta, getPrductoAcces, newFactura, getFacturas, borrarFactura, updateFactura, getFacturaById, newEnvio, enviarFactura}
+export { getProductoTotal, getPrducto, newProducto, borrarProducto, getOne, updateProducto, getPrductoRuta, getPrductoAcces, newFactura, getFacturas, borrarFactura, updateFactura, getFacturaById, newEnvio, enviarFactura}

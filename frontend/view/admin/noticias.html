@@ -44,7 +44,7 @@
             <div class="cont-izq">
                 <a href="rutas.html">Rutas</a>
                 <a class="seleccionado" href="noticias.html">Noticias</a>
-                <a href="stores.html">Productos</a>
+                <a href="productos.html">Productos</a>
                 <a href="usuarios.html">Usuarios</a>
                 <a href="facturas.html">Facturas</a>
                 <a href="envios.html">Envios</a>
@@ -105,15 +105,15 @@
                         </div>
                         <div class="">
                             <label class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="fecha">
+                            <input type="date" class="form-control fecha" id="">
                         </div>
                         <div class="">
                             <label class="form-label">Imagen</label>
-                            <input type="file" class="form-control" id="imagenPreview" accept="image/*">
+                            <input type="file" class="form-control imagen" accept="image/*">
                         </div>
                         <div class="">
                             <label class="form-label">Estado</label>
-                            <select name="" id="estado" class="form-select">
+                            <select name="" id="" class="form-select estado">
                                 <option selected>Estado de visible</option>
                                 <option value="Visible">Visible</option>
                                 <option value="Invisible">Invisible</option>
@@ -138,7 +138,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="" class="updateFormu">
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
                             <label class="form-label">Titulo del articulo</label>
@@ -147,6 +147,11 @@
                         <div class="">
                             <label class="form-label">Descripcion</label>
                             <textarea class=" form-control" id="descripcion"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="">
+                            <label class="form-label">Resumen</label>
+                            <textarea class="form-control" id="resumen"
                                 rows="3"></textarea>
                         </div>
                         <div class="">
@@ -159,10 +164,10 @@
                         </div>
                         <div class="">
                             <label class="form-label">Estado</label>
-                            <select name="" id="estado" class="form-select estado">
+                            <select name="" id="estado" class="form-select">
                                 <option selected>Visible</option>
-                                <option value="Dificil">Visible</option>
-                                <option value="Mediana">Invisible</option>
+                                <option value="Visible">Visible</option>
+                                <option value="Invisible">Invisible</option>
                             </select>
                         </div>
                         <div class="mb-3">

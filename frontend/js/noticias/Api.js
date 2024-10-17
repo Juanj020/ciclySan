@@ -44,58 +44,21 @@ const getOne = async (id) => {
     }
 }
 
-/* const updateNoticia = async (datosA) => {
+const updateNoticia = async (id, datosA) => {
     try {
-        await fetch(`${url}/${datosA._id}`, {
+        await fetch(`${url}/${id}`, {
             method: "PUT",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(datosA)
-        }).then(response => response.json()).then(updatedDatos => {
+        })
+        /* .then(response => response.json()).then(updatedDatos => {
             console.log('Datos actualizados:', updatedDatos);
-        }); window.location.reload()
+        }); */
     } catch (error) {
         console.error(error);
     }
-} */
+} 
 
-/* const notic = document.querySelector('.formaa')
-document.addEventListener('DOMContentLoaded', mostrarNoticiasAdminId);
-async function mostrarNoticiasAdminId() {
-    const noticiasId = await getOneID();
-    noticiasId.forEach(ruta => {
-        const { _id, titulo, descripcion, imagen, resumen, fecha, autor } = ruta;
-        let fechaa = fecha.substring(0, 10)
-        notic.innerHTML += `
-        <form action="" class="formulario row formaa">
-            <div class="">
-            <label class="form-label">Titulo del articulo</label>
-            <input type="text" class="form-control tituloo" value="">${titulo}
-            </div>
-            <div class="">
-            <label class="form-label">Descripcion</label>
-            <textarea class="descripcion form-control" id="exampleFormControlTextarea1"
-            rows="3"></textarea>
-            </div>
-            <div class="">
-            <label class="form-label">Imagen</label>
-            <input type="text" class="form-control imagen">
-            </div>
-            <div class="">
-            <label class="form-label">Resumen</label>
-            <input type="text" class="form-control resumen">
-            </div>
-            <div class="">
-            <label class="form-label">Fecha</label>
-            <input type="date" class="form-control fecha">
-            </div>
-            <div class="">
-            <label class="form-label">Autor</label>
-            <input type="text" class="form-control autor">
-            </div>
-            <button type="submit" class="btn btn-primary bata">Enviar</button>
-        </form>
-        `
-    })
-} */
-
-export { getNoticia, newNoticia, borrarNoticia, getOne }
+export { getNoticia, newNoticia, borrarNoticia, updateNoticia, getOne }

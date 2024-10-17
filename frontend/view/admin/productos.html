@@ -90,35 +90,40 @@
                     <form action="" class="formulario formu row">
                         <div class="">
                             <label for="exampleInputEmail1" class="form-label">Nombre producto</label>
-                            <input type="text" class="form-control" >
+                            <input type="text" class="form-control nombrePro">
                         </div>
                         <div class="">
                             <label class="form-label">Precio</label>
-                            <input type="number" class="form-control" >
+                            <input type="number" class="form-control precio">
                         </div>
                         <div class="">
                             <label class="form-label">Marca</label>
-                            <input type="text" class="form-control" >
+                            <input type="text" class="form-control marca">
                         </div>
                         <div class="">
                             <label class="form-label">Stock</label>
-                            <input type="number" class="form-control" >
+                            <input type="number" class="form-control stock" >
                         </div>
                         <div class="">
                             <label class="form-label">Descripcion</label>
-                            <textarea class="form-control"  rows="3"></textarea>
+                            <textarea class="form-control descripcion" rows="3"></textarea>
                         </div>
                         <div class="">
                             <label class="form-label">Garantia</label>
-                            <input type="text" class="form-control" >
+                            <input type="text" class="form-control garantia">
                         </div>
                         <div class="">
                             <label class="form-label">Imagen</label>
-                            <input type="file" class="form-control" >
+                            <input type="file" class="form-control imagenn">
                         </div>
                         <div class="">
                             <label class="form-label">Tipo</label>
-                            <input type="text" class="form-control" >
+                            <select class="tipo form-select" name="" id="">
+                                <option selected>Tipo de producto</option>
+                                <option value="ruta">Ruta</option>
+                                <option value="montanera">Montanera</option>
+                                <option value="accesorio">Accesorio</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -139,7 +144,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="" class="updateFormu">
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
                             <label for="exampleInputEmail1" class="form-label">Nombre producto</label>
@@ -165,13 +170,24 @@
                             <label class="form-label">Garantia</label>
                             <input type="text" class="form-control" id="garantia">
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen Actual</label>
+                            <div>
+                                <img id="imagenPreview" src="" alt="Imagen Actual" style="max-width: 100%; height: auto;">
+                            </div>
+                        </div>
                         <div class="">
                             <label class="form-label">Imagen</label>
                             <input type="file" class="form-control" id="imagen">
                         </div>
                         <div class="">
                             <label class="form-label">Tipo</label>
-                            <input type="text" class="form-control" id="tipo">
+                            <select class="form-select" name="" id="tipo">
+                                <option selected>Tipo de producto</option>
+                                <option value="ruta">Ruta</option>
+                                <option value="montanera">Montanera</option>
+                                <option value="accesorio">Accesorio</option>
+                            </select>
                         </div>
                         <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
                     </form>

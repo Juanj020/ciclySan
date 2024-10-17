@@ -30,6 +30,10 @@ const productoShema = mongoose.Schema({
     },
     imagen:{
         type: String
+    },
+    tipo:{
+        type: String,
+        enum : ["ruta", "montanera", "accesorio"]
     }
 });
 

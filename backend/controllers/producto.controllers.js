@@ -1,5 +1,14 @@
 import Productos from '../models/Producto.js';
 
+const getProductosTotal = async (req, res) =>{
+    try {
+        const producto = await Productos.find();
+        res.json(producto); 
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getProductos = async (req, res) =>{
     try {
         const producto = await Productos.find({tipo:"montanera"});
@@ -38,8 +47,8 @@ const getProductosId = async (req, res)=>{
 
 const postProductos = async (req, res) => {
     try {
-        const { nombrePro, precio, marca, stock, descripcion, garantia, imagen } = req.body;
-        const producto = new Productos({nombrePro, precio, marca, stock, descripcion, garantia, imagen});
+        const { nombrePro, precio, marca, stock, descripcion, garantia, imagen, tipo } = req.body;
+        const producto = new Productos({nombrePro, precio, marca, stock, descripcion, garantia, imagen, tipo});
 
         const existeNombre = await Productos.findOne({nombrePro});
         if(existeNombre){
@@ -73,10 +82,9 @@ const deleteProductos = async (req,res)=>{
     try {
         const producto = await Productos.deleteOne({_id:req.params.id})
         res.status(204).send();
-        res.json(producto)
     } catch (error) {
         console.log(error);
     }
 } 
 
-export {getProductos, postProductos, deleteProductos, getProductosId, putProductos, getProductosRuta, getProductosAccesorio};
+export {getProductos, postProductos, deleteProductos, getProductosId, putProductos, getProductosRuta, getProductosAccesorio, getProductosTotal};

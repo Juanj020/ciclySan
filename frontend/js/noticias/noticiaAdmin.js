@@ -1,4 +1,4 @@
-import { getNoticia, newNoticia, borrarNoticia, getOne} from "./Api.js";
+import { getNoticia, newNoticia, updateNoticia, borrarNoticia, getOne} from "./Api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
@@ -76,7 +76,7 @@ async function validacionNoticia(e) {
         }
     }
 
-    const usu = {
+    const not = {
         titulo,
         descripcion,
         imagen : imagenBase64,
@@ -86,14 +86,13 @@ async function validacionNoticia(e) {
         autor: autorLocal
     }
 
-    if (validacion(usu)) {
+    if (validacion(not)) {
         alert("Llene todos los campos")
         return
     }
 
-    newNoticia(usu);
-    window.location.reload();
-
+    newNoticia(not);
+    window.location.reload()
 }
 
 function validacion(objeto) {
@@ -127,12 +126,15 @@ function oneOrAnother(e) {
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
-    const {_id, titulo, descripcion, imagen, fecha, estado } = await getOne(idUpdate)
+    const {_id, titulo, descripcion, autor, imagen, fecha, resumen, estado } = await getOne(idUpdate)
 
     document.querySelector('#updId').value = _id;
     document.querySelector('#tituloo').value = titulo;
     document.querySelector('#descripcion').value = descripcion;
-    document.querySelector('#fecha').value = fecha;
+    const fecha_formateada = fecha.split('T')[0];
+    document.querySelector('#fecha').value = fecha_formateada;
+    document.querySelector('#resumen').value = resumen;
+    document.querySelector('#autor').value = autor;
     document.querySelector('#estado').value = estado;
 
     const imagenPreview = document.querySelector('#imagenPreview');
@@ -150,9 +152,41 @@ async function actualizarDatos(e) {
     e.preventDefault();
 
     const id = document.querySelector('#updId').value;
-    
+    const titulo = document.querySelector('#tituloo').value;
+    const descripcion = document.querySelector('#descripcion').value;
+    const fecha = document.querySelector('#fecha').value;
+    const autor = document.querySelector('#autor').value;
+    const imagenInput = document.querySelector('#imagen').files[0];
+    const resumen = document.querySelector('#resumen').value;
+    const estado = document.querySelector('#estado').value;
 
+    let imagenBase64 = '';
 
-    await updateRuta(id, datos);
+    // Si hay un archivo de imagen, convertirlo a Base64
+    if (imagenInput) {
+        try {
+            imagenBase64 = await getBase64(imagenInput); // Convierte la imagen a Base64
+        } catch (error) {
+            console.log('Error al convertir la imagen a base64:', error);
+            alert('Error al procesar la imagen');
+            return;
+        }
+    }else {
+        // Si no se selecciona una nueva imagen, mantener la existente
+        const imagenPreview = document.querySelector('#imagenPreview').src;
+        imagenBase64 = imagenPreview; // Asumiendo que imagenPreview.src contiene la imagen en Base64 o una URL válida
+    }
+
+    const datos = {
+        titulo,
+        descripcion,
+        imagen : imagenBase64,
+        resumen,
+        fecha,
+        autor,
+        estado
+    }
+
+    await updateNoticia(id, datos);
     window.location.reload();
 }

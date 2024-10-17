@@ -54,10 +54,15 @@ const putNoticias = async (req, res)=>{
 const deleteNoticias = async (req,res)=>{
     try {
         const noticia = await Noticias.deleteOne({_id:req.params.id})
-        res.status(204).send();
-        res.json(noticia)
+        
+        if(noticia && noticia.deletedCount === 1){
+            res.status(200).json({mesage : "Noticia eliminado correctamente"})
+        }else{
+            res.status(404).json({ message : "Noticia no encontrada" })
+        }
     } catch (error) {
         console.log(error);
+        res.status(500).json({ msg: 'Error al eliminar la noticia' });
     }
 } 
 
