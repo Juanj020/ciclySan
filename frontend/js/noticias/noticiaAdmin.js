@@ -51,6 +51,8 @@ function getBase64(file) {
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionNoticia);
 
+const autorLocal = localStorage.getItem('userId');
+
 async function validacionNoticia(e) {
     e.preventDefault();
 
@@ -60,7 +62,6 @@ async function validacionNoticia(e) {
     const resumen = document.querySelector('.resumen').value;
     const fecha = document.querySelector('.fecha').value;
     const estado = document.querySelector('.estado').value;
-    /* const autor = document.querySelector('.autor').value; */
 
     let imagenBase64 = ''; // Inicializa la variable imagen
 
@@ -75,7 +76,6 @@ async function validacionNoticia(e) {
         }
     }
 
-
     const usu = {
         titulo,
         descripcion,
@@ -83,7 +83,7 @@ async function validacionNoticia(e) {
         resumen,
         fecha,
         estado,
-        /* autor */
+        autor: autorLocal
     }
 
     if (validacion(usu)) {
@@ -92,7 +92,7 @@ async function validacionNoticia(e) {
     }
 
     newNoticia(usu);
-    window.location.href = "noticias.html"
+    window.location.reload();
 
 }
 
@@ -124,17 +124,35 @@ function oneOrAnother(e) {
     }
 }
 
-const updateModal = document.querySelector('#update');
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
     const {_id, titulo, descripcion, imagen, fecha, estado } = await getOne(idUpdate)
 
-
     document.querySelector('#updId').value = _id;
     document.querySelector('#tituloo').value = titulo;
     document.querySelector('#descripcion').value = descripcion;
-    document.querySelector('#imagen').value = imagen;
     document.querySelector('#fecha').value = fecha;
     document.querySelector('#estado').value = estado;
+
+    const imagenPreview = document.querySelector('#imagenPreview');
+    if (imagen) {
+        imagenPreview.src = imagen; // Asumiendo que 'imagen' es una URL válida o una cadena Base64
+    } else {
+        imagenPreview.src = ''; // O una imagen por defecto
+    }
+}
+
+const updateForm = document.querySelector('.updateFormu'); // Asegúrate de que el formulario tenga este ID
+updateForm.addEventListener("submit", actualizarDatos);
+
+async function actualizarDatos(e) {
+    e.preventDefault();
+
+    const id = document.querySelector('#updId').value;
+    
+
+
+    await updateRuta(id, datos);
+    window.location.reload();
 }
