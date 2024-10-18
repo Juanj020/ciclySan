@@ -46,7 +46,6 @@ function validacionUsuario(e){
 
     newUsuario(usu);
     window.location.reload()
-
 }
 
 function validacion(objeto){
@@ -80,13 +79,13 @@ const updateModal = document.querySelector('#update');
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
-    const { _id,  nombre, correo, password, telefono, rol} = await getOne(idUpdate)
+    const { _id,  nombre, correo, telefono, rol} = await getOne(idUpdate)
 
 
     document.querySelector('#updId').value = _id;
     document.querySelector('#nombre').value = nombre;
     document.querySelector('#correo').value = correo;
-    document.querySelector('#password').value = password;
+    document.querySelector('#password').value = '';
     document.querySelector('#telefono').value = telefono;
     document.querySelector('#rolActualizacion').value = rol;
 }
