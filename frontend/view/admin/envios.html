@@ -64,14 +64,11 @@
                     <table class="table">
                         <thead>
                           <tr class="table-dark">
-                            <th class="color-tabl" scope="col">Pais</th>
-                            <th class="color-tabl" scope="col">Departamento</th>
-                            <th class="color-tabl" scope="col">Ciudad</th>
+                            <th class="color-tabl" scope="col">Nombre</th>
+                            <th class="color-tabl" scope="col">Cédula</th>
+                            <th class="color-tabl" scope="col">Correo</th>
                             <th class="color-tabl" scope="col">Dirección</th>
-                            <th class="color-tabl" scope="col">Fecha Envio</th>
-                            <th class="color-tabl" scope="col">Nombre p. entrega</th>
-                            <th class="color-tabl" scope="col">Cedula</th>
-                            <th class="color-tabl" scope="col">Código Factura</th>
+                            <th class="color-tabl" scope="col">Departamento</th>
                             <th class="color-tabl" scope="col">Detalles</th>
                           </tr>
                         </thead>
@@ -92,12 +89,26 @@
                 <div class="modal-body">
                     <form action="" class="formulario formu row">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Pais</label>
-                            <input type="text" class="form-control pais" id="exampleInputEmail1">
+                            <label for="exampleInputEmail1" class="form-label">Nombre de la persona de entrega</label>
+                            <input type="text" class="form-control nombre" id="exampleInputEmail1">
+                        </div>
+                        <div class="">
+                            <label for="exampleInputEmail1" class="form-label">Cédula</label>
+                            <input type="text" class="form-control cedula" id="exampleInputEmail1">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Correo</label>
+                            <input type="text" class="form-control correo">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Direccion</label>
+                            <input type="text" class="direccion form-control"
+                                rows="3"></input>
                         </div>
                         <div class="">
                             <label class="form-label">Departamento</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="departamento form-control"
+                                rows="3"></input>
                         </div>
                         <div class="">
                             <label class="form-label">Ciudad</label>
@@ -105,29 +116,25 @@
                                 rows="3"></input>
                         </div>
                         <div class="">
-                            <label class="form-label">Direccion</label>
-                            <input type="text" class="ciudad form-control"
-                                rows="3"></input>
-                        </div>
-                        <div class="">
-                            <label class="form-label">Fecha envío</label>
-                            <input type="date" class="form-control fecha_env">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Nombre p. entrega</label>
-                            <input type="text" class="form-control nombre_persona_entrega">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Cedula</label>
-                            <input type="Number" class="form-control tiempo_aprox">
-                        </div>
-                        <div class="">
                             <label class="form-label">Teléfono</label>
-                            <input type="text" class="form-control altitud_min">
+                            <input type="text" class="form-control telefono">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Fecha entrega</label>
+                            <input type="date" class="form-control fecha_entrega">
                         </div>
                         <div class="">
                             <label class="form-label">Código factura</label>
-                            <input type="text" class="form-control altitud_max">
+                            <input type="text" class="form-control fk_factura">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Estado envío</label>
+                            <select class="estado_envio form-select">
+                                <option selected>Pendiente</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="enviado">Enviado</option>
+                                <option value="entregado">Entregado</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -146,45 +153,52 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form class="updateFormu">
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Pais</label>
-                            <input type="text" class="form-control" id="pais">
+                            <label for="exampleInputEmail1" class="form-label">Nombre de la persona de entrega</label>
+                            <input type="text" class="form-control" id="nombre">
                         </div>
                         <div class="">
-                            <label class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="departamento">
+                            <label for="exampleInputEmail1" class="form-label">Cédula</label>
+                            <input type="text" class="form-control" id="cedula">
                         </div>
                         <div class="">
-                            <label class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="ciudad"
-                                rows="3"></input>
+                            <label class="form-label">Correo</label>
+                            <input type="text" class="form-control" id="correo">
                         </div>
                         <div class="">
                             <label class="form-label">Direccion</label>
-                            <input type="text" class="ciudad form-control" id="direccion"
-                                rows="3"></input>
+                            <input type="text" class="form-control" id="direccion"></input>
                         </div>
                         <div class="">
-                            <label class="form-label">Fecha envío</label>
-                            <input type="date" class="form-control" id="fecha_env">
+                            <label class="form-label">Departamento</label>
+                            <input type="text" class="form-control" id="departamento"></input>
                         </div>
                         <div class="">
-                            <label class="form-label">Nombre p. entrega</label>
-                            <input type="text" class="form-control" id="nomb_persona_entre">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Cedula</label>
-                            <input type="Number" class="form-control tiempo_aprox" id="cedula">
+                            <label class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudad"></input>
                         </div>
                         <div class="">
                             <label class="form-label">Teléfono</label>
-                            <input type="number" class="form-control" id="telefono">
+                            <input type="text" class="form-control" id="telefono">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Fecha entrega</label>
+                            <input type="date" class="form-control" id="fecha_entrega">
                         </div>
                         <div class="">
                             <label class="form-label">Código factura</label>
-                            <input type="text" class="form-control altitud_max" id="fk_factura">
+                            <input type="text" class="form-control" id="fk_factura">
+                        </div>
+                        <div class="">
+                            <label class="form-label">Estado envío</label>
+                            <select class="form-select" id="estado_envio">
+                                <option selected>Pendiente</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="enviado">Enviado</option>
+                                <option value="entregado">Entregado</option>
+                            </select>
                         </div>
                         <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
                     </form>
@@ -192,7 +206,7 @@
             </div>
         </div>
     </div>
-    <script src="../../js/envios/envios.js" type="module"></script>
+    <script src="../../js/envios/enviosAdmin.js" type="module"></script>
 </body>
 
 </html>

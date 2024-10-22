@@ -1,10 +1,10 @@
 const url = "http://localhost:4005/api/envios";
 
-const newEnvio = async (usuarios) =>{
+const newEnvio = async (envio) =>{
     try {
         await fetch(url, {
             method: 'POST',
-            body: JSON.stringify(usuarios),
+            body: JSON.stringify(envio),
             headers:{
                 'Content-Type' : 'Application/json'
             }
@@ -14,9 +14,9 @@ const newEnvio = async (usuarios) =>{
     }
 }
 
-const borrarEnvio = async (usuarios) => {
+const borrarEnvio = async (envio) => {
     try {
-        await fetch(`${url}/${usuarios}`, {
+        await fetch(`${url}/${envio}`, {
             method: 'DELETE'
         }); window.location.reload()
     } catch (error) {
@@ -26,17 +26,17 @@ const borrarEnvio = async (usuarios) => {
 
 const getEnvio = async () => {
     try {
-        const usuarios = await fetch(url);
-        const datosEnvio = await usuarios.json();
+        const envio = await fetch(url);
+        const datosEnvio = await envio.json();
         return datosEnvio;
     } catch (error) {
         console.log(error);
     }
 }
 
-const getOne = async (id) => {
+const getOne = async (_id) => {
     try {
-        const data = await fetch(`${url}/${id}`);
+        const data = await fetch(`${url}/${_id}`);
         const ruta = await data.json();
         return ruta;
     } catch (error) {
