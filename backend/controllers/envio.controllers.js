@@ -12,7 +12,7 @@ const getEnvios = async (req, res) => {
 
 const getEnviosId = async (req, res) => {
     try {
-        const envio = await Envio.findById(req.params.id).populate('fk_factura', 'numero_factura');
+        const envio = await Envio.findOne({_id : req.params.id})
         if (!envio) {
             return res.status(404).json({ error: 'Envío no encontrado' });
         }
@@ -24,8 +24,8 @@ const getEnviosId = async (req, res) => {
 
 const postEnvios = async (req, res) => {
     try {
-        const { correo, nombre, cedula, direccion, departamento, ciudad, telefono, fk_factura, estado_envio } = req.body;
-        const envio = new Envio({ correo, nombre, cedula, direccion, departamento, ciudad, telefono, fk_factura, estado_envio });
+        const { correo, nombre, cedula, direccion, departamento, ciudad, telefono, fecha_entrega, fk_factura, estado_envio } = req.body;
+        const envio = new Envio({ correo, nombre, cedula, direccion, departamento, ciudad, telefono, fecha_entrega, fk_factura, estado_envio });
         await envio.save();
         res.status(201).json(envio);
     } catch (error) {

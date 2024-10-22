@@ -31,6 +31,10 @@ const envioSchema = mongoose.Schema({
         type: Number,
         required: [true, 'El teléfono es requerido'],
     },
+    fecha_entrega: { 
+        type: Date, 
+        required: [true, 'La fecha es requerida'] 
+    },
     fk_factura: {
         type: Number,
         ref: 'facturas',
