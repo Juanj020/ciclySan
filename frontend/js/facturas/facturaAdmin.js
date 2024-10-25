@@ -1,11 +1,10 @@
-import { getFactura, newFactura, updateFactura, borrarFactura, getOne} from "./Api.js";
+import { getFacturas, newFactura, updateFactura, borrarFactura, getFacturaById} from "./Api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        // Si no hay nombre de usuario, podrías redirigir al login o mostrar un mensaje
         window.location.href = 'login/login.html';
     }
 });
@@ -14,23 +13,26 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+    window.location.href = 'login/login.html';
 });
 
 const fac = document.querySelector('#tabla')
 document.addEventListener('DOMContentLoaded', mostrarFacturasAdmin);
 async function mostrarFacturasAdmin() {
-    const fact = await getFactura();
+    const fact = await getFacturas();
     fact.forEach(factura => {
-        const { _id, nombre, correo, cedula, direccion, departamento, ciudad, telefono, fk_factura, estado_factura } = factura;
+        const { _id, fecha, productos, total, numero_factura, forma_pago, fk_usuario } = factura;
         /* let fechaa = fecha.substring(0, 10) */
+        console.log(factura);
+        
+        let fechaa = fecha.substring(0,10);
         fac.innerHTML += `
         <tr>
-            <th scope="row">${nombre}</th>
-            <td>${cedula}</td>
-            <td>${correo}</td>
-            <td>${direccion}</td>
-            <td>${departamento}</td>
+            <th scope="row">${fechaa}</th>
+            <td>${productos}</td>
+            <td>${total}</td>
+            <td>${forma_pago}</td>
+            <td>${numero_factura}</td>
             <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
             <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
@@ -39,9 +41,9 @@ async function mostrarFacturasAdmin() {
 }
 
 const formulario = document.querySelector('.formu');
-formulario.addEventListener('submit', validacionEnvio);
+formulario.addEventListener('submit', validacionFactura);
 
-async function validacionEnvio(e) {
+async function validacionFactura(e) {
     e.preventDefault();
 
     const nombre = document.querySelector('.nombre').value;
@@ -90,7 +92,7 @@ function borrar(e) {
         console.log(borrarr);
         const confirmar = confirm("desea Eliminarlo?");
         if (confirmar) {
-            borrarEnvio(borrarr);
+            borrarFactura(borrarr);
         }
     }
 }
@@ -107,7 +109,7 @@ function oneOrAnother(e) {
 async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
-    const {_id, nombre, correo, cedula, direccion, departamento, ciudad, telefono, fecha_entrega, fk_factura, estado_envio} = await getOne(idUpdate)
+    const {_id, nombre, correo, cedula, direccion, departamento, ciudad, telefono, fecha_entrega, fk_factura, estado_envio} = await getFacturaById(idUpdate)
 
     document.querySelector('#updId').value = _id;
     document.querySelector('#nombre').value = nombre;
@@ -156,6 +158,6 @@ async function actualizarDatos(e) {
         estado_envio
     }
 
-    await updateEnvio(id, datos);
+    await updateFactura(id, datos);
     window.location.reload();
 }
