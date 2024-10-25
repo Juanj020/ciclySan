@@ -22,16 +22,15 @@ async function mostrarFacturasAdmin() {
     const fact = await getFacturas();
     fact.forEach(factura => {
         const { _id, fecha, productos, total, numero_factura, forma_pago, fk_usuario } = factura;
-        /* let fechaa = fecha.substring(0, 10) */
-        console.log(factura);
-        
+        const productos_count = productos.length;
+        const forma_pago_tipo = forma_pago.tipo_tarjeta;
         let fechaa = fecha.substring(0,10);
         fac.innerHTML += `
         <tr>
-            <th scope="row">${fechaa}</th>
-            <td>${productos}</td>
+            <td>${fechaa}</td>
+            <td>${productos_count}</td>
             <td>${total}</td>
-            <td>${forma_pago}</td>
+            <td>${forma_pago_tipo}</td>
             <td>${numero_factura}</td>
             <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
             <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button> </td>
@@ -106,57 +105,53 @@ function oneOrAnother(e) {
     }
 }
 
-async function launchModalUpt(e) {
-    const idUpdate = e.target.getAttribute("idUpd");
-
-    const {_id, nombre, correo, cedula, direccion, departamento, ciudad, telefono, fecha_entrega, fk_factura, estado_envio} = await getFacturaById(idUpdate)
-
-    document.querySelector('#updId').value = _id;
-    document.querySelector('#nombre').value = nombre;
-    document.querySelector('#correo').value = correo;
-    document.querySelector('#cedula').value = cedula;
-    document.querySelector('#direccion').value = direccion;
-    document.querySelector('#departamento').value = departamento;
-    document.querySelector('#ciudad').value = ciudad;
-    document.querySelector('#telefono').value = telefono;
-    document.querySelector('#fk_factura').value = fk_factura;
-    document.querySelector('#estado_envio').value = estado_envio;
-    console.log(fecha_entrega);
-    /* const fecha_formateada = fecha_entrega.split('T')[0]; */
-    
-    document.querySelector('#fecha').value = fecha_formateada;
-}
-
 const updateForm = document.querySelector('.updateFormu');
 updateForm.addEventListener("submit", actualizarDatos);
+
+// Función para cargar datos en el formulario de actualización
+async function launchModalUpt(e) {
+    const idUpdate = e.target.getAttribute("idUpd");
+    const { _id, fecha, productos, total, numero_factura, forma_pago } = await getFacturaById(idUpdate);
+
+    document.querySelector('#updId').value = _id;
+    document.querySelector('#fecha').value = fecha.split('T')[0];
+    document.querySelector('#numero_factura').value = numero_factura;
+    document.querySelector('#total').value = total;
+    document.querySelector('#tipo_tarjeta').value = forma_pago.tipo_tarjeta || ''; 
+    document.querySelector('#numero_tarjeta').value = forma_pago.numero_tarjeta || '';
+    document.querySelector('#fecha_expiracion').value = forma_pago.fecha_expiracion || '';
+    document.querySelector('#cvv').value = forma_pago.cvv || '';
+    document.querySelector('#nombre_titular').value = forma_pago.nombre_titular || '';
+    // Productos (solo se asigna el primer producto en el select como ejemplo)
+    document.querySelector('#productos').value = productos.length ? productos[0].id : '';
+}
 
 async function actualizarDatos(e) {
     e.preventDefault();
 
     const id = document.querySelector('#updId').value;
-    const nombre = document.querySelector('#nombre').value;
-    const correo = document.querySelector('#correo').value;
-    const cedula = document.querySelector('#cedula').value;
-    const direccion = document.querySelector('#direccion').value;
-    const departamento = document.querySelector('#departamento').value;
-    const ciudad = document.querySelector('#ciudad').value;
-    const telefono = document.querySelector('#telefono').value;
-    const fecha_entrega = document.querySelector('#fecha_entrega').value;
-    const fk_factura = document.querySelector('#fk_factura').value;
-    const estado_envio = document.querySelector('#estado_envio').value;
+    const numero_factura = document.querySelector('#numero_factura').value;
+    const fecha = document.querySelector('#fecha').value;
+    const productos = [{
+        id: document.querySelector('#productos').value,
+        cantidad: 1
+    }];
+    const total = document.querySelector('#total').value;
+    const forma_pago = {
+        tipo_tarjeta: document.querySelector('#tipo_tarjeta').value,
+        numero_tarjeta: document.querySelector('#numero_tarjeta').value,
+        fecha_expiracion: document.querySelector('#fecha_expiracion').value,
+        cvv: document.querySelector('#cvv').value,
+        nombre_titular: document.querySelector('#nombre_titular').value
+    };
 
     const datos = {
-        nombre,
-        cedula,
-        correo,
-        direccion,
-        departamento,
-        ciudad,
-        telefono,
-        fecha_entrega,
-        fk_factura,
-        estado_envio
-    }
+        numero_factura,
+        fecha,
+        productos,
+        total,
+        forma_pago
+    };
 
     await updateFactura(id, datos);
     window.location.reload();
