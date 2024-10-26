@@ -90,28 +90,51 @@
                     <form action="" class="formulario formu row">
                         <div class="">
                             <label for="" class="form-label">Fecha Factura</label>
-                            <input type="date" class="form-control nombre">
+                            <input type="date" class="form-control fecha" required>
                         </div>
                         <div class="">
-                            <label class="form-label">Productos</label>
-                            <select name="" id="" class="form-select dificultad">
-                                <option selected>Productos</option>
-                                <option value="Dificil">Bicicleta Azul - 2000000</option>
-                                <option value="Mediana">Llanta todo terreno - 120000</option>
-                                <option value="Baja">Casco - 200000</option>
-                            </select>
+                            <label for="numero_factura" class="form-label">Número de Factura</label>
+                            <input type="text" id="" class="form-control numero_factura" required readonly>
+                        </div>
+                        <div class="">
+                            <label for="selectProductos" class="form-label">Productos</label>
+                            <select id="selectProductos" class="form-select" required></select>
+                        </div>
+                        <div>
+                            <label for="cantidadProducto">Cantidad</label>
+                            <input type="number" id="" class="form-control cantidadProducto" min="1" required>
+                            <button type="button" onclick="agregarProducto()">Agregar producto</button>
+                        </div>
+                        <ul id="listaProductos"></ul>
+                        <div class="">
+                            <label for="total" class="form-label">Total</label>
+                            <input type="number" id="" class="form-control total" readonly>
                         </div>
                         <div class="">
                             <label class="form-label">Forma de pago</label>
-                            <select name="" id="" class="form-select dificultad">
-                                <option selected>Forma de pago</option>
-                                <option value="Dificil">Efectivo</option>
-                                <option value="Mediana">Tarjeta de crédito</option>
+                            <select id="tipo_tarjeta" class="form-select tipo_pago" required>
+                                <option value="" disabled selected>Selecciona el tipo de tarjeta</option>
+                                <option value="Visa">Visa</option>
+                                <option value="MasterCard">MasterCard</option>
                             </select>
                         </div>
-                        <div class="">
-                            <label class="form-label">Total</label>
-                            <input type="number" class="form-control telefono">
+                        <div id="camposTarjeta" style="display: none;">
+                            <div class="">
+                                <label for="numero_tarjeta" class="form-label">Número de Tarjeta</label>
+                                <input type="text" id="" class="form-control numero_tarjeta" required>
+                            </div>
+                            <div class="">
+                                <label for="fecha_expiracion" class="form-label">Fecha de Expiración</label>
+                                <input type="text" id="" class="form-control fecha_expiracion" placeholder="MM/AA" required>
+                            </div>
+                            <div class="">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" id="" class="form-control cvv" required>
+                            </div>
+                            <div class="">
+                                <label for="nombre_titular" class="form-label">Nombre del Titular</label>
+                                <input type="text" id="" class="form-control nombre_titular" required>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
@@ -132,49 +155,44 @@
                 <div class="modal-body">
                     <form class="updateFormu">
                         <input type="hidden" id="updId">
-                        <div class="">
+                        <div>
                             <label for="numero_factura" class="form-label">Código factura</label>
                             <input type="text" id="numero_factura" class="form-control" required>
                         </div>
-                        <div class="">
+                        <div>
                             <label for="fecha" class="form-label">Fecha Factura</label>
                             <input type="date" id="fecha" class="form-control" required>
                         </div>
-                        <div class="">
-                            <label for="productos" class="form-label">Productos</label>
-                            <select id="productos" class="form-select" required>
-                                <option selected disabled>Selecciona un producto</option>
-                                <option value="64cdad3b72bd342bf30e2ee9">Bicicleta Azul - 2000000</option>
-                                <option value="64cdad3b72bd342bf30e2ee9">Llanta todo terreno - 120000</option>
-                                <option value="64cdad3b72bd342bf30e2ee9">Casco - 200000</option>
-                            </select>
+                        <div>
+                            <label class="form-label">Productos</label>
+                            <div id="productosContainer"></div>
+                            <button type="button" id="addProductoBtn" class="btn btn-primary mt-2">Agregar Producto</button>
                         </div>
-                        <div class="">
+                        <div>
                             <label for="forma_pago" class="form-label">Forma de pago</label>
-                            <select id="tipo_tarjeta" class="form-select" required>
+                            <select id="forma_pago" class="form-select" required>
                                 <option selected disabled>Selecciona una forma de pago</option>
                                 <option value="Visa">Visa</option>
                                 <option value="MasterCard">MasterCard</option>
-                                <option value="MasterCard">MasterCard</option>
                             </select>
                         </div>
-                        <div class="">
+                        <div>
                             <label for="numero_tarjeta" class="form-label">Número de Tarjeta</label>
                             <input type="text" id="numero_tarjeta" class="form-control">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="fecha_expiracion" class="form-label">Fecha de Expiración</label>
                             <input type="text" id="fecha_expiracion" class="form-control">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="cvv" class="form-label">CVV</label>
                             <input type="text" id="cvv" class="form-control">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="nombre_titular" class="form-label">Nombre del Titular</label>
                             <input type="text" id="nombre_titular" class="form-control">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="total" class="form-label">Total</label>
                             <input type="number" id="total" class="form-control" required>
                         </div>
