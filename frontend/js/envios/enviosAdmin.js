@@ -38,17 +38,6 @@ async function mostrarEnviosAdmin() {
     })
 }
 
-// Función para convertir la imagen a Base64
-function getBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        if (!file) resolve(null); // Si no hay archivo, resolver con null
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
-
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionEnvio);
 

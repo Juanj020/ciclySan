@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 const CalificacionSchema = new mongoose.Schema({
     rutaId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'rutas',
+        ref: 'ruta',
         required: true
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'usuarios',
+        ref: 'usuario',
         required: true
     },
     rating: {
