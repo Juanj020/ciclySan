@@ -198,6 +198,7 @@ function oneOrAnother(e) {
         launchModalUpt(e);
     }
 }
+window.agregarProducto = agregarProducto;
 
 const updateForm = document.querySelector('.updateFormu');
 updateForm.addEventListener("submit", actualizarDatos);
@@ -220,42 +221,102 @@ async function launchModalUpt(e) {
     productosContainer.innerHTML = '';
     if (Array.isArray(productos)) {
         productos.forEach((producto) => {
-            agregarProducto(producto.id, producto.cantidad);
+            agregarProductoo(producto.id, producto.cantidad);
         });
     } else {
         console.error("El formato de productos no es correcto:", productos);
     }
 }
 
-function agregarProductoo(id = '', cantidad = 1) {
-    const productosContainer = document.querySelector('#productosContainer');
-    const productoHTML = `
-        <div class="producto-item mb-3">
-            <label>Producto</label>
-            <select class="form-select" name="productoId" required>
-                <option value="64c7435c6bccbda4b132c700" ${id === '64c7435c6bccbda4b132c700' ? 'selected' : ''}>Bicicleta Azul - 2000000</option>
-                <option value="64c7435c6bccbda4b132c701" ${id === '64c7435c6bccbda4b132c701' ? 'selected' : ''}>Llanta todo terreno - 120000</option>
-                <option value="64c7435c6bccbda4b132c702" ${id === '64c7435c6bccbda4b132c702' ? 'selected' : ''}>Casco - 200000</option>
-            </select>
-            <input type="number" class="form-control mt-2" name="cantidadProducto" value="${cantidad}" min="1" required>
-            <button type="button" class="btn btn-danger mt-2 remove-producto" onclick="eliminarProducto(this)">Eliminar</button>
-        </div>
-    `;
-    productosContainer.insertAdjacentHTML('beforeend', productoHTML);
+async function cargarProductoss() {
+    try {
+        const response = await fetch('http://localhost:4005/api/productos/total');
+        const productos = await response.json();
+        return productos; // Devolver la lista de productos para usar en `agregarProducto`
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+        return []; // Retornar una lista vacía en caso de error
+    }
 }
 
-window.eliminarProducto = eliminarProducto;
-window.agregarProducto = agregarProductoo;
+async function agregarProductoo(id = '', cantidad = 1) {
+    const productos = await cargarProductoss();
+    const productosContainer = document.querySelector('#productosContainer');
+
+    // Crear el select de productos con opciones cargadas
+    const selectProducto = document.createElement('select');
+    selectProducto.classList.add('form-select', 'producto-select', 'mb-1');
+
+    // Opción por defecto
+    selectProducto.innerHTML = `<option selected disabled>Selecciona un producto</option>`;
+
+    productos.forEach(producto => {
+        const option = document.createElement('option');
+        option.value = producto._id;
+        option.setAttribute('data-precio', producto.precio);
+        option.textContent = `${producto.nombrePro} - $${producto.precio.toLocaleString()}`;
+        if (producto._id === id) option.selected = true;
+        selectProducto.appendChild(option);
+    });
+
+    const cantidadInput = document.createElement('input');
+    cantidadInput.type = 'number';
+    cantidadInput.classList.add('form-control', 'cantidad-input', 'mb-1');
+    cantidadInput.placeholder = 'Cantidad';
+    cantidadInput.value = cantidad;
+    cantidadInput.min = 1;
+
+    const eliminarBtn = document.createElement('button');
+    eliminarBtn.type = 'button';
+    eliminarBtn.classList.add('btn', 'btn-danger', 'mt-2', 'remove-producto');
+    eliminarBtn.textContent = 'Eliminar';
+    eliminarBtn.onclick = () => eliminarProducto(eliminarBtn);
+
+    // Contenedor del producto
+    const productoItem = document.createElement('div');
+    productoItem.classList.add('producto-item', 'mb-3');
+    productoItem.appendChild(selectProducto);
+    productoItem.appendChild(cantidadInput);
+    productoItem.appendChild(eliminarBtn);
+
+    productosContainer.appendChild(productoItem);
+
+    // Eventos para actualizar total al cambiar el producto o cantidad
+    selectProducto.addEventListener('change', calcularTotal);
+    cantidadInput.addEventListener('input', calcularTotal);
+}
 
 function eliminarProducto(button) {
     const productosContainer = document.querySelector('#productosContainer');
     if (productosContainer.childElementCount > 1) {
         button.closest('.producto-item').remove();
+        calcularTotal(); // Recalcular el total después de eliminar un producto
     } else {
         alert("Debe haber al menos un producto en la factura.");
     }
 }
 
+// Función para calcular el total
+function calcularTotal() {
+    const totalInput = document.querySelector('#total');
+    let total = 0;
+    const productoItems = document.querySelectorAll('#productosContainer .producto-item');
+
+    productoItems.forEach(item => {
+        const selectProducto = item.querySelector('.producto-select');
+        const cantidadInput = item.querySelector('.cantidad-input');
+        const precio = parseFloat(selectProducto.options[selectProducto.selectedIndex].dataset.precio || 0);
+        const cantidad = parseInt(cantidadInput.value) || 0;
+        total += precio * cantidad;
+    });
+
+    totalInput.value = total.toFixed(2);
+}
+
+// Evento para botón "Agregar Producto"
+document.querySelector('#addProductoBtn').addEventListener('click', () => agregarProductoo());
+
+// Función para actualizar datos
 async function actualizarDatos(e) {
     e.preventDefault();
 
@@ -273,8 +334,8 @@ async function actualizarDatos(e) {
 
     const productos = Array.from(document.querySelectorAll('#productosContainer .producto-item')).map(item => {
         return {
-            id: item.querySelector('[name="productoId"]').value,
-            cantidad: parseInt(item.querySelector('[name="cantidadProducto"]').value)
+            id: item.querySelector('.producto-select').value,
+            cantidad: parseInt(item.querySelector('.cantidad-input').value)
         };
     });
 
@@ -288,6 +349,5 @@ async function actualizarDatos(e) {
 
     await updateFactura(id, datos);
     alert("Factura actualizada correctamente.");
+    window.location.reload();
 }
-
-document.querySelector('#addProductoBtn').addEventListener('click', () => agregarProductoo());
