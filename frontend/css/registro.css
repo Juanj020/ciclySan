@@ -33,7 +33,8 @@
 }
 
 .contenido-general input{
-    border-radius: 90px;
+    padding-left: 10px;
+    border-radius: 10px;
     width: 350px;
     height: 30px;
     border: none;
@@ -41,7 +42,7 @@
 
 .button{
     border: none;
-    border-radius: 90px;
+    border-radius: 10px;
     width: 350px;
     height: 30px;
     color: white;

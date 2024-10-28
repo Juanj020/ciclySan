@@ -33,15 +33,16 @@
 }
 
 .contenido-general input{
-    border-radius: 90px;
     width: 350px;
     height: 30px;
+    padding-left: 10px;
+    border-radius: 10px;
     border: none;
 }
 
 .contenido-general button{
     border: none;
-    border-radius: 90px;
+    border-radius: 10px;
     width: 350px;
     height: 30px;
     color: white;

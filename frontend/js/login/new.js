@@ -12,6 +12,11 @@ function validacionUsuario(e){
     const telefono = document.querySelector('.telefono').value;
     const rol = document.querySelector('.rol').value;
 
+    if (telefono.length != 10 ){
+        alert("El telefono debe tener mínimo 10 digitos")
+        return
+    }
+
     const usu = {
         nombre,
         correo,

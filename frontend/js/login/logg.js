@@ -8,15 +8,12 @@ formulario.addEventListener('submit', async (e) => {
     const correo = document.querySelector('.correo').value;
     const password = document.querySelector('.password').value;
 
-    const info = {
-        correo,
-        password
-    };
+    const info = { correo, password };
 
     try {
         const data = await login(info);
 
-        if (data.success) {
+        if (data && data.success) {
             // Guarda el token y el nombre del usuario en localStorage
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId); // Guarda el ID del usuario
@@ -25,18 +22,15 @@ formulario.addEventListener('submit', async (e) => {
             // Redirige según el rol
             if (data.rol === 'ADMIN') {
                 window.location.href = '../admin/rutas.html'; 
-                window.location.href = '../admin/envios.html'; 
-                window.location.href = '../admin/facturas.html'; 
-                window.location.href = '../admin/noticias.html'; 
-                window.location.href = '../admin/usuarios.html'; 
             } else if (data.rol === 'USER') {
                 window.location.href = '../index.html'; // Redirige a la página para usuarios
             }
         } else {
-            // Manejo de errores, si el login falla
-            alert('Credenciales inválidas');
+            // Muestra el mensaje de error desde el backend
+            alert(data.msg || 'Credenciales inválidas');
         }
     } catch (error) {
         console.log(error);
+        alert('Creo invalido ó hubo un problema con el servidor. Inténtalo de nuevo más tarde.');
     }
 });

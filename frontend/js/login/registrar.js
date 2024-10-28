@@ -1,5 +1,21 @@
 import { newUsuario, getUsuario, borrarUsuario, updateUSuar, getOne } from "./Api.js";
 
+document.addEventListener('DOMContentLoaded', () => {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
+    } else {
+        window.location.href = 'login/login.html';
+    }
+});
+
+document.getElementById('logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
+    window.location.href = 'login/login.html';
+});
+
 const pro = document.querySelector('#tabla')
 document.addEventListener('DOMContentLoaded', mostrarUsuarios);
 async function mostrarUsuarios() {
