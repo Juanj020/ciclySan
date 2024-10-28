@@ -1,7 +1,7 @@
-import { getRuta, calificarRuta, updateCalificacion as calificarRutaAPI, obtenerCalificaciones, updateCalificacion } from "./Api.js";
+import { getRuta, calificarRuta, obtenerCalificaciones, updateCalificacion } from "./Api.js";
 
-// Definir la variable `carts` correctamente antes de usarla
-const carts = document.querySelector('.cont-der'); // Asegúrate de que el selector sea correcto
+
+const carts = document.querySelector('.cont-der');
 
 document.addEventListener('DOMContentLoaded', mostrarRutas);
 
@@ -45,14 +45,16 @@ async function mostrarRutas() {
 
         // Añadir eventos de calificación
         const estrellas = document.querySelectorAll(`.estrella[data-ruta-id="${_id}"] .estrella-icon`);
-estrellas.forEach(est => {
-    est.addEventListener('click', () => calificarRutaCliente(_id, est.getAttribute('data-rating')));
-});
-
-        // Obtener y aplicar calificación existente
+        estrellas.forEach(est => {
+            est.addEventListener('click', () => calificarRutaCliente(_id, est.getAttribute('data-rating')));
+        });
         const calificaciones = await obtenerCalificaciones(_id);
-        const calificacion = calificaciones.length > 0 ? calificaciones[0].rating : 0;
-        aplicarCalificacion(estrellas, calificacion);
+        if (calificaciones && Array.isArray(calificaciones)) {
+            const calificacion = calificaciones.length > 0 ? calificaciones[0].rating : 0;
+            aplicarCalificacion(estrellas, calificacion);
+        } else {
+            console.error('Error al obtener calificaciones:', calificaciones);
+        }
     });
 }
 
@@ -76,11 +78,9 @@ async function calificarRutaCliente(rutaId, rating) {
         const calificacionExistente = calificaciones.find(c => c.userId === userId);
 
         if (calificacionExistente) {
-            // Si existe, actualiza
-            await updateCalificacion(calificacionExistente._id, calificacion);
+            await actualizarCalificacion(calificacionExistente._id, calificacion);
         } else {
-            // Si no existe, crea una nueva
-            await calificarRutaAPI(calificacion);
+            await calificarRuta(calificacion);
         }
         
         alert('¡Gracias por tu calificación!');

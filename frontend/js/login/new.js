@@ -3,7 +3,7 @@ import { newUsuario } from "./Api.js";
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionUsuario);
 
-function validacionUsuario(e){
+async function validacionUsuario(e){
     e.preventDefault();
 
     const nombre = document.querySelector('.nombre').value;
@@ -16,6 +16,12 @@ function validacionUsuario(e){
         alert("El telefono debe tener mínimo 10 digitos")
         return
     }
+
+    if (password.length < 8 ){
+        alert("La contraseña debe tener minimo 8 caracteres")
+        return
+    }
+
 
     const usu = {
         nombre,
@@ -30,8 +36,14 @@ function validacionUsuario(e){
         return
     }
 
-    newUsuario(usu);
-    window.location.href = "../index.html"
+    const resultado = await newUsuario(usu);
+    
+    if (resultado.success === false) {
+        alert(resultado.msg);
+    } else {
+        alert("Usuario registrado correctamente");
+        window.location.href = "login.html";
+    }
 
 }
 

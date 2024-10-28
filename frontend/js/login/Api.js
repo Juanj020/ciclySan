@@ -8,17 +8,25 @@ const getHeaders = () => {
     };
 };
 
-const newUsuario = async (usuarios) => {
+const newUsuario = async (usu) => {
     try {
-        await fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
-            body: JSON.stringify(usuarios),
+            body: JSON.stringify(usu),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Error al registrar el usuario');
+        }
+
+        return await response.json();
     } catch (error) {
-        console.log(error);
+        console.error(error.message);
+        return { success: false, msg: error.message };
     }
 };
 

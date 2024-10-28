@@ -72,21 +72,19 @@ const calificacionesUrl = "http://localhost:4005/api/calificacion";
 
 const calificarRuta = async (calificacion) => {
     try {
-        // Primero, verifica si el usuario ya ha calificado esta ruta
-        const calificaciones = await obtenerCalificaciones(calificacion.rutaId);
-        const calificacionExistente = calificaciones.find(c => c.userId === calificacion.userId);
-        
+        const calificacionExistente = await obtenerCalificacionUsuario(calificacion.rutaId);
+
         if (calificacionExistente) {
-            // Si ya existe una calificación, actualízala
+            // Actualizar calificación existente
             await fetch(`${calificacionesUrl}/calificacion/${calificacionExistente._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(calificacion)
+                body: JSON.stringify({ rating: calificacion.rating })
             });
         } else {
-            // Si no existe, crea una nueva calificación
+            // Crear nueva calificación
             await fetch(`${calificacionesUrl}/calificar-ruta`, {
                 method: 'POST',
                 headers: {
@@ -98,30 +96,37 @@ const calificarRuta = async (calificacion) => {
     } catch (error) {
         console.log('Error en calificarRuta:', error);
     }
-}
+};
 
-const obtenerCalificaciones = async (rutaId) => {
+const obtenerCalificacionUsuario = async (rutaId) => {
     try {
-        const response = await fetch(`${calificacionesUrl}/calificaciones/${rutaId}`);
-        const data = await response.json();
-        return data;
+        const response = await fetch(`${calificacionesUrl}/ruta/${rutaId}/usuario`, {
+            headers: {
+                'Authorization': `Bearer ${token}` // Incluye el token para autenticar al usuario
+            }
+        });
+        if (response.ok) {
+            return await response.json();
+        } else if (response.status === 404) {
+            return null; // No hay calificación para este usuario
+        }
     } catch (error) {
-        console.log('Error en obtenerCalificaciones:', error);
+        console.log('Error en obtenerCalificacionUsuario:', error);
     }
-}
+};
 
-const updateCalificacion = async (id, calificacion) => {
+const actualizarCalificacion = async (calificacionId, calificacion) => {
     try {
-        await fetch(`http://localhost:4005/api/calificacion/calificaciones/${id}`, { // Verifica esta URL
+        await fetch(`http://localhost:4005/api/calificacion/calificaciones/${calificacionId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(calificacion)
+            body: JSON.stringify({ rating: calificacion.rating })
         });
     } catch (error) {
-        console.log('Error en updateCalificacion:', error);
+        console.log('Error en actualizarCalificacion:', error);
     }
-}
+};
 
-export { getRuta, newRuta, borrarRuta, getOne, updateRuta, calificarRuta, obtenerCalificaciones, updateCalificacion }
+export { getRuta, newRuta, borrarRuta, getOne, updateRuta, calificarRuta, obtenerCalificacionUsuario, actualizarCalificacion }

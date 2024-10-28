@@ -8,7 +8,7 @@ import { check } from 'express-validator';
 router.get('/', getUsuarios);
 router.post('/', [
     check('nombre', "El nombre no es valido").not().isEmpty(),
-    check('password', "El password debe tener minimo 6 caracteres").isLength({min:6}),
+    check('password', "El password debe tener minimo 6 caracteres").isLength({min:8}),
     check('correo', 'El correo no es valido').isEmail(),
     check('rol', 'No es un rol valido').isIn(['ADMIN','USER']),
     validateDocuments

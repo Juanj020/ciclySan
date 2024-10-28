@@ -56,37 +56,31 @@ export const getCalificaciones = async (req, res) => {
 };
 
 export const updateCalificacion = async (req, res) => {
+    const { id } = req.params; // Obtener el ID desde params
+    const { rating } = req.body; // Solo rating desde el body
+
     try {
-        const { id } = req.params; // Obtener el ID de la calificación a actualizar
-        const { rating } = req.body; // Obtener la nueva calificación desde el cuerpo de la solicitud
-
-        // Buscar la calificación por su ID
-        const calificacion = await Calificacion.findById(id);
-
-        if (!calificacion) {
-            return res.status(404).json({ message: 'Calificación no encontrada' });
+        const calificacionActualizada = await Calificacion.findByIdAndUpdate(id, { rating }, { new: true });
+        if (!calificacionActualizada) {
+            return res.status(404).send("Calificación no encontrada");
         }
-
-        // Actualizar la calificación
-        calificacion.rating = rating;
-        await calificacion.save();
-
-        res.status(200).json({ message: 'Calificación actualizada con éxito', calificacion });
+        res.send(calificacionActualizada);
     } catch (error) {
-        console.error('Error al actualizar la calificación:', error);
-        res.status(500).json({ message: 'Error al actualizar la calificación', error });
+        console.error("Error al actualizar la calificación:", error);
+        res.status(500).send("Error al actualizar la calificación");
     }
 };
-
 export const putCalificacion = async (req, res) => {
+    const { id } = req.params; // Asegúrate de que id sea un string válido
     try {
-        const calificacion = await Calificacion.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!calificacion) {
-            return res.status(404).json({ error: 'Calificación no encontrada' });
+        const calificacionActualizada = await Calificacion.findByIdAndUpdate(id, req.body, { new: true });
+        if (!calificacionActualizada) {
+            return res.status(404).send("Calificación no encontrada");
         }
-        res.json(calificacion);
+        res.send(calificacionActualizada);
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar la calificacion' });
+        console.error("Error al actualizar la calificación:", error);
+        res.status(500).send("Error al actualizar la calificación");
     }
 };
 
@@ -99,5 +93,22 @@ export const deleteCalificacion = async (req, res) => {
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar la calificación' });
+    }
+};
+
+export const getCalificacionUsuario = async (req, res) => {
+    try {
+        const { rutaId } = req.params;
+        const userId = req.user.id; // ID del usuario autenticado
+
+        const calificacion = await Calificacion.findOne({ rutaId, userId });
+        if (!calificacion) {
+            return res.status(404).json({ error: 'Calificación no encontrada' });
+        }
+
+        res.json(calificacion);
+    } catch (error) {
+        console.error("Error al obtener la calificación del usuario:", error);
+        res.status(500).json({ error: 'Error al obtener la calificación del usuario' });
     }
 };
