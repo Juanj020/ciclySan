@@ -53,7 +53,7 @@ const rutaSchema = mongoose.Schema({
     estado: {
         type: String,
         enum: ['Visible', 'Invisible'],
-        default: 'Visible'
+        default: 'Invisible'
     },
     creado_por: {
         type: mongoose.Schema.Types.ObjectId,

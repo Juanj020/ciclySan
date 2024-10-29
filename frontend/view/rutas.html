@@ -57,31 +57,6 @@
     </div>
     <main>
         <div class="contenido">
-            <div class="cont-izq">
-                <div class="municipios">
-                    <select name="" id="">
-                        <option selected>-Municipio-</option>
-                        <option value="Floridablanca">Floridablanca</option>
-                        <option value="Bucaramanga">Bucaramanga</option>
-                        <option value="Giron">Girón</option>
-                    </select>
-                </div>
-                <div class="clasificación">
-                    <select name="" id="">
-                        <option selected>-Clasificación-</option>
-                        <option value="Dificil">Dificil</option>
-                        <option value="Mediana">Mediana</option>
-                        <option value="Baja">Baja</option>
-                    </select>
-                </div>
-                <div class="tipo">
-                    <select name="" id="">
-                        <option selected>-Tipo-</option>
-                        <option value="Ruta">Ruta</option>
-                        <option value="Montañera">Montañera</option>
-                    </select>
-                </div>
-            </div>
             <div class="cont-der">
             
             </div>
@@ -98,16 +73,24 @@
                     <form action="" class="formulario formu row">
                         <div class="">
                             <label for="exampleInputEmail1" class="form-label">Nombre de la ruta</label>
-                            <input type="text" class="form-control nombreRut" id="exampleInputEmail1" placeholder="Ej: Bucaramanga - Girón">
+                            <input type="text" class="form-control nombreRut" id="exampleInputEmail1" placeholder="Ej: Bucaramanga - Girón" required>
                         </div>
                         <div class="">
                             <label class="form-label">Descripcion</label>
                             <textarea class="descripcion form-control" id="exampleFormControlTextarea1"
-                                rows="3"></textarea>
+                                rows="3" required></textarea>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Punto de partida</label>
+                            <input type="text" class="form-control punto_partida" placeholder="Ej: Bucaramanga" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Punto de llegada</label>
+                            <input type="text" class="form-control punto_llegada" placeholder="Ej: Girón" required> 
                         </div>
                         <div class="col-6">
                             <label class="form-label md-6">Dificultad</label>
-                            <select name="" id="" class="form-select dificultad">
+                            <select name="" id="" class="form-select dificultad" required>
                                 <option selected>-Clasificación-</option>
                                 <option value="Dificil">Dificil</option>
                                 <option value="Mediana">Mediana</option>
@@ -116,19 +99,19 @@
                         </div>
                         <div class="col-6">
                             <label class="form-label">kilometros</label>
-                            <input type="number" class="form-control kilometros">
+                            <input type="number" class="form-control kilometros" placeholder="20" required>
                         </div>
                         <div class="">
-                            <label class="form-label">Tiempo aprox</label>
+                            <label class="form-label">Tiempo aproximado</label>
                             <input type="text" class="form-control tiempo_aprox">
                         </div>
                         <div class="col-6">
                             <label class="form-label">Altitud min</label>
-                            <input type="text" class="form-control altitud_min">
+                            <input type="number" class="form-control altitud_min">
                         </div>
                         <div class="col-6">
                             <label class="form-label">Altitud max</label>
-                            <input type="text" class="form-control altitud_max">
+                            <input type="number" class="form-control altitud_max">
                         </div>
                         <div class="">
                             <label class="form-label">Recomendaciones</label>
@@ -140,7 +123,7 @@
                             <input type="file" class="form-control imagenn">
                         </div>
                         <div class="">
-                            <label class="form-label">Link</label>
+                            <label class="form-label">Link de rutas (google maps)</label>
                             <input type="text" class="form-control link">
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>

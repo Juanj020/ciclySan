@@ -1,4 +1,4 @@
-import { getRuta, calificarRuta, obtenerCalificaciones, updateCalificacion } from "./Api.js";
+import { getRuta, newRuta, calificarRuta, obtenerCalificacionUsuario, actualizarCalificacion } from "./Api.js";
 
 
 const carts = document.querySelector('.cont-der');
@@ -48,9 +48,13 @@ async function mostrarRutas() {
         estrellas.forEach(est => {
             est.addEventListener('click', () => calificarRutaCliente(_id, est.getAttribute('data-rating')));
         });
-        const calificaciones = await obtenerCalificaciones(_id);
-        if (calificaciones && Array.isArray(calificaciones)) {
-            const calificacion = calificaciones.length > 0 ? calificaciones[0].rating : 0;
+
+        const userId = localStorage.getItem('userId');
+        const calificaciones = await obtenerCalificacionUsuario(_id, userId);
+        
+        if (calificaciones) {
+            // Si `calificaciones` es un objeto, usa su propiedad `rating`
+            const calificacion = Array.isArray(calificaciones) && calificaciones.length > 0 ? calificaciones[0].rating : calificaciones.rating || 0;
             aplicarCalificacion(estrellas, calificacion);
         } else {
             console.error('Error al obtener calificaciones:', calificaciones);
@@ -66,20 +70,17 @@ async function calificarRutaCliente(rutaId, rating) {
     }
 
     const userId = localStorage.getItem('userId');
-    const calificacion = {
-        rutaId,
-        userId,
-        rating
-    };
+    const calificacion = { rutaId, userId, rating };
 
     try {
-        // Verifica si ya existe una calificación
-        const calificaciones = await obtenerCalificaciones(rutaId);
-        const calificacionExistente = calificaciones.find(c => c.userId === userId);
-
-        if (calificacionExistente) {
+        // Obtener calificación existente para decidir entre POST y PUT
+        const calificacionExistente = await obtenerCalificacionUsuario(rutaId, userId);
+        
+        if (calificacionExistente.rating != 0) {
+            // Si ya existe, actualizar
             await actualizarCalificacion(calificacionExistente._id, calificacion);
         } else {
+            // Si no existe, crear una nueva
             await calificarRuta(calificacion);
         }
         
@@ -116,10 +117,20 @@ function mostrarMas(rutaId) {
     }
 }
 
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        if (!file) resolve(null); // Si no hay archivo, resolver con null
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionRuta);
 
-function validacionRuta(e) {
+async function validacionRuta(e) {
     e.preventDefault();
 
     const nombreRut = document.querySelector('.nombreRut').value;
@@ -132,7 +143,19 @@ function validacionRuta(e) {
     const altitud_min = document.querySelector('.altitud_min').value;
     const altitud_max = document.querySelector('.altitud_max').value;
     const recomendaciones = document.querySelector('.recomendaciones').value;
-    const imagen = document.querySelector('.imagenn').value;
+    const imagenn = document.querySelector('.imagenn').files[0];
+
+    let imagenBase64 = ''; 
+
+    if (imagenn) {
+        try {
+            imagenBase64 = await getBase64(imagenn); // Convierte la imagen a Base64
+        } catch (error) {
+            console.log('Error al convertir la imagen a base64:', error);
+            alert('Error al procesar la imagen');
+            return;
+        }
+    }
 
     const rut = {
         nombreRut,
@@ -145,22 +168,22 @@ function validacionRuta(e) {
         altitud_min,
         altitud_max,
         recomendaciones,
-        imagen
+        imagen : imagenBase64
     };
 
-    if (validacion(rut)) {
+    /* if (validacion(rut)) {
         alert("Llene todos los campos");
         return;
-    }
-
+    } */
+    alert("Tu ruta será evaluada y pronto aparecerá en la lista de rutas")
     newRuta(rut);
     window.location.href = "rutas.html";
 }
 
-function validacion(objeto) {
+/* function validacion(objeto) {
     return !Object.values(objeto).every(element => element !== '');
 }
-
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const userInfo = document.getElementById('user-info');
     const userName = localStorage.getItem('userName');
@@ -180,11 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Manejo de cierre de sesión
         document.getElementById('logout').addEventListener('click', () => {
             localStorage.removeItem('token');
+            localStorage.removeItem('userId');
             localStorage.removeItem('userName');
             window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
         });
     } else {
-        // Muestra el enlace para iniciar sesión
         userInfo.innerHTML = '<a href="login/login.html">Iniciar sesión</a>';
     }
 });

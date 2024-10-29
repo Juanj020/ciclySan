@@ -61,14 +61,14 @@ body{
     justify-content: flex-start;
 }
 
-.cont-izq select{
+/* .cont-izq select{
     width: 200px;
     text-align: center;
     border: none;
     background-color: #3a3ca8;
     color: white;
     height: 2rem;
-}
+} */
 
 /* --- cont derecha -- */
 .cont-der{
@@ -76,7 +76,7 @@ body{
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
-    margin-top: 20px;
+    margin-top: 20px 220px;
     margin-bottom: 50px;
 }
 
@@ -90,7 +90,7 @@ body{
     display: flex;
     justify-content: center; /* Centra los elementos horizontalmente */
     align-items: center;
-    margin-top: 30px;
+    margin: 30px;
 }
 
 .conte-tit {
@@ -135,6 +135,7 @@ body{
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    padding: 30px;
 }
 
 

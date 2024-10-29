@@ -1,15 +1,36 @@
 import { Router } from 'express';
-import { createCalificacion, getCalificaciones, getCalificacionesTotal, putCalificacion, updateCalificacion, deleteCalificacion, getCalificacionId, getCalificacionUsuario } from '../controllers/calificacion.controller.js';
+import { 
+    createCalificacion, 
+    getCalificaciones, 
+    getCalificacionesTotal, 
+    putCalificacion, 
+    updateCalificacion, 
+    deleteCalificacion, 
+    getCalificacionId, 
+    getCalificacionUsuario 
+} from '../controllers/calificacion.controller.js';
 
 const router = Router();
 
+// Crear o actualizar una calificación para una ruta específica
 router.post('/calificar-ruta', createCalificacion);
+
+// Obtener todas las calificaciones de una ruta específica
 router.get('/calificaciones/:rutaId', getCalificaciones);
+
+// Obtener el total de calificaciones
 router.get('/', getCalificacionesTotal);
-router.put('/:id', putCalificacion);
+
+// Obtener una calificación específica por ID
 router.get('/:id', getCalificacionId);
-router.delete('/:id', deleteCalificacion);
+
+// Obtener la calificación de un usuario específico para una ruta específica
+router.get('/ruta/:rutaId/usuario/:userId', getCalificacionUsuario);
+
+// Actualizar calificación por ID
 router.put('/calificaciones/:id', updateCalificacion);
-router.get('/calificacion/ruta/:rutaId/usuario', getCalificacionUsuario);
+
+// Eliminar una calificación específica por ID
+router.delete('/:id', deleteCalificacion);
 
 export default router;

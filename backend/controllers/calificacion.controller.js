@@ -31,13 +31,15 @@ export const createCalificacion = async (req, res) => {
         let calificacion = await Calificacion.findOne({ rutaId, userId });
 
         if (calificacion) {
+            // Si la calificación existe, actualizamos el valor de `rating`
             calificacion.rating = rating;
         } else {
+            // Si no existe, creamos una nueva calificación
             calificacion = new Calificacion({ rutaId, userId, rating });
         }
 
         await calificacion.save();
-        res.status(200).json({ message: 'Calificación actualizada con éxito', calificacion });
+        res.status(200).json({ message: 'Calificación guardada con éxito', calificacion });
     } catch (error) {
         console.error('Error al crear o actualizar calificación:', error);
         res.status(500).json({ message: 'Error al crear o actualizar calificación', error });
@@ -98,12 +100,12 @@ export const deleteCalificacion = async (req, res) => {
 
 export const getCalificacionUsuario = async (req, res) => {
     try {
-        const { rutaId } = req.params;
-        const userId = req.user.id; // ID del usuario autenticado
+        const { rutaId, userId } = req.params;
 
         const calificacion = await Calificacion.findOne({ rutaId, userId });
         if (!calificacion) {
-            return res.status(404).json({ error: 'Calificación no encontrada' });
+            // Si no existe la calificación, retornamos una calificación de 0
+            return res.json({ rating: 0 });
         }
 
         res.json(calificacion);
