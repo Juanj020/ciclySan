@@ -132,6 +132,8 @@ function loadHtml() {
     });
 
     priceTotal.innerHTML = parseFloat(totalCard).toLocaleString() + '$'; 
+    /* console.log(priceTotal.innerHTML = parseFloat(totalCard).toLocaleString() + '$'); */
+    
     amountProduct.innerHTML = countProduct;
 }
 
@@ -190,10 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         if (document.querySelector('#facturaForm').checkValidity()) {
+
+            const totalSinFormato = parseFloat(calcularTotal().toString().replace(/\./g, ''));
+
             const factura = {
                 fecha: document.querySelector('#fecha').value,
                 numero_factura: document.querySelector('#numeroFactura').value,
-                total: parseFloat(document.querySelector('#total').value), 
+                total: totalSinFormato, 
                 forma_pago: {
                     tipo_tarjeta: document.querySelector('#tipoTarjeta').value,
                     numero_tarjeta: document.querySelector('#numeroTarjeta').value,
@@ -207,6 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 })),
                 fk_usuario: localStorage.getItem('userId') || null
             };
+
+            const errores = validarFormulario(factura);
+            if (errores.length > 0) {
+                alert('Errores encontrados:\n' + errores.join('\n'));
+                return;
+            }
 
             await newFactura(factura);
 
@@ -225,6 +236,44 @@ document.addEventListener('DOMContentLoaded', () => {
         return parseFloat(totalCard).toLocaleString();
     }
 });
+
+function validarFormulario(formData) {
+    const errores = [];
+
+    if (!formData.fecha || !/^\d{4}-\d{2}-\d{2}$/.test(formData.fecha)) {
+        errores.push("Falta la fecha de la compra o no es válida (debe ser formato YYYY-MM-DD)");
+    }
+
+    if (!Array.isArray(formData.productos) || formData.productos.length === 0) {
+        errores.push("Es necesario agregar productos al carrito");
+    }
+
+    if (!formData.total || isNaN(formData.total)) {
+        errores.push("Es necesario el total y debe ser un número");
+    }
+
+    if (!formData.forma_pago.tipo_tarjeta || !['Visa', 'MasterCard'].includes(formData.forma_pago.tipo_tarjeta)) {
+        errores.push("El tipo de tarjeta es requerido y debe ser Visa o MasterCard");
+    }
+
+    if (!formData.forma_pago.numero_tarjeta || formData.forma_pago.numero_tarjeta.length !== 16 || isNaN(formData.forma_pago.numero_tarjeta)) {
+        errores.push("El número de tarjeta debe tener 16 dígitos y ser numérico");
+    }
+
+    if (!formData.forma_pago.nombre_titular) {
+        errores.push("El nombre del titular es requerido");
+    }
+
+    if (!formData.forma_pago.fecha_expiracion || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(formData.forma_pago.fecha_expiracion)) {
+        errores.push("La fecha de expiración debe tener el formato MM/YY");
+    }
+
+    if (!formData.forma_pago.cvv || (formData.forma_pago.cvv.length < 3 || formData.forma_pago.cvv.length > 4) || isNaN(formData.forma_pago.cvv)) {
+        errores.push("El CVV debe tener 3 o 4 dígitos y ser numérico");
+    }
+
+    return errores;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const envioModalElement = document.getElementById('modalEnvio');

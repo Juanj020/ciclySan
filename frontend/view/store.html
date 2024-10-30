@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Número de Tarjeta</label>
-                                    <input type="text" class="form-control" id="numeroTarjeta" placeholder="Ej. 1234 5678 9012 3456" pattern="\d{16}" >
+                                    <input type="text" class="form-control" id="numeroTarjeta" placeholder="Ej. 1234 5678 9012 3456" pattern="\d{16}" required>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Nombre del Titular</label>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">CVV</label>
-                                    <input type="text" class="form-control" id="cvv" placeholder="Ej. 123" pattern="\d{3}" required>
+                                    <input type="number" class="form-control" id="cvv" placeholder="Ej. 123" pattern="\d{3}" required>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -140,9 +140,9 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Teléfono</label>
-                                <input type="text" class="form-control" id="telefono" pattern="\d{10}" required>
+                                <input type="number" class="form-control" id="telefono" pattern="\d{10}" required>
                             </div>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Enviar</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
                         </form>
                     </div>
                     <div class="modal-footer">
