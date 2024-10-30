@@ -207,9 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
             productos: buyThings.map(product => ({
                 id: product.id,
                 cantidad: product.amount
-            })),
-            fk_usuario: localStorage.getItem('userId') || null
+            }))
         };
+
+        const userId = localStorage.getItem('userId');
+        if (userId != "") {
+            factura.fk_usuario = userId; // Agregar solo si existe
+        }
 
         const errores = validarFormulario(factura);
         if (errores.length > 0) {
@@ -217,10 +221,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return; // Detener el envío si hay errores
         }
 
+        // Aquí solo se ejecuta si no hay errores
         await newFactura(factura);
 
+        // Si la factura se envió correctamente, cerrar el modal
         const envioModal = new bootstrap.Modal(document.getElementById('modalEnvio'));
         envioModal.show();
+        
+        // Cerrar el modal de factura
+        const facturaModal = bootstrap.Modal.getInstance(document.getElementById('facturaModal'));
+        facturaModal.hide(); 
     });
 
     function generarNumeroFactura() {

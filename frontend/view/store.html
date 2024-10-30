@@ -90,7 +90,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="facturaForm" class="formulario formu">
+                        <form id="facturaForm" class="formulario formu" novalidate>
                             <div class="mb-3">
                                 <label class="form-label">Número de Factura</label>
                                 <input type="text" class="form-control" id="numeroFactura" readonly>
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Número de Tarjeta</label>
-                                    <input type="text" class="form-control" id="numeroTarjeta" placeholder="Ej. 1234 5678 9012 3456" pattern="\d{16}" required>
+                                    <input type="number" class="form-control" id="numeroTarjeta" placeholder="Ej. 1234 5678 9012 3456" min="0" max="9999999999999999" required>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Nombre del Titular</label>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">CVV</label>
-                                    <input type="number" class="form-control" id="cvv" placeholder="Ej. 123" pattern="\d{3}" required>
+                                    <input type="number" class="form-control" id="cvv" placeholder="Ej. 123" required>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -140,9 +140,9 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Teléfono</label>
-                                <input type="number" class="form-control" id="telefono" pattern="\d{10}" required>
+                                <input type="number" class="form-control" id="telefono" required>
                             </div>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                            <button type="submit" class="btn btn-primary" >Enviar</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -155,56 +155,56 @@
         <!-- Modal de Envío -->
         <div class="modal fade" id="modalEnvio" tabindex="-1" aria-labelledby="modalEnvioLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="modalEnvioLabel">Datos de Envío</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEnvioLabel">Datos de Envío</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="envioForm">
+                            <div class="mb-3">
+                                <label for="facturaId" class="form-label">Id factura</label>
+                                <input type="text" class="form-control" id="facturaId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">Correo</label>
+                                <input type="email" class="form-control" id="correo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cedula" class="form-label">Cédula</label>
+                                <input type="number" class="form-control" id="cedula" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pais" class="form-label">Pais</label>
+                                <input type="text" class="form-control" id="pais" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="departamento" class="form-label">Departamento</label>
+                                <input type="text" class="form-control" id="departamento" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ciudad" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudad" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="number" class="form-control" id="telefono" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary" id="guardarEnvio">Guardar Envío</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-body">
-                <form id="envioForm">
-                    <div class="mb-3">
-                    <label for="facturaId" class="form-label">Id factura</label>
-                    <input type="text" class="form-control" id="facturaId" readonly>
-                    </div>
-                    <div class="mb-3">
-                    <label for="correo" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="correo" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="cedula" class="form-label">Cédula</label>
-                    <input type="number" class="form-control" id="cedula" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="pais" class="form-label">Pais</label>
-                    <input type="text" class="form-control" id="pais" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="departamento" class="form-label">Departamento</label>
-                    <input type="text" class="form-control" id="departamento" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="ciudad" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudad" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="number" class="form-control" id="telefono" required>
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="guardarEnvio">Guardar Envío</button>
-                    </div>
-                </form>
-            </div>
             </div>
         </div>
     </main>
@@ -217,6 +217,19 @@
              document.getElementById("products-id").style.display = "none";
         }
 
+        function abrirFacturaModal() {
+            const facturaModal = new bootstrap.Modal(document.getElementById('facturaModal'));
+            facturaModal.show();
+        }
+
+        function abrirEnvioModal() {
+            const facturaModalEl = document.getElementById('facturaModal');
+            const envioModal = new bootstrap.Modal(document.getElementById('modalEnvio'));
+            
+            const facturaModal = bootstrap.Modal.getInstance(facturaModalEl);
+            facturaModal.hide();
+            envioModal.show();
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

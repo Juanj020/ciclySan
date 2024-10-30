@@ -82,7 +82,7 @@ const facturaSchema = new mongoose.Schema({
         id: { type: mongoose.Schema.Types.ObjectId, ref: 'producto', required: true },
         cantidad: { type: Number, required: true }
     }],
-    fk_usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'usuario', required: true }
+    fk_usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'usuario' }
 });
 
 const Factura = mongoose.model('Factura', facturaSchema);
