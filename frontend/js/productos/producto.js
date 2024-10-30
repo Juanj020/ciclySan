@@ -191,41 +191,36 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#facturaForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        if (document.querySelector('#facturaForm').checkValidity()) {
+        const totalSinFormato = parseFloat(calcularTotal().toString().replace(/\./g, ''));
 
-            const totalSinFormato = parseFloat(calcularTotal().toString().replace(/\./g, ''));
+        const factura = {
+            fecha: document.querySelector('#fecha').value,
+            numero_factura: document.querySelector('#numeroFactura').value,
+            total: totalSinFormato, 
+            forma_pago: {
+                tipo_tarjeta: document.querySelector('#tipoTarjeta').value,
+                numero_tarjeta: document.querySelector('#numeroTarjeta').value,
+                nombre_titular: document.querySelector('#nombreTitular').value,
+                fecha_expiracion: document.querySelector('#fechaExpiracion').value,
+                cvv: document.querySelector('#cvv').value
+            },
+            productos: buyThings.map(product => ({
+                id: product.id,
+                cantidad: product.amount
+            })),
+            fk_usuario: localStorage.getItem('userId') || null
+        };
 
-            const factura = {
-                fecha: document.querySelector('#fecha').value,
-                numero_factura: document.querySelector('#numeroFactura').value,
-                total: totalSinFormato, 
-                forma_pago: {
-                    tipo_tarjeta: document.querySelector('#tipoTarjeta').value,
-                    numero_tarjeta: document.querySelector('#numeroTarjeta').value,
-                    nombre_titular: document.querySelector('#nombreTitular').value,
-                    fecha_expiracion: document.querySelector('#fechaExpiracion').value,
-                    cvv: document.querySelector('#cvv').value
-                },
-                productos: buyThings.map(product => ({
-                    id: product.id,
-                    cantidad: product.amount
-                })),
-                fk_usuario: localStorage.getItem('userId') || null
-            };
-
-            const errores = validarFormulario(factura);
-            if (errores.length > 0) {
-                alert('Errores encontrados:\n' + errores.join('\n'));
-                return;
-            }
-
-            await newFactura(factura);
-
-            const envioModal = new bootstrap.Modal(document.getElementById('modalEnvio'));
-            envioModal.show();
-        } else {
-            alert('Por favor, complete todos los campos requeridos con datos válidos.');
+        const errores = validarFormulario(factura);
+        if (errores.length > 0) {
+            alert('Errores encontrados:\n' + errores.join('\n'));
+            return; // Detener el envío si hay errores
         }
+
+        await newFactura(factura);
+
+        const envioModal = new bootstrap.Modal(document.getElementById('modalEnvio'));
+        envioModal.show();
     });
 
     function generarNumeroFactura() {
