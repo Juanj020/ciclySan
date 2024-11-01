@@ -32,7 +32,7 @@ const noticiaShema = mongoose.Schema({
     },
     autor:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario',
+        ref: 'usuario',
         /* required: true */
     }
 }, { timestamps: true });

@@ -24,12 +24,15 @@ async function mostrarNoticiasAdmin() {
     noticias.forEach(ruta => {
         const { _id, titulo, descripcion, imagen, resumen, fecha, autor } = ruta;
         let fechaa = fecha.substring(0, 10)
+
+        const nombreAutor = autor && autor.nombre ? autor.nombre : 'Desconocido';
+
         noti.innerHTML += `
         <tr>
             <th scope="row">${titulo}</th>
             <td>${descripcion}</td>
             <td>${fechaa}</td>
-            <td>${autor}</td>
+            <td>${nombreAutor}</td>
             <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
             <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button> </td>
         </tr>

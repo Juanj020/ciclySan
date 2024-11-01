@@ -8,13 +8,16 @@ async function mostrarNoticias(){
     noticias.forEach(ruta=>{
         const {_id, titulo, descripcion, imagen, resumen, fecha, autor} = ruta;
         let fechaa = fecha.substring(0, 10)
+
+        const nombreAutor = autor && autor.nombre ? autor.nombre : 'Desconocido';
+
         not.innerHTML += `
         <div class="cont-carts">
             <img width="250px" src="${imagen}" alt="">
             <div class="cont-carts-derecha">
                 <h1>${titulo}</h1>
                 <p>${descripcion}</p>
-                <p>Autor: ${autor}</p>
+                <p>Autor: ${nombreAutor}</p>
                 <p>${fechaa}</p>
             </div>
         </div>
@@ -25,12 +28,15 @@ async function mostrarNoticias(){
 function getBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        if (!file) resolve(null); // Si no hay archivo, resolver con null
+        if (!file) resolve(null);
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
 }
+
+const hoy = new Date().toISOString().split('T')[0];
+document.querySelector('.fecha').setAttribute('max', hoy);
 
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionNoticia);
@@ -49,14 +55,13 @@ async function validacionNoticia(e){
 
     if (imagen) {
         try {
-            imagenBase64 = await getBase64(imagen); // Convierte la imagen a Base64
+            imagenBase64 = await getBase64(imagen);
         } catch (error) {
             console.log('Error al convertir la imagen a base64:', error);
             alert('Error al procesar la imagen');
             return;
         }
     }
-
 
     const usu = {
         titulo,
@@ -73,7 +78,7 @@ async function validacionNoticia(e){
     }
 
     newNoticia(usu);
-    window.location.href = "noticia.html"
+    window.location.reload();
 
 }
 

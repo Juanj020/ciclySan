@@ -2,7 +2,7 @@ import Noticias from "../models/Noticia.js";
 
 const getNoticias = async (req, res) =>{
     try {
-        const noticia = await Noticias.find();
+        const noticia = await Noticias.find().populate('autor', 'nombre');
         res.json(noticia); 
     } catch (error) {
         console.log(error);
@@ -11,7 +11,7 @@ const getNoticias = async (req, res) =>{
 
 const getNoticiasUsuario = async (req, res) =>{
     try {
-        const noticia = await Noticias.find({estado:"Visible"});
+        const noticia = await Noticias.find({estado:"Visible"}).populate('autor', 'nombre');
         res.json(noticia); 
     } catch (error) {
         console.log(error);
