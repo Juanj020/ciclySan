@@ -10,6 +10,16 @@ const getNoticia = async () => {
     }
 }
 
+const getNoticiaVisibles = async () => {
+    try {
+        const noticia = await fetch(`${url}/visibles`);
+        const datosNoticias = await noticia.json();
+        return datosNoticias;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const newNoticia = async (noticias) => {
     try {
         await fetch(url, {
@@ -61,4 +71,4 @@ const updateNoticia = async (id, datosA) => {
     }
 } 
 
-export { getNoticia, newNoticia, borrarNoticia, updateNoticia, getOne }
+export { getNoticia, newNoticia, borrarNoticia, updateNoticia, getOne, getNoticiaVisibles }

@@ -4,7 +4,6 @@ const carts = document.querySelector('.contenido');
 const cartsRuta = document.querySelector('.contenidoRuta');
 const cartsAcces = document.querySelector('.contenidoAccesorio');
 const tablaFacturas = document.querySelector('#tabla');
-const formulario = document.querySelector('.formu');
 const containerBuyCart = document.querySelector('.card-items');
 const priceTotal = document.querySelector('.price-total');
 const amountProduct = document.querySelector('.count-product');
@@ -212,23 +211,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const userId = localStorage.getItem('userId');
         if (userId != "") {
-            factura.fk_usuario = userId; // Agregar solo si existe
+            factura.fk_usuario = userId; 
         }
 
         const errores = validarFormulario(factura);
         if (errores.length > 0) {
             alert('Errores encontrados:\n' + errores.join('\n'));
-            return; // Detener el envío si hay errores
+            return; 
         }
 
-        // Aquí solo se ejecuta si no hay errores
         await newFactura(factura);
 
-        // Si la factura se envió correctamente, cerrar el modal
         const envioModal = new bootstrap.Modal(document.getElementById('modalEnvio'));
         envioModal.show();
         
-        // Cerrar el modal de factura
         const facturaModal = bootstrap.Modal.getInstance(document.getElementById('facturaModal'));
         facturaModal.hide(); 
     });
@@ -335,5 +331,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         console.error('Modal de envío no encontrado');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const userInfo = document.getElementById('user-info');
+    const userName = localStorage.getItem('userName');
+    const token = localStorage.getItem('token');
+    const boton = document.querySelector('.boton');
+
+    if (token && userName) {
+        userInfo.innerHTML = `
+            <span>Bienvenido, ${userName}</span>
+            <a href="#" id="logout"><img width="50px" src="../img/puerta-abierta.png" alt="Cerrar sesión"></a>
+        `;
+        /* boton.classList.remove('hidden'); */
+
+        document.getElementById('logout').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userName');
+            window.location.reload();
+        });
+    } else {
+        userInfo.innerHTML = '<a href="login/login.html">Iniciar sesión</a>';
     }
 });

@@ -1,10 +1,10 @@
-import { getNoticia, newNoticia } from "./Api.js";
+import { getNoticia, newNoticia, getNoticiaVisibles } from "./Api.js";
 
 const not = document.querySelector('.contenido')
 document.addEventListener('DOMContentLoaded', mostrarNoticias);
 
 async function mostrarNoticias(){
-    const noticias = await getNoticia();
+    const noticias = await getNoticiaVisibles();
     noticias.forEach(ruta=>{
         const {_id, titulo, descripcion, imagen, resumen, fecha, autor} = ruta;
         let fechaa = fecha.substring(0, 10)
@@ -22,43 +22,46 @@ async function mostrarNoticias(){
     })
 }
 
-const noti = document.querySelector('#tabla')
-document.addEventListener('DOMContentLoaded', mostrarNoticiasAdmin);
-async function mostrarNoticiasAdmin(){
-    const noticias = await getNoticia();
-    noticias.forEach(ruta=>{
-        const {_id, titulo, descripcion, imagen, resumen, fecha, autor} = ruta;
-        let fechaa = fecha.substring(0, 10)
-        noti.innerHTML += `
-        <tr>
-            <th scope="row">${titulo}</th>
-            <td>${descripcion}</td>
-            <td>${fecha}</td>
-            <td><button type="button" class="btn btn-light">Actualizar</button><button type="button" class="btn btn-danger">Eliminar</button> </td>
-        </tr>
-        `
-    })
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        if (!file) resolve(null); // Si no hay archivo, resolver con null
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 }
-
-
 
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionNoticia);
 
-function validacionNoticia(e){
+async function validacionNoticia(e){
     e.preventDefault();
 
     const titulo = document.querySelector('.tituloo').value;
     const descripcion = document.querySelector('.descripcion').value;
-    const imagen = document.querySelector('.imagen').value;
+    const imagen = document.querySelector('.imagen').files[0];
     const resumen = document.querySelector('.resumen').value;
     const fecha = document.querySelector('.fecha').value;
-    const autor = document.querySelector('.autor').value;;
+    const autor = localStorage.getItem('userId');
+
+    let imagenBase64 = ''; 
+
+    if (imagen) {
+        try {
+            imagenBase64 = await getBase64(imagen); // Convierte la imagen a Base64
+        } catch (error) {
+            console.log('Error al convertir la imagen a base64:', error);
+            alert('Error al procesar la imagen');
+            return;
+        }
+    }
+
 
     const usu = {
         titulo,
         descripcion,
-        imagen,
+        imagen : imagenBase64,
         resumen,
         fecha,
         autor
@@ -82,26 +85,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInfo = document.getElementById('user-info');
     const userName = localStorage.getItem('userName');
     const token = localStorage.getItem('token');
-    const boton = document.querySelector('.boton'); // Selecciona el botón que quieres mostrar u ocultar
+    const boton = document.querySelector('.boton');
 
     if (token && userName) {
-        // Muestra el nombre del usuario y el botón de cierre de sesión
         userInfo.innerHTML = `
             <span>Bienvenido, ${userName}</span>
             <a href="#" id="logout"><img width="50px" src="../img/puerta-abierta.png" alt="Cerrar sesión"></a> 
         `;
 
         boton.style.marginLeft = '200px';
-        boton.classList.remove('hidden'); // Muestra el botón adicional si hay un nombre de usuario
+        boton.classList.remove('hidden');
 
-        // Manejo de cierre de sesión
         document.getElementById('logout').addEventListener('click', () => {
             localStorage.removeItem('token');
             localStorage.removeItem('userName');
-            window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+            localStorage.removeItem('userId');
+            window.location.reload();
         });
     } else {
-        // Muestra el enlace para iniciar sesión
         userInfo.innerHTML = '<a href="login/login.html">Iniciar sesión</a>';
     }
 });

@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('logout').addEventListener('click', () => {
             localStorage.removeItem('token');
             localStorage.removeItem('userName');
-            window.location.reload(); // Recarga la página para actualizar el estado de inicio de sesión
+            localStorage.removeItem('userId');
+            window.location.reload();
         });
     } else {
         // Muestra el enlace para iniciar sesión

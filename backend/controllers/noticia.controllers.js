@@ -9,6 +9,15 @@ const getNoticias = async (req, res) =>{
     }
 }
 
+const getNoticiasUsuario = async (req, res) =>{
+    try {
+        const noticia = await Noticias.find({estado:"Visible"});
+        res.json(noticia); 
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getNoticiasId = async (req, res)=>{
     try {
         const noticia = await Noticias.findOne({_id: req.params.id});
@@ -66,4 +75,4 @@ const deleteNoticias = async (req,res)=>{
     }
 } 
 
-export {getNoticias, postNoticias, deleteNoticias, getNoticiasId, putNoticias};
+export {getNoticias, postNoticias, deleteNoticias, getNoticiasId, putNoticias, getNoticiasUsuario};

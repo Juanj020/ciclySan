@@ -22,13 +22,6 @@ const getFacturasId = async (req, res) => {
     }
 };
 
-const generarNumeroFactura = async () => {
-    const facturas = await Factura.find().sort({ numero_factura: -1 }).limit(1);
-    const ultimoNumero = facturas.length > 0 ? facturas[0].numero_factura : "000000";
-    const nuevoNumero = (parseInt(ultimoNumero) + 1).toString().padStart(6, '0');
-    return nuevoNumero;
-};
-
 // Dentro de tu controlador postFacturas
 const postFacturas = async (req, res) => {
     try {

@@ -130,18 +130,6 @@
                                     <input type="number" class="form-control" id="cvv" placeholder="Ej. 123" required>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nombre de la Persona de Entrega</label>
-                                <input type="text" class="form-control" id="nombrePersonaEntrega" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Cédula</label>
-                                <input type="number" class="form-control" id="cedula" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Teléfono</label>
-                                <input type="number" class="form-control" id="telefono" required>
-                            </div>
                             <button type="submit" class="btn btn-primary" >Enviar</button>
                         </form>
                     </div>
@@ -153,12 +141,11 @@
         </div>
 
         <!-- Modal de Envío -->
-        <div class="modal fade" id="modalEnvio" tabindex="-1" aria-labelledby="modalEnvioLabel" aria-hidden="true">
+        <div class="modal fade" id="modalEnvio" tabindex="-1" aria-labelledby="modalEnvioLabel" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalEnvioLabel">Datos de Envío</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="envioForm">
@@ -199,7 +186,6 @@
                                 <input type="number" class="form-control" id="telefono" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary" id="guardarEnvio">Guardar Envío</button>
                             </div>
                         </form>
@@ -230,6 +216,16 @@
             facturaModal.hide();
             envioModal.show();
         }
+
+        const inputNumeroTarjeta = document.getElementById('numeroTarjeta');
+
+        inputNumeroTarjeta.addEventListener('input', function() {
+            const valor = inputNumeroTarjeta.value.toString();
+            
+            if (valor.length > 16) {
+                inputNumeroTarjeta.value = valor.slice(0, 16);
+            }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
