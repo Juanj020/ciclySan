@@ -10,6 +10,16 @@ const getRuta = async () => {
     }
 }
 
+const getRutasVisibles = async () => {
+    try {
+        const response = await fetch(`${url}/visibles`);
+        const datosRutas = await response.json();
+        return datosRutas;
+    } catch (error) {
+        console.log('Error en getRuta:', error);
+    }
+}
+
 async function newRuta(rut) {
     try {
         const response = await fetch('http://localhost:4005/api/rutas', { // Asegúrate de usar la URL correcta
@@ -114,4 +124,4 @@ const actualizarCalificacion = async (calificacionId, calificacion) => {
     }
 };
 
-export { getRuta, newRuta, borrarRuta, getOne, updateRuta, calificarRuta, obtenerCalificacionUsuario, actualizarCalificacion }
+export { getRuta, newRuta, borrarRuta, getOne, updateRuta, calificarRuta, obtenerCalificacionUsuario, actualizarCalificacion, getRutasVisibles }

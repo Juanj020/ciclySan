@@ -10,6 +10,16 @@ const getRutas = async (req, res) => {
     }
 };
 
+const getRutasVisibles = async (req, res) => {
+    try {
+        const ruta = await Rutas.find({"estado": "Visible"});
+        res.json(ruta);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Error al obtener rutas' });
+    }
+};
+
 const getRutasId = async (req, res) => {
     try {
         const ruta = await Rutas.findById(req.params.id);
@@ -91,4 +101,4 @@ const deleteRutas = async (req, res) => {
     }
 };
 
-export { getRutas, postRutas, deleteRutas, getRutasId, putRutas };
+export { getRutas, postRutas, deleteRutas, getRutasId, putRutas, getRutasVisibles };

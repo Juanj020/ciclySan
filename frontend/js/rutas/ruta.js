@@ -1,4 +1,4 @@
-import { getRuta, newRuta, calificarRuta, obtenerCalificacionUsuario, actualizarCalificacion } from "./Api.js";
+import { getRutasVisibles, newRuta, calificarRuta, obtenerCalificacionUsuario, actualizarCalificacion } from "./Api.js";
 
 
 const carts = document.querySelector('.cont-der');
@@ -6,7 +6,7 @@ const carts = document.querySelector('.cont-der');
 document.addEventListener('DOMContentLoaded', mostrarRutas);
 
 async function mostrarRutas() {
-    const rutas = await getRuta();
+    const rutas = await getRutasVisibles();
     rutas.forEach(async ruta => {
         const { _id, nombreRut, descripcion, dificultad, kilometros, tiempo_aprox, altitud_min, altitud_max, recomendaciones, imagen, link } = ruta;
         const nuevoDiv = document.createElement('div');

@@ -2,10 +2,11 @@ import express from 'express';
 const router = express.Router();
 import validateDocuments from "../middlewares/validate.documents.js";
 
-import { getRutas, postRutas, deleteRutas, getRutasId, putRutas } from "../controllers/ruta.controllers.js";
+import { getRutas, postRutas, deleteRutas, getRutasId, putRutas, getRutasVisibles } from "../controllers/ruta.controllers.js";
 import { check } from 'express-validator';
 
 router.get('/', getRutas);
+router.get('/visibles', getRutasVisibles);
 router.post('/', [
     check('nombreRut', "Falta completar el nombre de la ruta").not().isEmpty(),
     check('descripcion', "Es necesaria la descripción").not().isEmpty(),

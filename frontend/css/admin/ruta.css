@@ -18,7 +18,7 @@
     text-decoration: none;
 }
 
-.navbara img{
+.cilita{
     transform: rotate(-15deg);
 }
 
@@ -36,36 +36,47 @@
 
 .routes{
     display: flex;
-    justify-content: center;
     align-content: center;
     text-align: center;
-    gap: 3rem
+    gap: 3rem;
+    align-items: center;
 }
 .routes a{
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .cerrar{
-    color: red !important;
+    color: rgb(0, 0, 0) !important;
 }
 
 
 /* --------- contenido ---------- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 65px; 
+    z-index: 1000;
+}
+
 body{
     background-color: #9196e27d !important;
 }
 
 .contenido{
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .cont-izq{
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: 100vh;
-    background-color: #d7e8ef;
+    position: fixed;
+    top: 58px; /* Espacio debajo del header */
+    left: 0;
+    width: 200px; /* Ajusta el ancho según el diseño */
+    height: calc(100vh - 50px); /* Para ocupar toda la altura de la ventana menos el header */
+    background-color: #d7e8ef; /* Ajusta el color si es necesario */
+    overflow-y: auto;
 }
 
 .cont-izq a{
@@ -131,11 +142,10 @@ body{
  */
 
 .descrip {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
-    -webkit-line-clamp: 4;
-    height: auto;
+    text-overflow: ellipsis;
+    max-width: 350px;
 }
 
 .table button{
@@ -173,6 +183,12 @@ body{
     text-overflow: ellipsis;
 }
 
+.table td{
+    height: 100%;
+    vertical-align: middle; 
+    padding: 10px;
+}
+
 .table button{
     width: 120px !important;
 }
@@ -198,4 +214,9 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.modal-body{
+    overflow-y: auto;
+    height: 80vh;
 }

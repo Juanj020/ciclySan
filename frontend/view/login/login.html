@@ -23,7 +23,12 @@
                         <input type="email" class="correo" type="text" placeholder="👤 Correo" required>
                     </div>
                     <div>
-                        <input class="password" type="password" placeholder="🔓 Password" required>
+                        <div style="position: relative; display: inline-block;">
+                        <input class="password" id="passwordInput" type="password" placeholder="🔓 Password" required>
+                            <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                                <i id="toggleIcon" class="fa fa-eye">Ver</i>
+                            </span>
+                        </div>
                     </div>
                     <div class="abajo">
                         <button type="submit">Enviar</button>
@@ -34,6 +39,21 @@
             </form>
         </div>
     </main>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("passwordInput");
+            const toggleIcon = document.getElementById("toggleIcon");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
     <script src="../../js/login/logg.js" type="module"></script>
 </body>
 

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        window.location.href = 'login/login.html';
+        window.location.href = '../login/login.html';
     }
 });
 
@@ -16,14 +16,13 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+    window.location.href = '../login/login.html';
 });
 
-// Función para convertir la imagen a Base64
 function getBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        if (!file) resolve(null); // Si no hay archivo, resolver con null
+        if (!file) resolve(null);
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
@@ -69,15 +68,14 @@ async function manejoEnvioRuta(e) {
     const altitud_min = document.querySelector('.altitud_min').value;
     const altitud_max = document.querySelector('.altitud_max').value;
     const recomendaciones = document.querySelector('.recomendaciones').value;
-    const imagenInput = document.querySelector('.imagenn').files[0];
+    const imagenInput = document.querySelector('.imagen').files[0];
     const link = document.querySelector('.link').value;
 
-    let imagenBase64 = ''; // Inicializa la variable imagen
+    let imagenBase64 = '';
 
-    // Si hay un archivo de imagen, convertirlo a Base64
     if (imagenInput) {
         try {
-            imagenBase64 = await getBase64(imagenInput); // Convierte la imagen a Base64
+            imagenBase64 = await getBase64(imagenInput);
         } catch (error) {
             console.log('Error al convertir la imagen a base64:', error);
             alert('Error al procesar la imagen');
@@ -100,16 +98,15 @@ async function manejoEnvioRuta(e) {
         link
     };
 
-    // Validar que todos los campos estén completos
     if (validacion(rut)) {
         alert("Por favor, complete todos los campos requeridos.");
         return;
     }
 
     try {
-        const respuesta = await newRuta(rut); // Llama a newRuta para enviar la información
+        const respuesta = await newRuta(rut);
         console.log('Respuesta del servidor:', respuesta);
-        window.location.href = "rutas.html"; // Redirige después de enviar
+        window.location.reload();
     } catch (error) {
         console.error('Error al enviar la ruta:', error);
         alert('Hubo un problema al enviar la ruta. Por favor, intenta nuevamente.');
@@ -119,7 +116,6 @@ async function manejoEnvioRuta(e) {
 function validacion(objeto){
     return !Object.values(objeto).every(element => element !== '');
 }
-
 
 const btnOption = document.querySelector('#tabla');
 btnOption.addEventListener('click', borrar)
@@ -161,21 +157,18 @@ async function launchModalUpt(e) {
     document.querySelector('#altitud_min').value = altitud_min;
     document.querySelector('#altitud_max').value = altitud_max;
     document.querySelector('#recomendaciones').value = recomendaciones;
-    /* document.querySelector('#imagennn').value = imagen; */
     document.querySelector('#estado').value = estado;
     document.querySelector('#link').value = link;
 
-    // Mostrar la imagen existente en la vista previa
     const imagenPreview = document.querySelector('#imagenPreview');
     if (imagen) {
-        imagenPreview.src = imagen; // Asumiendo que 'imagen' es una URL válida o una cadena Base64
+        imagenPreview.src = imagen; 
     } else {
-        imagenPreview.src = ''; // O una imagen por defecto
+        imagenPreview.src = ''; 
     }
-
 }
 
-const updateForm = document.querySelector('.updateFormu'); // Asegúrate de que el formulario tenga este ID
+const updateForm = document.querySelector('.updateFormu');
 updateForm.addEventListener("submit", actualizarDatos);
 
 async function actualizarDatos(e) {
@@ -198,19 +191,17 @@ async function actualizarDatos(e) {
     
     let imagenBase64 = '';
 
-    // Si hay un archivo de imagen, convertirlo a Base64
     if (imagenInput) {
         try {
-            imagenBase64 = await getBase64(imagenInput); // Convierte la imagen a Base64
+            imagenBase64 = await getBase64(imagenInput); 
         } catch (error) {
             console.log('Error al convertir la imagen a base64:', error);
             alert('Error al procesar la imagen');
             return;
         }
     }else {
-        // Si no se selecciona una nueva imagen, mantener la existente
         const imagenPreview = document.querySelector('#imagenPreview').src;
-        imagenBase64 = imagenPreview; // Asumiendo que imagenPreview.src contiene la imagen en Base64 o una URL válida
+        imagenBase64 = imagenPreview; 
     }
 
     const datos = {
@@ -229,7 +220,6 @@ async function actualizarDatos(e) {
         link
     }
 
-
     await updateRuta(id, datos);
-    window.location.reload(); // Recarga la página después de actualizar
+    window.location.reload(); 
 }
