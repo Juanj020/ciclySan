@@ -2,11 +2,13 @@ import { getNoticia, newNoticia, updateNoticia, borrarNoticia, getOne} from "./A
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '../login/login.html';
+    }
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        // Si no hay nombre de usuario, podrías redirigir al login o mostrar un mensaje
-        window.location.href = 'login/login.html';
+        window.location.href = '../login/login.html';
     }
 });
 
@@ -14,7 +16,7 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+    window.location.href = '../login/login.html';
 });
 
 const noti = document.querySelector('#tabla')
@@ -51,10 +53,44 @@ function getBase64(file) {
     });
 }
 
+function cargarUsuarios() {
+    fetch('http://localhost:4005/api/usuarios')
+        .then(response => response.json())
+        .then(data => {
+            const usuarioSelect = document.getElementById('usuarioSelect');
+            data.forEach(usuario => {
+                const option = document.createElement('option');
+                option.value = usuario._id; 
+                option.textContent = usuario.nombre;
+                usuarioSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los usuarios:', error));
+}
+
+document.addEventListener('DOMContentLoaded', cargarUsuarios);
+
+async function cargarUsuarioss() {
+    try {
+        const response = await fetch('http://localhost:4005/api/usuarios'); 
+        const usuarios = await response.json();
+        
+        const autorSelect = document.querySelector('.autorSelect');
+        autorSelect.innerHTML = '<option value="">Selecciona un autor</option>';
+
+        usuarios.forEach(usuario => {
+            const option = document.createElement('option');
+            option.value = usuario._id; 
+            option.textContent = usuario.nombre;
+            autorSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar usuarios:', error);
+    }
+}
+
 const formulario = document.querySelector('.formu');
 formulario.addEventListener('submit', validacionNoticia);
-
-const autorLocal = localStorage.getItem('userId');
 
 async function validacionNoticia(e) {
     e.preventDefault();
@@ -64,14 +100,14 @@ async function validacionNoticia(e) {
     const imagenn = document.querySelector('.imagen').files[0];
     const resumen = document.querySelector('.resumen').value;
     const fecha = document.querySelector('.fecha').value;
+    const autor = document.querySelector('#usuarioSelect').value;
     const estado = document.querySelector('.estado').value;
 
-    let imagenBase64 = ''; // Inicializa la variable imagen
+    let imagenBase64 = '';
 
-    // Si hay un archivo de imagen, convertirlo a Base64
     if (imagenn) {
         try {
-            imagenBase64 = await getBase64(imagenn); // Convierte la imagen a Base64
+            imagenBase64 = await getBase64(imagenn);
         } catch (error) {
             console.log('Error al convertir la imagen a base64:', error);
             alert('Error al procesar la imagen');
@@ -86,7 +122,7 @@ async function validacionNoticia(e) {
         resumen,
         fecha,
         estado,
-        autor: autorLocal
+        autor
     }
 
     if (validacion(not)) {
@@ -95,7 +131,7 @@ async function validacionNoticia(e) {
     }
 
     newNoticia(not);
-    window.location.reload()
+    window.location.reload();
 }
 
 function validacion(objeto) {
@@ -137,18 +173,24 @@ async function launchModalUpt(e) {
     const fecha_formateada = fecha.split('T')[0];
     document.querySelector('#fecha').value = fecha_formateada;
     document.querySelector('#resumen').value = resumen;
-    document.querySelector('#autor').value = autor;
+    document.querySelector('.autorSelect').value = autor;
     document.querySelector('#estado').value = estado;
 
     const imagenPreview = document.querySelector('#imagenPreview');
     if (imagen) {
-        imagenPreview.src = imagen; // Asumiendo que 'imagen' es una URL válida o una cadena Base64
+        imagenPreview.src = imagen; 
     } else {
-        imagenPreview.src = ''; // O una imagen por defecto
+        imagenPreview.src = ''; 
     }
+
+    await cargarUsuarioss();
+
+    const autorSelect = document.querySelector('.autorSelect');
+    autorSelect.value = autor;
+
 }
 
-const updateForm = document.querySelector('.updateFormu'); // Asegúrate de que el formulario tenga este ID
+const updateForm = document.querySelector('.updateFormu'); 
 updateForm.addEventListener("submit", actualizarDatos);
 
 async function actualizarDatos(e) {
@@ -158,26 +200,24 @@ async function actualizarDatos(e) {
     const titulo = document.querySelector('#tituloo').value;
     const descripcion = document.querySelector('#descripcion').value;
     const fecha = document.querySelector('#fecha').value;
-    const autor = document.querySelector('#autor').value;
+    const autor = document.querySelector('.autorSelect').value;
     const imagenInput = document.querySelector('#imagen').files[0];
     const resumen = document.querySelector('#resumen').value;
     const estado = document.querySelector('#estado').value;
 
     let imagenBase64 = '';
 
-    // Si hay un archivo de imagen, convertirlo a Base64
     if (imagenInput) {
         try {
-            imagenBase64 = await getBase64(imagenInput); // Convierte la imagen a Base64
+            imagenBase64 = await getBase64(imagenInput); 
         } catch (error) {
             console.log('Error al convertir la imagen a base64:', error);
             alert('Error al procesar la imagen');
             return;
         }
     }else {
-        // Si no se selecciona una nueva imagen, mantener la existente
         const imagenPreview = document.querySelector('#imagenPreview').src;
-        imagenBase64 = imagenPreview; // Asumiendo que imagenPreview.src contiene la imagen en Base64 o una URL válida
+        imagenBase64 = imagenPreview; 
     }
 
     const datos = {

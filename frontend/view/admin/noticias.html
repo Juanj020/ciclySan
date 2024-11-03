@@ -28,13 +28,13 @@
         <nav class="navbara">
             <div>
                 <a href="index.html" class="nav-izq">
-                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <img width="40px" class="ciclita" src="../../img/311822.svg" alt="Alo xd">
                     <h1>CicliSan</h1>
                 </a>
             </div>
             <div class="routes">
                 <a id="welcomeMessage" href="#">Bienvenido</a>
-                <a class="cerrar" href="../login/login.html" id="logout">Cerrar sesión</a>
+                <a href="#" class="cerrar" id="logout"><img width="30px" src="../../img/puerta-abierta.png" alt="Cerrar sesión"></a>
             </div>
         </nav>
     </header>
@@ -113,6 +113,12 @@
                             <input type="file" class="form-control imagen" accept="image/*">
                         </div>
                         <div class="">
+                            <label class="form-label">Autor</label>
+                            <select id="usuarioSelect" class="form-select">
+                                <option selected>Seleccione un autor</option>
+                            </select>
+                        </div>
+                        <div class="">
                             <label class="form-label">Estado</label>
                             <select name="" id="" class="form-select estado">
                                 <option selected>Estado de visible</option>
@@ -138,7 +144,7 @@
                     <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body modal-bodyy">
                     <form action="" class="updateFormu">
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
@@ -161,7 +167,9 @@
                         </div>
                         <div class="">
                             <label class="form-label">Autor</label>
-                            <input type="text" class="form-control " id="autor">
+                            <select id="" class="form-select autorSelect">
+                                <option value="">Selecciona un autor</option>
+                            </select>
                         </div>
                         <div class="">
                             <label class="form-label">Estado</label>
@@ -185,6 +193,9 @@
                             <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

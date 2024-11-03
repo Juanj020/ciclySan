@@ -34,8 +34,7 @@
             </div>
             <div class="routes">
                 <a id="welcomeMessage" href="#">Bienvenido</a>
-                <!-- <a class="cerrar" href="../login/login.html" id="logout">Cerrar sesión</a> -->
-                <a href="#" class="cerrar" id="logout"><img width="30px" src="../../img/puerta-abierta.png" alt="Cerrar sesión">Cerrar sesión</a> 
+                <a href="#" class="cerrar" id="logout"><img width="30px" src="../../img/puerta-abierta.png" alt="Cerrar sesión"></a> 
             </div>
         </nav>
     </header>
@@ -237,8 +236,13 @@
                             <label class="form-label">Link</label>
                             <input type="text" class="form-control" id="link">
                         </div>
-                        <button type="submit" id="btnUpdate" class="btn btn-primary">Actualizar</button>
+                        <div class="updateboton">
+                            <button type="submit" id="btnUpdate" class="btn btn-primary">Actualizar</button>
+                        </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

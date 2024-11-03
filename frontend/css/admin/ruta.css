@@ -42,7 +42,7 @@
     align-items: center;
 }
 .routes a{
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .cerrar{
@@ -71,11 +71,11 @@ body{
 
 .cont-izq{
     position: fixed;
-    top: 58px; /* Espacio debajo del header */
+    top: 55px;
     left: 0;
-    width: 200px; /* Ajusta el ancho según el diseño */
-    height: calc(100vh - 50px); /* Para ocupar toda la altura de la ventana menos el header */
-    background-color: #d7e8ef; /* Ajusta el color si es necesario */
+    width: 200px;
+    height: calc(100vh - 0px); 
+    background-color: #d7e8ef;
     overflow-y: auto;
 }
 
@@ -96,7 +96,7 @@ body{
 .cont-dere{
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 60px auto;
     width: 100vh;
 }
 
@@ -161,6 +161,12 @@ body{
 .formu{
     display: flex;
     justify-content: center;
+}
+
+.updateboton{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
 .formu button{
