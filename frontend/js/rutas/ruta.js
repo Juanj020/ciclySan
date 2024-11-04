@@ -24,18 +24,24 @@ async function mostrarRutas() {
             </div>
             <div class="parrafos">
                 <h1>${nombreRut}</h1>
-                <div class="parrafos-parte">
-                    <h2>Dificultad: ${dificultad}</h2>
-                    <h2>Kilometros: ${kilometros}</h2>
+                <div class="parrafos-int">
+                    <div class="parrafos-interno-izq">
+                        <div class="parrafos-parte">
+                            <h2>Dificultad: ${dificultad}</h2>
+                            <h2>Kilometros: ${kilometros}</h2>
+                        </div>
+                        <div class="parrafos-parte">
+                            <h2>Tiempo aprox: ${tiempo_aprox}</h2>
+                            <h2>Altura min: ${altitud_min}</h2>
+                            <h2>Altura max: ${altitud_max}</h2>    
+                        </div>
+                    </div>
+                    <div class="parrafos-interno">
+                        <h2 class="descrip" id="descripcion_${_id}">${descripcion}</h2>
+                        <span class="ver-mas" id="ver-mas_${_id}">Ver más...</span>
+                        <a target="_blank" href="${link}" id="${_id}">Ver ruta</a>
+                    </div>
                 </div>
-                <div class="parrafos-parte">
-                    <h2>Tiempo aprox: ${tiempo_aprox}</h2>
-                    <h2>Altura min: ${altitud_min}</h2>
-                    <h2>Altura max: ${altitud_max}</h2>    
-                </div>
-                <h2 class="descrip" id="descripcion_${_id}">${descripcion}</h2>
-                <span class="ver-mas" id="ver-mas_${_id}">Ver más...</span>
-                <a target="_blank" href="${link}" id="${_id}">Ver ruta</a>
             </div>
         `;
         carts.appendChild(nuevoDiv);

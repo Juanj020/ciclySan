@@ -50,7 +50,7 @@ body{
     justify-content: space-around;
     align-items: center;
     margin: 3rem;
-    margin-top: 90px;
+    margin-top: 30px;
 }
 
 .titulo h1{
@@ -99,16 +99,19 @@ body{
 
 /* --- cont card -- */
 .cont-carts{
-    background-color: rgba(94, 94, 94, 0.577);
+    width: 700px;
+    background-color: rgba(239, 239, 239, 0.577);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    border: solid rgba(0, 0, 0, 0.229) 2px;
+    padding: 20px;
     text-align: center;
+    box-shadow: 10px 10px 5px rgb(255, 255, 255);
 }
 
 .cont-carts img{
+    width: 300px;
     margin: 20px;
 }
 
@@ -120,16 +123,15 @@ body{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin : 0 auto;
-    gap:2rem
+    margin : 0 auto 60px;
+    gap:2rem;
 }
 
 p {
-    /* white-space: nowrap; */
     overflow: hidden;
     text-overflow: ellipsis;
-    color: white;
-    font-size: 15px;
+    color: rgb(0, 0, 0);
+    font-size: 13px;
   }
 
 .cont-carts-derecha{
@@ -146,4 +148,12 @@ p {
 
 .hidden {
     display: none;
+}
+
+.descrip {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    max-height: 4rem;
 }

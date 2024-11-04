@@ -16,13 +16,27 @@ async function mostrarNoticias(){
             <img width="250px" src="${imagen}" alt="">
             <div class="cont-carts-derecha">
                 <h1>${titulo}</h1>
-                <p>${descripcion}</p>
+                <p class="descrip" id="descripcion_${_id}">${descripcion}</p>
+                <span class="ver-mas" id="ver-mas_${_id}">Ver más...</span>
                 <p>Autor: ${nombreAutor}</p>
                 <p>${fechaa}</p>
             </div>
         </div>
-        `
+        `;
+
+        setTimeout(() => {
+            const botonVerMas = document.getElementById(`ver-mas_${_id}`);
+            botonVerMas.addEventListener('click', () => mostrarMas(_id));
+        }, 0);
     })
+}
+
+function mostrarMas(id) {
+    const descripcionElem = document.getElementById(`descripcion_${id}`);
+    descripcionElem.style.display = 'block';
+    descripcionElem.style.maxHeight = 'none';
+    descripcionElem.style.webkitLineClamp = 'unset'; // Quitar el límite de líneas
+    document.getElementById(`ver-mas_${id}`).style.display = 'none';
 }
 
 function getBase64(file) {
@@ -78,8 +92,8 @@ async function validacionNoticia(e){
     }
 
     newNoticia(usu);
+    alert("Tu noticia será evaluada y pronto estará disponible en la página")
     window.location.reload();
-
 }
 
 function validacion(objeto){
