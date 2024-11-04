@@ -2,11 +2,13 @@ import { getEnvio, newEnvio, updateEnvio, borrarEnvio, getOne} from "./Api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '../login/login.html';
+    }
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        // Si no hay nombre de usuario, podrías redirigir al login o mostrar un mensaje
-        window.location.href = 'login/login.html';
+        window.location.href = '../login/login.html';
     }
 });
 
@@ -14,7 +16,7 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+    window.location.href = '../login/login.html';
 });
 
 const noti = document.querySelector('#tabla')
@@ -31,6 +33,7 @@ async function mostrarEnviosAdmin() {
             <td>${correo}</td>
             <td>${direccion}</td>
             <td>${departamento}</td>
+            <td>${estado_envio}</td>
             <td><button class="btn btn-dark update" data-bs-toggle="modal" data-bs-target="#update" idUpd="${_id}">Actualizar</button>
             <button type="button" value="${_id}" id="${_id}" class="btn btn-danger delete">Eliminar</button> </td>
         </tr>
@@ -51,7 +54,6 @@ async function validacionEnvio(e) {
     const departamento = document.querySelector('.departamento').value;
     const ciudad = document.querySelector('.ciudad').value;
     const telefono = document.querySelector('.telefono').value;
-    const fecha_entrega = document.querySelector('.fecha_entrega').value;
     const fk_factura = document.querySelector('.fk_factura').value;
     const estado_envio = document.querySelector('.estado_envio').value;
 
@@ -63,7 +65,6 @@ async function validacionEnvio(e) {
         departamento,
         ciudad,
         telefono,
-        fecha_entrega,
         fk_factura,
         estado_envio
     }
@@ -71,6 +72,16 @@ async function validacionEnvio(e) {
     if (validacion(envi)) {
         alert("Llene todos los campos")
         return
+    }
+
+    if (telefono.length < 10) {
+        alert("La cédula debe tener al menos 10 dígitos.");
+        return;
+    }
+
+    if (cedula.length < 10) {
+        alert("La cédula debe tener al menos 10 dígitos.");
+        return;
     }
 
     newEnvio(envi);
@@ -119,10 +130,9 @@ async function launchModalUpt(e) {
     document.querySelector('#telefono').value = telefono;
     document.querySelector('#fk_factura').value = fk_factura;
     document.querySelector('#estado_envio').value = estado_envio;
-    console.log(fecha_entrega);
-    /* const fecha_formateada = fecha_entrega.split('T')[0]; */
+    const fecha_formateada = fecha_entrega.split('T')[0];
     
-    document.querySelector('#fecha').value = fecha_formateada;
+    document.querySelector('#fecha_entrega').value = fecha_formateada;
 }
 
 const updateForm = document.querySelector('.updateFormu');
@@ -154,6 +164,16 @@ async function actualizarDatos(e) {
         fecha_entrega,
         fk_factura,
         estado_envio
+    }
+
+    if (telefono.length < 10) {
+        alert("La cédula debe tener al menos 10 dígitos.");
+        return;
+    }
+
+    if (cedula.length < 10) {
+        alert("La cédula debe tener al menos 10 dígitos.");
+        return;
     }
 
     await updateEnvio(id, datos);

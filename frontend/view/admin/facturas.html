@@ -28,13 +28,13 @@
         <nav class="navbara">
             <div>
                 <a href="index.html" class="nav-izq">
-                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <img width="40px" class="ciclita" src="../../img/311822.svg" alt="Alo xd">
                     <h1>CicliSan</h1>
                 </a>
             </div>
             <div class="routes">
                 <a id="welcomeMessage" href="#">Bienvenido</a>
-                <a class="cerrar" href="../login/login.html" id="logout">Cerrar sesión</a>
+                <a href="#" class="cerrar" id="logout"><img width="30px" src="../../img/puerta-abierta.png" alt="Cerrar sesión"></a>
             </div>
         </nav>
     </header>
@@ -104,7 +104,9 @@
                         <div>
                             <label for="cantidadProducto">Cantidad</label>
                             <input type="number" id="" class="form-control cantidadProducto" min="1" required>
-                            <button type="button" onclick="agregarProducto()">Agregar producto</button>
+                            <div class="modal-ton">
+                                <button type="button" onclick="agregarProducto()">Agregar producto</button>
+                            </div>
                         </div>
                         <ul id="listaProductos"></ul>
                         <div class="">
@@ -122,7 +124,7 @@
                         <div id="camposTarjeta" style="display: none;">
                             <div class="">
                                 <label for="numero_tarjeta" class="form-label">Número de Tarjeta</label>
-                                <input type="text" id="" class="form-control numero_tarjeta" required>
+                                <input type="number" id="" class="form-control numero_tarjeta" required>
                             </div>
                             <div class="">
                                 <label for="fecha_expiracion" class="form-label">Fecha de Expiración</label>
@@ -130,14 +132,16 @@
                             </div>
                             <div class="">
                                 <label for="cvv" class="form-label">CVV</label>
-                                <input type="text" id="" class="form-control cvv" required>
+                                <input type="number" id="" class="form-control cvv" required>
                             </div>
                             <div class="">
                                 <label for="nombre_titular" class="form-label">Nombre del Titular</label>
                                 <input type="text" id="" class="form-control nombre_titular" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <div class="modal-ton">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -162,7 +166,7 @@
                         </div>
                         <div>
                             <label for="numero_factura" class="form-label">Código factura</label>
-                            <input type="text" id="numero_factura" class="form-control" required>
+                            <input type="text" id="numero_factura" class="form-control" required readonly>
                         </div>
                         <div>
                             <label class="form-label">Productos</label>
@@ -179,7 +183,7 @@
                         </div>
                         <div>
                             <label for="numero_tarjeta" class="form-label">Número de Tarjeta</label>
-                            <input type="text" id="numero_tarjeta" class="form-control">
+                            <input type="number" id="numero_tarjeta" class="form-control">
                         </div>
                         <div>
                             <label for="fecha_expiracion" class="form-label">Fecha de Expiración</label>
@@ -187,7 +191,7 @@
                         </div>
                         <div>
                             <label for="cvv" class="form-label">CVV</label>
-                            <input type="text" id="cvv" class="form-control">
+                            <input type="number" id="cvv" class="form-control">
                         </div>
                         <div>
                             <label for="nombre_titular" class="form-label">Nombre del Titular</label>
@@ -197,12 +201,28 @@
                             <label for="total" class="form-label">Total</label>
                             <input type="number" id="total" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <div class="modal-ton">
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        const inputNumeroTarjeta = document.querySelector('.numero_tarjeta');
+
+        inputNumeroTarjeta.addEventListener('input', function() {
+            const valor = inputNumeroTarjeta.value.toString();
+            
+            if (valor.length > 16) {
+                inputNumeroTarjeta.value = valor.slice(0, 16);
+            }
+        });
+    </script>
     <script src="../../js/facturas/facturaAdmin.js" type="module"></script>
 </body>
 

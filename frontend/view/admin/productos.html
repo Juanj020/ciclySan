@@ -28,13 +28,13 @@
         <nav class="navbara">
             <div>
                 <a href="index.html" class="nav-izq">
-                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <img width="40px" class="ciclita" src="../../img/311822.svg" alt="Alo xd">
                     <h1>CicliSan</h1>
                 </a>
             </div>
             <div class="routes">
                 <a id="welcomeMessage" href="#">Bienvenido</a>
-                <a class="cerrar" href="../login/login.html" id="logout">Cerrar sesión</a>
+                <a href="#" class="cerrar" id="logout"><img width="30px" src="../../img/puerta-abierta.png" alt="Cerrar sesión"></a>
             </div>
         </nav>
     </header>
@@ -140,11 +140,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="updateee">Actualizar Datos</h5>
-                    <button type="button btn" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button btn" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-bodyy">
                     <form action="" class="updateFormu">
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
@@ -155,13 +153,15 @@
                             <label class="form-label">Precio</label>
                             <input type="number" class="form-control" id="precio">
                         </div>
-                        <div class="col-6">
-                            <label class="form-label">Marca</label>
-                            <input type="text" class="form-control" id="marca">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Stock</label>
-                            <input type="number" class="form-control" id="stock">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label">Marca</label>
+                                <input type="text" class="form-control" id="marca">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="stock">
+                            </div>
                         </div>
                         <div class="">
                             <label class="form-label">Descripción</label>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Imagen Actual</label>
-                            <div>
+                            <div class="modal-ton">
                                 <img id="imagenPreview" src="" alt="Imagen Actual" style="max-width: 100%; height: auto;">
                             </div>
                         </div>
@@ -190,8 +190,13 @@
                                 <option value="accesorio">Accesorio</option>
                             </select>
                         </div>
-                        <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                        <div class="modal-ton">
+                            <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                        </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

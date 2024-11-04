@@ -44,7 +44,6 @@ async function validacionUsuario(e){
         alert("Usuario registrado correctamente");
         window.location.href = "login.html";
     }
-
 }
 
 function validacion(objeto){

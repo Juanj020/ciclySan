@@ -30,7 +30,7 @@ async function mostrarProductos(categoria, contenedor) {
         contenedor.innerHTML += `
             <div class="parrafos">
                 <div class="imagen">
-                    <img id="imagenimagen" class="deletee" width="auto" height="200px" src="${imagen}" alt="">
+                    <img id="imagenimagen" class="deletee" style = "width:auto; max-width:200px; height:auto; margin:20px" src="${imagen}" alt="">
                 </div>
                 <h1 class="title">${nombrePro}</h1>
                 <h3>Precio: <strong class="precio">${precioFormateado}$</strong></h3>

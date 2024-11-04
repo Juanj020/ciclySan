@@ -2,10 +2,13 @@ import { newUsuario, getUsuario, borrarUsuario, updateUSuar, getOne } from "./Ap
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '../login/login.html';
+    }
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        window.location.href = 'login/login.html';
+        window.location.href = '../login/login.html';
     }
 });
 
@@ -13,7 +16,7 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html';
+    window.location.href = '../login/login.html';
 });
 
 const pro = document.querySelector('#tabla')
@@ -47,6 +50,16 @@ function validacionUsuario(e){
     const telefono = document.querySelector('.telefono').value;
     const rol = document.querySelector('#rolRegistro').value;
 
+    if (password.length < 8 ){
+        alert("La contraseña debe tener minimo 8 caracteres")
+        return
+    }
+
+    if (telefono.length != 10 ){
+        alert("El telefono debe tener 10 digitos")
+        return
+    }
+
     const usu = {
         nombre,
         correo,
@@ -55,17 +68,8 @@ function validacionUsuario(e){
         rol
     }
 
-    if(validacion(usu)){
-        alert("Llene todos los campos")
-        return
-    }
-
     newUsuario(usu);
-    window.location.reload()
-}
-
-function validacion(objeto){
-    return !Object.values(objeto).every(element => element !== '');
+    window.location.reload();
 }
 
 const btnOption = document.querySelector('#tabla');
@@ -96,7 +100,6 @@ async function launchModalUpt(e) {
     const idUpdate = e.target.getAttribute("idUpd");
 
     const { _id,  nombre, correo, telefono, rol} = await getOne(idUpdate)
-
 
     document.querySelector('#updId').value = _id;
     document.querySelector('#nombre').value = nombre;

@@ -4,10 +4,13 @@ import { getRuta } from "../rutas/Api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '../login/login.html';
+    }
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        window.location.href = 'login/login.html';
+        window.location.href = '../login/login.html';
     }
 });
 
@@ -15,7 +18,7 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html'; // Redirige al login después de cerrar sesión
+    window.location.href = '../login/login.html';
 });
 
 const noti = document.querySelector('#tabla')

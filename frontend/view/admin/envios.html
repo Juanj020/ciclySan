@@ -28,13 +28,13 @@
         <nav class="navbara">
             <div>
                 <a href="index.html" class="nav-izq">
-                    <img width="50px" src="../../img/311822.svg" alt="Alo xd">
+                    <img width="40px" class="ciclita" src="../../img/311822.svg" alt="Alo xd">
                     <h1>CicliSan</h1>
                 </a>
             </div>
             <div class="routes">
                 <a id="welcomeMessage" href="#">Bienvenido</a>
-                <a class="cerrar" href="../login/login.html" id="logout">Cerrar sesión</a>
+                <a href="#" class="cerrar" id="logout"><img width="30px" src="../../img/puerta-abierta.png" alt="Cerrar sesión"></a>
             </div>
         </nav>
     </header>
@@ -70,6 +70,7 @@
                             <th class="color-tabl" scope="col">Correo</th>
                             <th class="color-tabl" scope="col">Dirección</th>
                             <th class="color-tabl" scope="col">Departamento</th>
+                            <th class="color-tabl" scope="col">Estado envío</th>
                             <th class="color-tabl" scope="col">Detalles</th>
                           </tr>
                         </thead>
@@ -90,43 +91,36 @@
                 <div class="modal-body">
                     <form action="" class="formulario formu row">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Nombre de la persona de entrega</label>
-                            <input type="text" class="form-control nombre" id="exampleInputEmail1">
+                            <label for="" class="form-label">Nombre de la persona de entrega</label>
+                            <input type="text" class="form-control nombre" id="" required>
                         </div>
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Cédula</label>
-                            <input type="text" class="form-control cedula" id="exampleInputEmail1">
+                            <label for="" class="form-label">Cédula</label>
+                            <input type="number" class="form-control cedula" id="" required>
                         </div>
                         <div class="">
                             <label class="form-label">Correo</label>
-                            <input type="text" class="form-control correo">
+                            <input type="email" class="form-control correo" required>
                         </div>
                         <div class="">
                             <label class="form-label">Direccion</label>
-                            <input type="text" class="direccion form-control"
-                                rows="3"></input>
+                            <input type="text" class="direccion form-control" required>
                         </div>
                         <div class="">
                             <label class="form-label">Departamento</label>
-                            <input type="text" class="departamento form-control"
-                                rows="3"></input>
+                            <input type="text" class="departamento form-control" required>
                         </div>
                         <div class="">
                             <label class="form-label">Ciudad</label>
-                            <input type="text" class="ciudad form-control"
-                                rows="3"></input>
+                            <input type="text" class="ciudad form-control" required>
                         </div>
                         <div class="">
                             <label class="form-label">Teléfono</label>
-                            <input type="text" class="form-control telefono">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Fecha entrega</label>
-                            <input type="date" class="form-control fecha_entrega">
+                            <input type="number" class="form-control telefono" required>
                         </div>
                         <div class="">
                             <label class="form-label">Código factura</label>
-                            <input type="text" class="form-control fk_factura">
+                            <input type="number" class="form-control fk_factura">
                         </div>
                         <div class="">
                             <label class="form-label">Estado envío</label>
@@ -139,9 +133,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -157,52 +151,57 @@
                     <form class="updateFormu">
                         <input style="display: none;" type="text" id="updId">
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Nombre de la persona de entrega</label>
-                            <input type="text" class="form-control" id="nombre">
+                            <label for="" class="form-label">Nombre de la persona de entrega</label>
+                            <input type="text" class="form-control" id="nombre" readonly>
                         </div>
                         <div class="">
-                            <label for="exampleInputEmail1" class="form-label">Cédula</label>
-                            <input type="text" class="form-control" id="cedula">
+                            <label for="" class="form-label">Cédula</label>
+                            <input type="number" class="form-control" id="cedula" required>
                         </div>
                         <div class="">
                             <label class="form-label">Correo</label>
-                            <input type="text" class="form-control" id="correo">
+                            <input type="email" class="form-control" id="correo" required>
                         </div>
                         <div class="">
                             <label class="form-label">Direccion</label>
-                            <input type="text" class="form-control" id="direccion"></input>
+                            <input type="text" class="form-control" id="direccion" required>
                         </div>
                         <div class="">
                             <label class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="departamento"></input>
+                            <input type="text" class="form-control" id="departamento" required>
                         </div>
                         <div class="">
                             <label class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="ciudad"></input>
+                            <input type="text" class="form-control" id="ciudad" required>
                         </div>
                         <div class="">
                             <label class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" id="telefono">
-                        </div>
-                        <div class="">
-                            <label class="form-label">Fecha entrega</label>
-                            <input type="date" class="form-control" id="fecha_entrega">
+                            <input type="number" class="form-control" id="telefono" required>
                         </div>
                         <div class="">
                             <label class="form-label">Código factura</label>
-                            <input type="text" class="form-control" id="fk_factura">
+                            <input type="text" class="form-control" id="fk_factura" required readonly>
+                        </div>
+                        <div class="">
+                            <label class="form-label">Fecha entrega</label>
+                            <input type="date" class="form-control" id="fecha_entrega" required>
                         </div>
                         <div class="">
                             <label class="form-label">Estado envío</label>
-                            <select class="form-select" id="estado_envio">
+                            <select class="form-select" id="estado_envio" required>
                                 <option selected>Pendiente</option>
                                 <option value="pendiente">Pendiente</option>
                                 <option value="enviado">Enviado</option>
                                 <option value="entregado">Entregado</option>
                             </select>
                         </div>
-                        <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                        <div class="modal-ton">
+                            <button type="submit" id="update" class="btn btn-primary">Actualizar</button>
+                        </div>
                     </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>

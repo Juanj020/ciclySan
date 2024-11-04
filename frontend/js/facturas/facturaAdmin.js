@@ -1,12 +1,14 @@
 import { getFacturas, newFactura, updateFactura, borrarFactura, getFacturaById} from "./Api.js";
-import { getProductoTotal} from "../productos/Api.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '../login/login.html';
+    }
     if (userName) {
         document.getElementById('welcomeMessage').textContent = `Bienvenido: ${userName}`;
     } else {
-        window.location.href = 'login/login.html';
+        window.location.href = '../login/login.html';
     }
 });
 
@@ -14,7 +16,7 @@ document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userId');
-    window.location.href = 'login/login.html';
+    window.location.href = '../login/login.html';
 });
 
 const fac = document.querySelector('#tabla')
@@ -338,6 +340,31 @@ async function actualizarDatos(e) {
             cantidad: parseInt(item.querySelector('.cantidad-input').value)
         };
     });
+
+    if (!['Visa', 'MasterCard'].includes(forma_pago.tipo_tarjeta)) {
+        alert("El tipo de tarjeta es requerido y debe ser 'Visa' o 'MasterCard'.");
+        return;
+    }
+
+    if (forma_pago.numero_tarjeta.length !== 16 || isNaN(forma_pago.numero_tarjeta)) {
+        alert("El número de tarjeta debe tener 16 dígitos.");
+        return;
+    }
+
+    if (!forma_pago.nombre_titular) {
+        alert("El nombre del titular es requerido.");
+        return;
+    }
+
+    if (!/^(0[1-9]|1[0-2])\/([0-9]{2})$/.test(forma_pago.fecha_expiracion)) {
+        alert("La fecha de expiración debe tener el formato MM/YY.");
+        return;
+    }
+
+    if (forma_pago.cvv.length < 3 || forma_pago.cvv.length > 4 || isNaN(forma_pago.cvv)) {
+        alert("El CVV debe tener 3 o 4 dígitos.");
+        return;
+    }
 
     const datos = {
         numero_factura,
