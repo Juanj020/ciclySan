@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Server } from './models/server.js';
+import { Server } from './../api/models/server.js';
 
 dotenv.config(); // Asegúrate de que esto esté correcto
 
