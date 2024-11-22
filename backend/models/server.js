@@ -11,6 +11,7 @@ import authRouter from "../routes/auth.routes.js"
 import calificacionRoutes from '../routes/calificacion.routes.js';
 import auth from '../middlewares/auth.js'; 
 import authRole from '../middlewares/authRole.js'; 
+import incidenciaRouter from '../routes/incidencia.routes.js'; 
 
 class Server{
 
@@ -24,6 +25,7 @@ class Server{
         this.noticiaPath = "/api/noticias";
         this.rutaPath = "/api/rutas";
         this.calificacionPath = "/api/calificacion";
+        this.incidenciaPath = "/api/incidencia";
         this.authPath = "/api/auth"
 
         this.dbConexion();
@@ -53,6 +55,7 @@ class Server{
         this.app.use(this.facturaPath, facturaRouter);
         this.app.use(this.envioPath, envioRouter);
         this.app.use(this.calificacionPath, calificacionRoutes);
+        this.app.use(this.incidenciaPath, incidenciaRouter);
         this.app.use(this.authPath, authRouter);
 
         // Ejemplo de ruta protegida solo para administradores
